@@ -1,0 +1,96 @@
+{
+  "metadata": {
+    "name": "NVIDIA Corporation",
+    "exchange": "NASDAQ",
+    "sector": "Semiconductors",
+    "aliases": [
+      "NVDA",
+      "英伟达",
+      "Nvidia"
+    ]
+  },
+  "broker_reports": [
+    {
+      "broker": "Citi Research",
+      "analyst": "Atif Malik",
+      "rating": "Buy",
+      "target_price": 300.0,
+      "target_price_history": [
+        {
+          "date": "2025-11-20",
+          "tp": 270.0
+        },
+        {
+          "date": "2026-02-26",
+          "tp": 300.0,
+          "note": "Raised from $270 post FY26Q4 beat; shifted to 28x FY28 EPS from 30x in May preview"
+        }
+      ],
+      "key_thesis": [
+        "NVDA是全球唯一拥有GPU+CPU+LPU+Networking+Software全栈AI compute platform at scale的公司。$1T+ DC revenue floor(CY2025-2027)不含CPU/LPX/Hopper上行空间。← Citi 30413829",
+        "Agentic AI是第三大需求拐点(after generative AI and reasoning)，management targeting 50x token generation growth vs 5x from reasoning alone。推理需求已inflect。← Citi 30394336, Citi 30432569",
+        "Vera CPU开辟全新$200B TAM by 2030，FY27指引$20B standalone CPU revenue。Anthropic/OpenAI/Meta/Microsoft为首批客户。CPU:GPU approaching 1:1。← Citi 30432569, Citi 30434725",
+        "Custom ASIC share gains gradual not disruptive: merchant GPU share 90%(C2025E)→81%(C2028E)。NVDA retains training+reasoning inference leadership through CUDA moat and annual upgrade cycles。← Citi 30387538, Citi 30429659",
+        "Gross margin durability at mid-70s confirmed through multiple product transitions (Blackwell→Rubin)。FY26Q4 GM 75.2% beat, FY27Q1 at 75.0% in-line。Management supply chain pre-negotiation provides cost visibility。← Citi 30408748"
+      ],
+      "forecasts": [
+        {
+          "metric": "FY2027E revenue revision",
+          "value": "+4% (post FY26Q4)",
+          "then": "+8% (post FY27Q1 CPU upside)"
+        },
+        {
+          "metric": "FY2028E revenue revision",
+          "value": "+4% (post FY26Q4)",
+          "then": "+6% (post FY27Q1 CPU upside)"
+        },
+        {
+          "metric": "FY2029E sales (debut)",
+          "value": "$566B (+15% YoY)"
+        },
+        {
+          "metric": "FY2027E non-GAAP EPS incl SBC",
+          "value": "$8.02 (post FY26Q4 raise)"
+        },
+        {
+          "metric": "FY2028E non-GAAP EPS incl SBC",
+          "value": "$10.20 (post FY26Q4 raise)"
+        },
+        {
+          "metric": "C2025-C2028 revenue CAGR",
+          "value": "35%"
+        },
+        {
+          "metric": "Valuation",
+          "value": "28x FY28 EPS (shifted from 30x in May 2026 preview)"
+        },
+        {
+          "metric": "AI accelerator TAM C2028E",
+          "value": "$603B (merchant GPU $454B + ASIC $150B)"
+        },
+        {
+          "metric": "Total DC semis TAM C2028E",
+          "value": "$851B"
+        }
+      ],
+      "coverage_period": "2025-11-20 to 2026-06-02 (20 reports)",
+      "source": "Citi 30408799 (TP raise), Citi 30429659 (TAM model), Citi 30432569 (CPU thesis)"
+    }
+  ],
+  "kpis": [
+    {
+      "to_wiki_kpi": "分部收入增速假设 (Y/Y%)",
+      "drivers": [
+        "Y/Y Datacenter Revenue Growth, %",
+        "Y/Y Gaming Revenue Growth, %"
+      ]
+    },
+    {
+      "to_wiki_kpi": "盈利假设 (税率/GM)",
+      "drivers": [
+        "Non-GAAP Tax Rate",
+        "Y/Y Improvement in non-GAAP gross margin, bps"
+      ]
+    }
+  ]
+}

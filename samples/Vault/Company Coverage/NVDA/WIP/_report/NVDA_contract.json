@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "brand": "Uninodue",
+    "sector": "United States | Semiconductors | AI Compute",
+    "company": "NVIDIA",
+    "company_full": "NVIDIA Corporation",
+    "ticker": "NVDA",
+    "research_type": "Equity Research",
+    "date": "June 11, 2026",
+    "note_type": "UPDATE NOTE",
+    "title": "NVIDIA (NVDA): 维持建设性 | $1T 能见度史上最高，争论已从「增长真伪」转向「beat 幅度与替代时钟」",
+    "footer_note": "Please see analyst certifications and important disclosure information at the end of this report.",
+    "firm_note": "* Uninodue Research"
+  },
+  "snapshot": [
+    {"label": "STANCE", "value": "建设性 / Constructive"},
+    {"label": "股价", "value": "${REG:metadata.stock_data.price}"},
+    {"label": "市值", "value": "$4.85T"},
+    {"label": "共识 P/E (FY27E)", "value": "{REG:metadata.capiq_consensus.pe.FY27E}x"},
+    {"label": "内部 P/E (FY28E)", "value": "18.5x"},
+    {"label": "Citi TP", "value": "$300 (Buy)"}
+  ],
+  "snapshot_note": "股价为实时市场数据；共识 P/E 来自 S&P Capital IQ；内部 P/E = 股价 ÷ 内部模型 FY28E EPS（${REG:non_gaap_eps_FY28}）。",
+  "analysts": [
+    {"name": "Uninodue Research", "role": "Equity Analyst", "contact": "research@uninodue.com"}
+  ],
+  "modules": [
+    {"type": "lead", "text": "本篇是 FY27Q1（截至 2026-04-27）业绩 + Computex（2026-06）之后的观点更新。一句话核心：对 NVDA 的争论已经不再是「增长是不是真的」——FY27Q1 营收 US${REG:revenue_27Q1}m（+85% YoY）、数据中心 $75.2B（+92% YoY）、连续 7 季 beat 指引、$1T+ Blackwell+Rubin 订单有 PO 支撑、Rubin 已进入全面量产，增长的真伪基本不再是辩论焦点。真正的张力转移到了两个更微妙的问题上：(1) **beat 的边际幅度在收窄**（FY27Q2 指引 $91.0B，市场已price-in 高预期），以及 (2) **custom ASIC 的替代时钟**——Citi 模型隐含 merchant GPU 份额从 C2025E ~90% 降至 C2028E ~81%。我们维持建设性，但认为 upside 的来源已从「估值扩张」切换到「volume 兑现 + Vera CPU 新 TAM」。"},
+    {"type": "body_section", "lead": "市场在定价什么。", "text": "当前 ${REG:metadata.stock_data.price} 对应共识 FY27E P/E {REG:metadata.capiq_consensus.pe.FY27E}x、内部模型 FY28E P/E 18.5x，TTM P/E {REG:metadata.stock_data.pe_trailing}x。多头持仓逻辑建立在三块基石上：$1T+ PO-backed DC pipeline（机构有「强制持仓」压力）、50%+ FCF 多年返还承诺（$80B 回购 + 分红 25x 提升，类「科技版股息防御」）、以及 Rubin 全面量产消除执行风险。分析师提问最集中的焦点（= 定价基础）是：hyperscaler CapEx 可持续性、GM 能否守住 mid-70s、以及 ASIC 替代速度。"},
+    {"type": "body_section", "lead": "我们深挖三个争论。", "text": "本篇不铺开做全景，只就三个最能决定未来 2-3 季 risk/reward 的角度做深：(A) **ASIC 替代时钟**——81% 份额假设是否乐观、CUDA 护城河实际防住什么；(B) **$1T DC floor 与 FY27Q2 不对称**——PO 支撑的能见度 vs 共识建模、$91B guide 的 beat 概率；(C) **GM 天花板与资本回报**——mid-70s 封顶意味着 upside 靠 volume，而非 margin。"},
+    {"type": "body_section", "lead": "收敛判断。", "text": "替代是真实的但慢（hyperscaler 走「双轨」而非「单轨替代」）；$1T 能见度是史上最高，但 beat 幅度收窄是 re-rating 的真实风险；GM 无上行弹性，下行则有 $80B 回购 + 50% FCF 的机械支撑。结论：在 FY27Q2（Aug 26）之前，风险更偏「时间」而非「方向」——核心跟踪点是 $91B guide 的兑现幅度与 Rubin 首批出货节奏。"},
+    {"type": "page_break"},
+
+    {"type": "heading", "text": "1. 当下：FY27Q1 之后的 setup"},
+    {"type": "body_section", "lead": "最强的一季，也是「纯 Blackwell」的最后一季。", "text": "FY27Q1 营收 US${REG:revenue_27Q1}m，非-GAAP 毛利率 {REG:gpm_pct_27Q1}、经营利润率 {REG:opm_pct_27Q1}、非-GAAP EPS ${REG:non_gaap_eps_27Q1}（FY27Q1 起 non-GAAP 含 SBC，新会计口径）。数据中心 $75.2B（+92% YoY），其中 compute $60.4B + networking $14.8B；Spectrum-X 以太网已超过所有竞争对手总和。公司同步宣布 $80B 回购 + 季度分红提升至 $0.25（+2,400%），单季股东回报 ~$20B。Computex（2026-06）确认 Vera Rubin 进入全面量产，执行风险消除——这是 Rubin 放量前最后一个「纯 Blackwell」高峰季。"},
+    {"type": "body_section", "lead": "下季指引把预期抬到了高位。", "text": "FY27Q2 指引 $91.0B ±2%（隐含中值 +11.5% QoQ / +96% YoY），非-GAAP GM 75.0% ±50bps，全年税率下修至 16–18%，且明确「不假设任何中国 DC 算力收入」。指引之高，恰恰使「beat 幅度」成为新的预期博弈点。"},
+    {"type": "table", "title": "1.1 FY27Q1 实际 vs FY26Q4 指引（关键科目）", "rows": [
+      ["指标", "FY26Q4 指引", "FY27Q1 实际", "Beat"],
+      ["Revenue (US$mn)", "78,000 ±2%", "{REG:revenue_27Q1}", "+$3.6B (+4.6%)"],
+      ["Non-GAAP GM%", "75.0% ±50bps", "{REG:gpm_pct_27Q1}", "In-line"],
+      ["Non-GAAP EPS", "~$1.80（隐含）", "${REG:non_gaap_eps_27Q1}", "Beat"],
+      ["DC Revenue", "未单独指引", "$75.2B (+92% YoY)", "—"]
+    ]},
+    {"type": "paragraphs", "items": ["来源：公司财报与 FY26Q4 管理层指引。"]},
+
+    {"type": "heading", "text": "2. 市场怎么定价"},
+    {"type": "body_section", "lead": "估值已部分成熟化。", "text": "Citi 在 May 2026 preview 已将估值倍数从 30x 压缩至 28x FY28 EPS，反映对高增长持续性的隐性折价。当前 ${REG:metadata.stock_data.price} 对应共识 FY27E P/E {REG:metadata.capiq_consensus.pe.FY27E}x、FY28E 16.4x、FY29E 13.3x（S&P Capital IQ）；内部模型 因预测更激进，FY28E P/E 仅 18.5x。多头逻辑的「定价锚」是 $1T PO floor 与 50% FCF 返还，而非倍数扩张——这意味着股价对「volume 兑现」比对「情绪」更敏感。"},
+    {"type": "table", "title": "2.1 估值快照（内部模型 vs 市场共识）", "rows": [
+      ["口径", "FY27E", "FY28E", "FY29E"],
+      ["共识 P/E (CapIQ)", "{REG:metadata.capiq_consensus.pe.FY27E}x", "{REG:metadata.capiq_consensus.pe.FY28E}x", "{REG:metadata.capiq_consensus.pe.FY29E}x"],
+      ["共识 TEV/Revenue", "{REG:metadata.capiq_consensus.tev_rev.FY27E}x", "{REG:metadata.capiq_consensus.tev_rev.FY28E}x", "{REG:metadata.capiq_consensus.tev_rev.FY29E}x"],
+      ["内部 EPS (US$)", "—", "${REG:non_gaap_eps_FY28}", "${REG:non_gaap_eps_FY29}"]
+    ]},
+
+    {"type": "heading", "text": "3. 三个争论焦点（deep dive）"},
+
+    {"type": "heading", "text": "3.1 ASIC 替代时钟：真，但慢"},
+    {"type": "body_section", "lead": "争论。", "text": "市场最大的结构性担忧是 custom ASIC（Google TPU、AWS Trainium、Broadcom 代工）以 ~94% CAGR 增长，Citi 模型隐含 NVDA merchant GPU 份额从 C2025E ~90% 降至 C2028E ~81%。Google TPU 8t/8i（Cloud Next，2026-04）性能 4x 提升并开始对外销售，Meta 据报谈判 2027 年迁移至 Google TPU——这是 bear case 的核心场景。"},
+    {"type": "body_section", "lead": "我们的判断：替代发生在「稳定负载」，防线在「碎片化长尾」。", "text": "关键区分：CUDA 护城河在「超大规模、已知稳定的推理负载」上确实防不住——这正是 hyperscaler 自研 ASIC 的目标。但在 ACIE（AI Clouds / Industrial / Enterprise，FY27Q1 已占 DC ~50% 且 QoQ +31%，快于 Hyperscale 的 +12%）这一高度碎片化、需要全栈方案的长尾市场，custom ASIC 完全不适用。Meta MTIA、Microsoft Maia 持续延迟，同时继续扩大 NVDA 采购（Meta 百万级 Blackwell+Rubin「全承诺」订单）——「自研受挫 + 继续扩购」是对「快速替代」论的最强反驳。结论：份额会降，但是「双轨」共存而非「单轨替代」，81% 假设在时间维度上偏保守。"},
+    {"type": "table", "title": "3.1.1 Citi 框架下的份额 / TAM 轨迹（C2025E → C2028E）", "rows": [
+      ["维度", "C2025E", "C2028E", "CAGR"],
+      ["NVDA merchant GPU 份额", "~90%", "~81%", "—"],
+      ["商用 GPU TAM", "—", "$454B", "~30%"],
+      ["Custom ASIC TAM", "—", "$150B", "~94%"]
+    ]},
+    {"type": "paragraphs", "items": ["来源：Citi Research（市场共识框架）。"]},
+
+    {"type": "heading", "text": "3.2 $1T DC floor 与 FY27Q2 不对称"},
+    {"type": "body_section", "lead": "能见度是 PO-backed 的，不是预测。", "text": "管理层口径的 $1T+ 是 2025–CY2027 Blackwell+Rubin 累计销售的 PO 下限，且不含 Vera CPU / LPX / Rubin Ultra。领先指标支撑这一能见度：FY27Q1 供应承诺总额 $119B（QoQ +27%，其中 $95B 在 FY2027E 内到期），原材料库存 QoQ +96%——这是管理层为 Rubin 量产主动预置的信号，而非乐观假设。"},
+    {"type": "body_section", "lead": "但 beat 幅度在收窄 = re-rating 风险。", "text": "连续 7 季 Revenue beat 指引中值在 +$1.1B–+$3.6B（+2.5%–+7.9%），FY27Q2 $91B 指引已把预期抬高。若 beat 收敛至 +$1–2B，可能触发「buy the rumor, sell the news」的技术性调整，尤其在 Rubin 切换期 GM 可能短暂低于 75% 的背景下。下方图为季度营收与 YoY 增速（含 forecast E），可见增速虽高但二阶导（加速度）已转负。"},
+    {"type": "chart", "title": "图 3.2：季度营收与 YoY 增速（内部模型，含预测 E）", "unit": "US$ billions / % YoY", "source": "Internal model", "image": "charts/NVDA_chart_revenue.png"},
+
+    {"type": "heading", "text": "3.3 GM 天花板与资本回报：下行地基"},
+    {"type": "body_section", "lead": "GM 被管理层主动封顶在 mid-70s。", "text": "FY26Q4 EC 管理层明确告诫投资者不要将 GM 建模于 mid-70s 以上。HBM/CoWoS 成本上行 + Rubin 组合切换使 GM 缺乏上行弹性（Blackwell 过渡期曾从 75.7% 降至 73.5%，FY26Q1 H20 charge 更压至 61.0%）。含义很直接：未来 EPS 的 upside 几乎全部来自 volume，而非 margin——这把投资逻辑从「成长 + 提效」收窄为「纯 volume 兑现」。"},
+    {"type": "body_section", "lead": "下行则有机械支撑。", "text": "$80B 回购授权 + 季度分红 $0.25 + Computex 确认的 50%+ FCF 多年返还承诺，构成「类股息」下行地基（单季回报速率 ~$20B）。FY27Q1 FCF $49B。以 18.5x FY28E EPS（内部）/ {REG:metadata.capiq_consensus.pe.FY28E}x（共识）计，估值并非泡沫区，资本回报为股价提供了不对称的下行保护。"},
+    {"type": "chart", "title": "图 3.3：季度非-GAAP 净利润（内部模型，含预测 E）", "unit": "US$ billions", "source": "Internal model", "image": "charts/NVDA_chart_ni.png"},
+
+    {"type": "heading", "text": "4. 财务与运营数据"},
+    {"type": "table", "title": "4.1 季度损益表 8Q（Non-GAAP，US$mn）", "rows": [
+      ["指标", "26Q1", "26Q2", "26Q3", "26Q4", "27Q1", "27Q2E", "27Q3E"],
+      ["Revenue", "{REG:revenue_26Q1}", "{REG:revenue_26Q2}", "{REG:revenue_26Q3}", "{REG:revenue_26Q4}", "{REG:revenue_27Q1}", "{REG:revenue_27Q2}", "{REG:revenue_27Q3}"],
+      ["GPM %", "{REG:gpm_pct_26Q1}", "{REG:gpm_pct_26Q2}", "{REG:gpm_pct_26Q3}", "{REG:gpm_pct_26Q4}", "{REG:gpm_pct_27Q1}", "{REG:gpm_pct_27Q2}", "{REG:gpm_pct_27Q3}"],
+      ["Operating Income", "{REG:operating_income_26Q1}", "{REG:operating_income_26Q2}", "{REG:operating_income_26Q3}", "{REG:operating_income_26Q4}", "{REG:operating_income_27Q1}", "{REG:operating_income_27Q2}", "{REG:operating_income_27Q3}"],
+      ["Non-GAAP NI", "{REG:non_gaap_ni_26Q1}", "{REG:non_gaap_ni_26Q2}", "{REG:non_gaap_ni_26Q3}", "{REG:non_gaap_ni_26Q4}", "{REG:non_gaap_ni_27Q1}", "{REG:non_gaap_ni_27Q2}", "{REG:non_gaap_ni_27Q3}"],
+      ["Non-GAAP EPS", "${REG:non_gaap_eps_26Q1}", "${REG:non_gaap_eps_26Q2}", "${REG:non_gaap_eps_26Q3}", "${REG:non_gaap_eps_26Q4}", "${REG:non_gaap_eps_27Q1}", "${REG:non_gaap_eps_27Q2}", "${REG:non_gaap_eps_27Q3}"]
+    ]},
+    {"type": "table", "title": "4.2 年度预测（Non-GAAP，US$mn / per share）", "rows": [
+      ["指标", "FY27E", "FY28E", "FY29E", "FY30E"],
+      ["Revenue", "{REG:revenue_FY27}", "{REG:revenue_FY28}", "{REG:revenue_FY29}", "{REG:revenue_FY30}"],
+      ["Non-GAAP EPS", "${REG:non_gaap_eps_FY27}", "${REG:non_gaap_eps_FY28}", "${REG:non_gaap_eps_FY29}", "${REG:non_gaap_eps_FY30}"]
+    ]},
+    {"type": "table", "title": "4.3 核心运营假设（model driver，期末为日历季）", "rows": [
+      ["假设", "27Q2E (Jul'26)", "27Q3E (Oct'26)", "27Q4E (Jan'27)", "28Q1E (Apr'27)"],
+      ["DC 收入增速 Y/Y", "{REG:yy_datacenter_revenue_growth_pct_27Q2}", "{REG:yy_datacenter_revenue_growth_pct_27Q3}", "{REG:yy_datacenter_revenue_growth_pct_27Q4}", "{REG:yy_datacenter_revenue_growth_pct_28Q1}"],
+      ["GM 改善 Y/Y", "{REG:yy_improvement_in_non_gaap_gross_margin_bps_27Q2}", "{REG:yy_improvement_in_non_gaap_gross_margin_bps_27Q3}", "{REG:yy_improvement_in_non_gaap_gross_margin_bps_27Q4}", "{REG:yy_improvement_in_non_gaap_gross_margin_bps_28Q1}"],
+      ["非-GAAP 税率", "{REG:non_gaap_tax_rate_27Q2}", "{REG:non_gaap_tax_rate_27Q3}", "{REG:non_gaap_tax_rate_27Q4}", "{REG:non_gaap_tax_rate_28Q1}"]
+    ]},
+    {"type": "paragraphs", "items": ["来源：公司财报与内部模型；标 E 为内部预测。本节数字与文中图表同源于一套财务模型。"]},
+
+    {"type": "heading", "text": "5. 我们的判断与跟踪清单"},
+    {"type": "body_section", "lead": "维持建设性，风险偏「时间」而非「方向」。", "text": "增长的真伪不再是辩论焦点；替代真实但走双轨、节奏偏慢；$1T 能见度史上最高，但 beat 幅度收窄 + GM 无弹性，使 upside 收窄为「volume + Vera CPU 新 TAM」。在 FY27Q2（Aug 26）之前，下行有 $80B 回购 + 50% FCF 的机械支撑，上行则取决于 $91B guide 的兑现幅度。"},
+    {"type": "table", "title": "5.1 未来 1-2 季关键验证点", "rows": [
+      ["时间", "事件", "看什么", "影响"],
+      ["2026-07", "Hyperscaler Q2 财报", "CY2026 CapEx guidance 是否维持 $700B+", "↓ 下修 >15% 挑战 bull 核心假设"],
+      ["2026-08-26", "NVDA FY27Q2 业绩", "$91B guide 兑现幅度；GM 守 75%", "↑ beat $3B+ 可能触发 TP 上调"],
+      ["2026-10 前后", "Rubin 首批出货 (FY27Q3)", "CPU:GPU 1:1 比例兑现；CoWoS/HBM4 产能", "↑ 验证 $200B CPU TAM"],
+      ["持续", "ASIC 竞争指标", "Google TPU 外销客户数；Meta 是否官宣 2027 用 TPU", "↓ 替代提速则压缩份额假设"]
+    ]},
+    {"type": "paragraphs", "items": ["来源：公司财报、管理层指引、Citi Research 及内部模型。"]}
+  ]
+}

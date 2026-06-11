@@ -1,0 +1,5287 @@
+{
+  "version": "1.0",
+  "ticker": "SNDK",
+  "metadata": {
+    "ticker": "SNDK",
+    "name": "Sandisk Corporation / 闪迪",
+    "name_cn": "",
+    "exchange": "NASDAQ",
+    "sector": "半导体 / NAND Flash 存储",
+    "currency": "USD",
+    "unit": "mn",
+    "kind": "coverage",
+    "aliases": [
+      "SanDisk",
+      "SNDK",
+      "闪迪",
+      "Sandisk Corp"
+    ],
+    "stock_data": {
+      "price": 1646.54,
+      "price_date": "2026-06-10",
+      "mktcap": 243835715584,
+      "ev": 240307716096,
+      "52w_range": "$39.44-$1,861.00",
+      "pe_trailing": 56.18,
+      "pe_forward": 9.0,
+      "ev_rev": 18.2,
+      "shares": 148089758
+    },
+    "model_path": "model/Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+    "wiki_dir": "C:/Users/80546/Desktop/wiki-sandisk"
+  },
+  "created_at": "2026-06-10",
+  "entries": {
+    "revenue_24Q4": {
+      "key": "revenue_24Q4",
+      "value": 1761,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_24Q4": {
+      "key": "cogs_24Q4",
+      "value": 1119,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_24Q4": {
+      "key": "gross_profit_24Q4",
+      "value": 642,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_24Q4": {
+      "key": "gpm_pct_24Q4",
+      "value": 36.46,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_24Q4": {
+      "key": "rd_expense_24Q4",
+      "value": 298,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_24Q4": {
+      "key": "sga_expense_24Q4",
+      "value": 117,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_24Q4": {
+      "key": "total_opex_24Q4",
+      "value": 379.75,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_24Q4": {
+      "key": "operating_income_24Q4",
+      "value": 262.25,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_24Q4": {
+      "key": "opm_pct_24Q4",
+      "value": 14.89,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_24Q4": {
+      "key": "ebitda_24Q4",
+      "value": 314.5,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_24Q4": {
+      "key": "pretax_income_24Q4",
+      "value": 258.25,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_24Q4": {
+      "key": "tax_rate_24Q4",
+      "value": 29.04,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_24Q4": {
+      "key": "non_gaap_ni_24Q4",
+      "value": 183.25,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_24Q4": {
+      "key": "gaap_ni_24Q4",
+      "value": 120,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_24Q4": {
+      "key": "diluted_shares_24Q4",
+      "value": 144,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_24Q4": {
+      "key": "non_gaap_eps_24Q4",
+      "value": 1.2726,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_24Q4": {
+      "key": "dps_24Q4",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_24Q4": {
+      "key": "net_income_24Q4",
+      "value": 183.25,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_24Q4": {
+      "key": "eps_24Q4",
+      "value": 1.2726,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_24Q4": {
+      "key": "selling_expense_24Q4",
+      "value": 117,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_24Q4": {
+      "key": "npm_pct_24Q4",
+      "value": 10.4,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "24Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_25Q1": {
+      "key": "revenue_25Q1",
+      "value": 1884,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_25Q1": {
+      "key": "cogs_25Q1",
+      "value": 1151,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_25Q1": {
+      "key": "gross_profit_25Q1",
+      "value": 733,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_25Q1": {
+      "key": "gpm_pct_25Q1",
+      "value": 38.91,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_25Q1": {
+      "key": "rd_expense_25Q1",
+      "value": 283,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_25Q1": {
+      "key": "sga_expense_25Q1",
+      "value": 130,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_25Q1": {
+      "key": "total_opex_25Q1",
+      "value": 378,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_25Q1": {
+      "key": "operating_income_25Q1",
+      "value": 355,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_25Q1": {
+      "key": "opm_pct_25Q1",
+      "value": 18.84,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_25Q1": {
+      "key": "ebitda_25Q1",
+      "value": 400,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_25Q1": {
+      "key": "pretax_income_25Q1",
+      "value": 294,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_25Q1": {
+      "key": "tax_rate_25Q1",
+      "value": 11.22,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_25Q1": {
+      "key": "non_gaap_ni_25Q1",
+      "value": 261,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_25Q1": {
+      "key": "gaap_ni_25Q1",
+      "value": 211,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_25Q1": {
+      "key": "diluted_shares_25Q1",
+      "value": 144,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_25Q1": {
+      "key": "non_gaap_eps_25Q1",
+      "value": 1.8125,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_25Q1": {
+      "key": "dps_25Q1",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_25Q1": {
+      "key": "net_income_25Q1",
+      "value": 261,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_25Q1": {
+      "key": "eps_25Q1",
+      "value": 1.8125,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_25Q1": {
+      "key": "selling_expense_25Q1",
+      "value": 130,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_25Q1": {
+      "key": "npm_pct_25Q1",
+      "value": 13.9,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_25Q2": {
+      "key": "revenue_25Q2",
+      "value": 1876,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_25Q2": {
+      "key": "cogs_25Q2",
+      "value": 1267,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_25Q2": {
+      "key": "gross_profit_25Q2",
+      "value": 609,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_25Q2": {
+      "key": "gpm_pct_25Q2",
+      "value": 32.46,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_25Q2": {
+      "key": "rd_expense_25Q2",
+      "value": 277,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_25Q2": {
+      "key": "sga_expense_25Q2",
+      "value": 107,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_25Q2": {
+      "key": "total_opex_25Q2",
+      "value": 375.0523,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_25Q2": {
+      "key": "operating_income_25Q2",
+      "value": 233.9477,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_25Q2": {
+      "key": "opm_pct_25Q2",
+      "value": 12.47,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_25Q2": {
+      "key": "ebitda_25Q2",
+      "value": 278.9477,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_25Q2": {
+      "key": "pretax_income_25Q2",
+      "value": 211.9477,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_25Q2": {
+      "key": "tax_rate_25Q2",
+      "value": 32.56,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_25Q2": {
+      "key": "non_gaap_ni_25Q2",
+      "value": 142.9477,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_25Q2": {
+      "key": "gaap_ni_25Q2",
+      "value": 104,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_25Q2": {
+      "key": "diluted_shares_25Q2",
+      "value": 144,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_25Q2": {
+      "key": "non_gaap_eps_25Q2",
+      "value": 0.9927,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_25Q2": {
+      "key": "dps_25Q2",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_25Q2": {
+      "key": "net_income_25Q2",
+      "value": 142.9477,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_25Q2": {
+      "key": "eps_25Q2",
+      "value": 0.9927,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_25Q2": {
+      "key": "selling_expense_25Q2",
+      "value": 107,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_25Q2": {
+      "key": "npm_pct_25Q2",
+      "value": 7.6,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_25Q3": {
+      "key": "revenue_25Q3",
+      "value": 1695,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gm_guide_25Q3": {
+      "key": "gm_guide_25Q3",
+      "value": -37.5,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_25Q3": {
+      "key": "cogs_25Q3",
+      "value": 1310,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_25Q3": {
+      "key": "gross_profit_25Q3",
+      "value": 385,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_25Q3": {
+      "key": "gpm_pct_25Q3",
+      "value": 22.71,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_25Q3": {
+      "key": "rd_expense_25Q3",
+      "value": 285,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_25Q3": {
+      "key": "sga_expense_25Q3",
+      "value": 139,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_25Q3": {
+      "key": "total_opex_25Q3",
+      "value": 383.2501,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_25Q3": {
+      "key": "operating_income_25Q3",
+      "value": 1.7499,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_25Q3": {
+      "key": "opm_pct_25Q3",
+      "value": 0.1,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_25Q3": {
+      "key": "ebitda_25Q3",
+      "value": 36.7499,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_25Q3": {
+      "key": "pretax_income_25Q3",
+      "value": -20.2501,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_25Q3": {
+      "key": "tax_rate_25Q3",
+      "value": -1.1358,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_25Q3": {
+      "key": "non_gaap_ni_25Q3",
+      "value": -43.2501,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_25Q3": {
+      "key": "gaap_ni_25Q3",
+      "value": -1933,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_25Q3": {
+      "key": "diluted_shares_25Q3",
+      "value": 145,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_25Q3": {
+      "key": "non_gaap_eps_25Q3",
+      "value": -0.2983,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_25Q3": {
+      "key": "dps_25Q3",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_25Q3": {
+      "key": "net_income_25Q3",
+      "value": -43.2501,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_25Q3": {
+      "key": "eps_25Q3",
+      "value": -0.2983,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_25Q3": {
+      "key": "selling_expense_25Q3",
+      "value": 139,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_25Q3": {
+      "key": "npm_pct_25Q3",
+      "value": -2.6,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_25Q4": {
+      "key": "revenue_25Q4",
+      "value": 1901,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gm_guide_25Q4": {
+      "key": "gm_guide_25Q4",
+      "value": 2.5,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_25Q4": {
+      "key": "cogs_25Q4",
+      "value": 1399,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_25Q4": {
+      "key": "gross_profit_25Q4",
+      "value": 502,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_25Q4": {
+      "key": "gpm_pct_25Q4",
+      "value": 26.41,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_25Q4": {
+      "key": "rd_expense_25Q4",
+      "value": 285,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_25Q4": {
+      "key": "sga_expense_25Q4",
+      "value": 162,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_25Q4": {
+      "key": "total_opex_25Q4",
+      "value": 402.2351,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_25Q4": {
+      "key": "operating_income_25Q4",
+      "value": 99.7649,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_25Q4": {
+      "key": "opm_pct_25Q4",
+      "value": 5.25,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_25Q4": {
+      "key": "ebitda_25Q4",
+      "value": 133.7649,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_25Q4": {
+      "key": "pretax_income_25Q4",
+      "value": 62.7649,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_25Q4": {
+      "key": "tax_rate_25Q4",
+      "value": 33.46,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_25Q4": {
+      "key": "non_gaap_ni_25Q4",
+      "value": 41.7649,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_25Q4": {
+      "key": "gaap_ni_25Q4",
+      "value": -23,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_25Q4": {
+      "key": "diluted_shares_25Q4",
+      "value": 145,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_25Q4": {
+      "key": "non_gaap_eps_25Q4",
+      "value": 0.288,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_25Q4": {
+      "key": "dps_25Q4",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_25Q4": {
+      "key": "net_income_25Q4",
+      "value": 41.7649,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_25Q4": {
+      "key": "eps_25Q4",
+      "value": 0.288,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_25Q4": {
+      "key": "selling_expense_25Q4",
+      "value": 162,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_25Q4": {
+      "key": "npm_pct_25Q4",
+      "value": 2.2,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "25Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "bits_eb_26Q1": {
+      "key": "bits_eb_26Q1",
+      "value": 30.8734,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "asp_26Q1": {
+      "key": "asp_26Q1",
+      "value": 0.0748,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_26Q1": {
+      "key": "revenue_26Q1",
+      "value": 2308,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gm_guide_26Q1": {
+      "key": "gm_guide_26Q1",
+      "value": 80.0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_26Q1": {
+      "key": "cogs_26Q1",
+      "value": 1617,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_26Q1": {
+      "key": "gross_profit_26Q1",
+      "value": 691,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_26Q1": {
+      "key": "gpm_pct_26Q1",
+      "value": 29.94,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_26Q1": {
+      "key": "rd_expense_26Q1",
+      "value": 316,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_26Q1": {
+      "key": "sga_expense_26Q1",
+      "value": 179,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_26Q1": {
+      "key": "total_opex_26Q1",
+      "value": 446,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_26Q1": {
+      "key": "operating_income_26Q1",
+      "value": 245,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_26Q1": {
+      "key": "opm_pct_26Q1",
+      "value": 10.62,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_26Q1": {
+      "key": "ebitda_26Q1",
+      "value": 290,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_26Q1": {
+      "key": "pretax_income_26Q1",
+      "value": 203,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_26Q1": {
+      "key": "tax_rate_26Q1",
+      "value": 10.84,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_26Q1": {
+      "key": "non_gaap_ni_26Q1",
+      "value": 181,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_26Q1": {
+      "key": "gaap_ni_26Q1",
+      "value": 112,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_26Q1": {
+      "key": "diluted_shares_26Q1",
+      "value": 149,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_26Q1": {
+      "key": "non_gaap_eps_26Q1",
+      "value": 1.2148,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_26Q1": {
+      "key": "dps_26Q1",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_26Q1": {
+      "key": "net_income_26Q1",
+      "value": 181,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_26Q1": {
+      "key": "eps_26Q1",
+      "value": 1.2148,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_26Q1": {
+      "key": "selling_expense_26Q1",
+      "value": 179,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_26Q1": {
+      "key": "npm_pct_26Q1",
+      "value": 7.8,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "26Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "bits_eb_26Q2": {
+      "key": "bits_eb_26Q2",
+      "value": 31.4909,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "asp_26Q2": {
+      "key": "asp_26Q2",
+      "value": 0.0961,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_26Q2": {
+      "key": "revenue_26Q2",
+      "value": 3025,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gm_guide_26Q2": {
+      "key": "gm_guide_26Q2",
+      "value": 3.2,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_26Q2": {
+      "key": "cogs_26Q2",
+      "value": 1479,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_26Q2": {
+      "key": "gross_profit_26Q2",
+      "value": 1546,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_26Q2": {
+      "key": "gpm_pct_26Q2",
+      "value": 51.11,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_26Q2": {
+      "key": "rd_expense_26Q2",
+      "value": 327,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_26Q2": {
+      "key": "sga_expense_26Q2",
+      "value": 139,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_26Q2": {
+      "key": "total_opex_26Q2",
+      "value": 413,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_26Q2": {
+      "key": "operating_income_26Q2",
+      "value": 1133,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_26Q2": {
+      "key": "opm_pct_26Q2",
+      "value": 37.45,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_26Q2": {
+      "key": "ebitda_26Q2",
+      "value": 1180,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_26Q2": {
+      "key": "pretax_income_26Q2",
+      "value": 1099,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_26Q2": {
+      "key": "tax_rate_26Q2",
+      "value": 12.01,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_26Q2": {
+      "key": "non_gaap_ni_26Q2",
+      "value": 967,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_26Q2": {
+      "key": "gaap_ni_26Q2",
+      "value": 803,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_26Q2": {
+      "key": "diluted_shares_26Q2",
+      "value": 156,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_26Q2": {
+      "key": "non_gaap_eps_26Q2",
+      "value": 6.1987,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_26Q2": {
+      "key": "dps_26Q2",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_26Q2": {
+      "key": "net_income_26Q2",
+      "value": 967,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_26Q2": {
+      "key": "eps_26Q2",
+      "value": 6.1987,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_26Q2": {
+      "key": "selling_expense_26Q2",
+      "value": 139,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_26Q2": {
+      "key": "npm_pct_26Q2",
+      "value": 32.0,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "26Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "bits_eb_26Q3": {
+      "key": "bits_eb_26Q3",
+      "value": 26.0115,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "asp_26Q3": {
+      "key": "asp_26Q3",
+      "value": 0.2287,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_26Q3": {
+      "key": "revenue_26Q3",
+      "value": 5950,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gm_guide_26Q3": {
+      "key": "gm_guide_26Q3",
+      "value": 13,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_26Q3": {
+      "key": "cogs_26Q3",
+      "value": 1284,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_26Q3": {
+      "key": "gross_profit_26Q3",
+      "value": 4666,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_26Q3": {
+      "key": "gpm_pct_26Q3",
+      "value": 78.42,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_26Q3": {
+      "key": "rd_expense_26Q3",
+      "value": 337,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_26Q3": {
+      "key": "sga_expense_26Q3",
+      "value": 161,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_26Q3": {
+      "key": "total_opex_26Q3",
+      "value": 448,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_26Q3": {
+      "key": "operating_income_26Q3",
+      "value": 4218,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_26Q3": {
+      "key": "opm_pct_26Q3",
+      "value": 70.89,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_26Q3": {
+      "key": "ebitda_26Q3",
+      "value": 4256,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_26Q3": {
+      "key": "pretax_income_26Q3",
+      "value": 4215,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_26Q3": {
+      "key": "tax_rate_26Q3",
+      "value": 12.81,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_26Q3": {
+      "key": "non_gaap_ni_26Q3",
+      "value": 3675,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_26Q3": {
+      "key": "gaap_ni_26Q3",
+      "value": 3615,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_26Q3": {
+      "key": "diluted_shares_26Q3",
+      "value": 157,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_26Q3": {
+      "key": "non_gaap_eps_26Q3",
+      "value": 23.4076,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_26Q3": {
+      "key": "dps_26Q3",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_26Q3": {
+      "key": "net_income_26Q3",
+      "value": 3675,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_26Q3": {
+      "key": "eps_26Q3",
+      "value": 23.4076,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_26Q3": {
+      "key": "selling_expense_26Q3",
+      "value": 161,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_26Q3": {
+      "key": "npm_pct_26Q3",
+      "value": 61.8,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "26Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "bits_eb_26Q4": {
+      "key": "bits_eb_26Q4",
+      "value": 29.9132,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "asp_26Q4": {
+      "key": "asp_26Q4",
+      "value": 0.2974,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_26Q4": {
+      "key": "revenue_26Q4",
+      "value": 8895.25,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gm_guide_26Q4": {
+      "key": "gm_guide_26Q4",
+      "value": 31.5,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_26Q4": {
+      "key": "cogs_26Q4",
+      "value": 1779.05,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_26Q4": {
+      "key": "gross_profit_26Q4",
+      "value": 7116.2,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_26Q4": {
+      "key": "gpm_pct_26Q4",
+      "value": 80.0,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_26Q4": {
+      "key": "rd_expense_26Q4",
+      "value": 369.1529,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_26Q4": {
+      "key": "sga_expense_26Q4",
+      "value": 177.905,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_26Q4": {
+      "key": "total_opex_26Q4",
+      "value": 489.2387,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_26Q4": {
+      "key": "operating_income_26Q4",
+      "value": 6626.9613,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_26Q4": {
+      "key": "opm_pct_26Q4",
+      "value": 74.5,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_26Q4": {
+      "key": "ebitda_26Q4",
+      "value": 6664.9613,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_26Q4": {
+      "key": "pretax_income_26Q4",
+      "value": 6642.9613,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_26Q4": {
+      "key": "tax_rate_26Q4",
+      "value": 14.0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_26Q4": {
+      "key": "non_gaap_ni_26Q4",
+      "value": 5712.9467,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_26Q4": {
+      "key": "gaap_ni_26Q4",
+      "value": 5671.9467,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_26Q4": {
+      "key": "diluted_shares_26Q4",
+      "value": 158,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_26Q4": {
+      "key": "non_gaap_eps_26Q4",
+      "value": 36.1579,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_26Q4": {
+      "key": "dps_26Q4",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_26Q4": {
+      "key": "net_income_26Q4",
+      "value": 5712.9467,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_26Q4": {
+      "key": "eps_26Q4",
+      "value": 36.1579,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_26Q4": {
+      "key": "selling_expense_26Q4",
+      "value": 177.905,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_26Q4": {
+      "key": "npm_pct_26Q4",
+      "value": 64.2,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "26Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "bits_eb_27Q1": {
+      "key": "bits_eb_27Q1",
+      "value": 35.8958,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "asp_27Q1": {
+      "key": "asp_27Q1",
+      "value": 0.342,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_27Q1": {
+      "key": "revenue_27Q1",
+      "value": 12275.445,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_27Q1": {
+      "key": "cogs_27Q1",
+      "value": 2209.5801,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_27Q1": {
+      "key": "gross_profit_27Q1",
+      "value": 10065.8649,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_27Q1": {
+      "key": "gpm_pct_27Q1",
+      "value": 82.0,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_27Q1": {
+      "key": "rd_expense_27Q1",
+      "value": 429.6406,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_27Q1": {
+      "key": "sga_expense_27Q1",
+      "value": 184.1317,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_27Q1": {
+      "key": "total_opex_27Q1",
+      "value": 527.8441,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_27Q1": {
+      "key": "operating_income_27Q1",
+      "value": 9538.0208,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_27Q1": {
+      "key": "opm_pct_27Q1",
+      "value": 77.7,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_27Q1": {
+      "key": "ebitda_27Q1",
+      "value": 9576.0208,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_27Q1": {
+      "key": "pretax_income_27Q1",
+      "value": 9554.0208,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_27Q1": {
+      "key": "tax_rate_27Q1",
+      "value": 15.0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_27Q1": {
+      "key": "non_gaap_ni_27Q1",
+      "value": 8120.9177,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_27Q1": {
+      "key": "gaap_ni_27Q1",
+      "value": 8079.9177,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_27Q1": {
+      "key": "diluted_shares_27Q1",
+      "value": 158,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_27Q1": {
+      "key": "non_gaap_eps_27Q1",
+      "value": 51.3982,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_27Q1": {
+      "key": "dps_27Q1",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_27Q1": {
+      "key": "net_income_27Q1",
+      "value": 8120.9177,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_27Q1": {
+      "key": "eps_27Q1",
+      "value": 51.3982,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_27Q1": {
+      "key": "selling_expense_27Q1",
+      "value": 184.1317,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_27Q1": {
+      "key": "npm_pct_27Q1",
+      "value": 66.2,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "bits_eb_27Q2": {
+      "key": "bits_eb_27Q2",
+      "value": 43.075,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "asp_27Q2": {
+      "key": "asp_27Q2",
+      "value": 0.364,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_27Q2": {
+      "key": "revenue_27Q2",
+      "value": 15679.918,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_27Q2": {
+      "key": "cogs_27Q2",
+      "value": 2822.3852,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_27Q2": {
+      "key": "gross_profit_27Q2",
+      "value": 12857.5328,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_27Q2": {
+      "key": "gpm_pct_27Q2",
+      "value": 82.0,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_27Q2": {
+      "key": "rd_expense_27Q2",
+      "value": 423.3578,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_27Q2": {
+      "key": "sga_expense_27Q2",
+      "value": 195.999,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_27Q2": {
+      "key": "total_opex_27Q2",
+      "value": 533.1172,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_27Q2": {
+      "key": "operating_income_27Q2",
+      "value": 12324.4155,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_27Q2": {
+      "key": "opm_pct_27Q2",
+      "value": 78.6,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_27Q2": {
+      "key": "ebitda_27Q2",
+      "value": 12362.4155,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_27Q2": {
+      "key": "pretax_income_27Q2",
+      "value": 12340.4155,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_27Q2": {
+      "key": "tax_rate_27Q2",
+      "value": 15.0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_27Q2": {
+      "key": "non_gaap_ni_27Q2",
+      "value": 10489.3532,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_27Q2": {
+      "key": "gaap_ni_27Q2",
+      "value": 10448.3532,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_27Q2": {
+      "key": "diluted_shares_27Q2",
+      "value": 158,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_27Q2": {
+      "key": "non_gaap_eps_27Q2",
+      "value": 66.3883,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_27Q2": {
+      "key": "dps_27Q2",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_27Q2": {
+      "key": "net_income_27Q2",
+      "value": 10489.3532,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_27Q2": {
+      "key": "eps_27Q2",
+      "value": 66.3883,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_27Q2": {
+      "key": "selling_expense_27Q2",
+      "value": 195.999,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_27Q2": {
+      "key": "npm_pct_27Q2",
+      "value": 66.9,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q2",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "bits_eb_27Q3": {
+      "key": "bits_eb_27Q3",
+      "value": 34.46,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "asp_27Q3": {
+      "key": "asp_27Q3",
+      "value": 0.3458,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_27Q3": {
+      "key": "revenue_27Q3",
+      "value": 11916.7377,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_27Q3": {
+      "key": "cogs_27Q3",
+      "value": 2204.5965,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_27Q3": {
+      "key": "gross_profit_27Q3",
+      "value": 9712.1412,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_27Q3": {
+      "key": "gpm_pct_27Q3",
+      "value": 81.5,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_27Q3": {
+      "key": "rd_expense_27Q3",
+      "value": 417.0858,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_27Q3": {
+      "key": "sga_expense_27Q3",
+      "value": 178.7511,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_27Q3": {
+      "key": "total_opex_27Q3",
+      "value": 530.2948,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_27Q3": {
+      "key": "operating_income_27Q3",
+      "value": 9181.8464,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_27Q3": {
+      "key": "opm_pct_27Q3",
+      "value": 77.05,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_27Q3": {
+      "key": "ebitda_27Q3",
+      "value": 9219.8464,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_27Q3": {
+      "key": "pretax_income_27Q3",
+      "value": 9197.8464,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_27Q3": {
+      "key": "tax_rate_27Q3",
+      "value": 15.0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_27Q3": {
+      "key": "non_gaap_ni_27Q3",
+      "value": 7818.1694,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_27Q3": {
+      "key": "gaap_ni_27Q3",
+      "value": 7777.1694,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_27Q3": {
+      "key": "diluted_shares_27Q3",
+      "value": 158,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_27Q3": {
+      "key": "non_gaap_eps_27Q3",
+      "value": 49.4821,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_27Q3": {
+      "key": "dps_27Q3",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_27Q3": {
+      "key": "net_income_27Q3",
+      "value": 7818.1694,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_27Q3": {
+      "key": "eps_27Q3",
+      "value": 49.4821,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_27Q3": {
+      "key": "selling_expense_27Q3",
+      "value": 178.7511,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_27Q3": {
+      "key": "npm_pct_27Q3",
+      "value": 65.6,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q3",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "bits_eb_27Q4": {
+      "key": "bits_eb_27Q4",
+      "value": 36.183,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "asp_27Q4": {
+      "key": "asp_27Q4",
+      "value": 0.3354,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_27Q4": {
+      "key": "revenue_27Q4",
+      "value": 12137.1973,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_27Q4": {
+      "key": "cogs_27Q4",
+      "value": 2245.3815,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_27Q4": {
+      "key": "gross_profit_27Q4",
+      "value": 9891.8158,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_27Q4": {
+      "key": "gpm_pct_27Q4",
+      "value": 81.5,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_27Q4": {
+      "key": "rd_expense_27Q4",
+      "value": 424.8019,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_27Q4": {
+      "key": "sga_expense_27Q4",
+      "value": 182.058,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_27Q4": {
+      "key": "total_opex_27Q4",
+      "value": 534.0367,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_27Q4": {
+      "key": "operating_income_27Q4",
+      "value": 9357.7791,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_27Q4": {
+      "key": "opm_pct_27Q4",
+      "value": 77.1,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_27Q4": {
+      "key": "ebitda_27Q4",
+      "value": 9395.7791,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_27Q4": {
+      "key": "pretax_income_27Q4",
+      "value": 9373.7791,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_27Q4": {
+      "key": "tax_rate_27Q4",
+      "value": 15.0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_27Q4": {
+      "key": "non_gaap_ni_27Q4",
+      "value": 7967.7123,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_27Q4": {
+      "key": "gaap_ni_27Q4",
+      "value": 7926.7123,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_27Q4": {
+      "key": "diluted_shares_27Q4",
+      "value": 158,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_27Q4": {
+      "key": "non_gaap_eps_27Q4",
+      "value": 50.4286,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_27Q4": {
+      "key": "dps_27Q4",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_27Q4": {
+      "key": "net_income_27Q4",
+      "value": 7967.7123,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_27Q4": {
+      "key": "eps_27Q4",
+      "value": 50.4286,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_27Q4": {
+      "key": "selling_expense_27Q4",
+      "value": 182.058,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_27Q4": {
+      "key": "npm_pct_27Q4",
+      "value": 65.6,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "27Q4",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "bits_eb_28Q1": {
+      "key": "bits_eb_28Q1",
+      "value": 39.8013,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "asp_28Q1": {
+      "key": "asp_28Q1",
+      "value": 0.3287,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_28Q1": {
+      "key": "revenue_28Q1",
+      "value": 13083.8987,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "cogs_28Q1": {
+      "key": "cogs_28Q1",
+      "value": 2485.9408,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gross_profit_28Q1": {
+      "key": "gross_profit_28Q1",
+      "value": 10597.958,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_28Q1": {
+      "key": "gpm_pct_28Q1",
+      "value": 81.0,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "rd_expense_28Q1": {
+      "key": "rd_expense_28Q1",
+      "value": 457.9365,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "sga_expense_28Q1": {
+      "key": "sga_expense_28Q1",
+      "value": 196.2585,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "total_opex_28Q1": {
+      "key": "total_opex_28Q1",
+      "value": 556.0657,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "operating_income_28Q1": {
+      "key": "operating_income_28Q1",
+      "value": 10041.8923,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "opm_pct_28Q1": {
+      "key": "opm_pct_28Q1",
+      "value": 76.75,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "ebitda_28Q1": {
+      "key": "ebitda_28Q1",
+      "value": 10079.8923,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "pretax_income_28Q1": {
+      "key": "pretax_income_28Q1",
+      "value": 10057.8923,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "tax_rate_28Q1": {
+      "key": "tax_rate_28Q1",
+      "value": 15.0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_ni_28Q1": {
+      "key": "non_gaap_ni_28Q1",
+      "value": 8549.2084,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gaap_ni_28Q1": {
+      "key": "gaap_ni_28Q1",
+      "value": 8508.2084,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "diluted_shares_28Q1": {
+      "key": "diluted_shares_28Q1",
+      "value": 158,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "non_gaap_eps_28Q1": {
+      "key": "non_gaap_eps_28Q1",
+      "value": 54.1089,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "dps_28Q1": {
+      "key": "dps_28Q1",
+      "value": 0,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_28Q1": {
+      "key": "net_income_28Q1",
+      "value": 8549.2084,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_28Q1": {
+      "key": "eps_28Q1",
+      "value": 54.1089,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "selling_expense_28Q1": {
+      "key": "selling_expense_28Q1",
+      "value": 196.2585,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_28Q1": {
+      "key": "npm_pct_28Q1",
+      "value": 65.3,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "28Q1",
+      "source": "Excel model",
+      "source_file": "Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY25": {
+      "key": "revenue_FY25",
+      "value": 7355,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "FY25",
+      "source": "Bernstein + ER",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY25": {
+      "key": "eps_FY25",
+      "value": 2.99,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T1",
+      "period": "FY25",
+      "source": "Bernstein + ER",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_FY25": {
+      "key": "gpm_pct_FY25",
+      "value": 27.5,
+      "unit": "%",
+      "currency": "",
+      "tier": "T1",
+      "period": "FY25",
+      "source": "Bernstein + ER",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "actual",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY26": {
+      "key": "revenue_FY26",
+      "value": 19213,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_FY26": {
+      "key": "net_income_FY26",
+      "value": 10140,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY26": {
+      "key": "eps_FY26",
+      "value": 64.73,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_FY26": {
+      "key": "gpm_pct_FY26",
+      "value": 62.0,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_FY26": {
+      "key": "npm_pct_FY26",
+      "value": 52.8,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY27": {
+      "key": "revenue_FY27",
+      "value": 44164,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_FY27": {
+      "key": "net_income_FY27",
+      "value": 31206,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY27": {
+      "key": "eps_FY27",
+      "value": 200.47,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_FY27": {
+      "key": "gpm_pct_FY27",
+      "value": 80.0,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_FY27": {
+      "key": "npm_pct_FY27",
+      "value": 70.7,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY28": {
+      "key": "revenue_FY28",
+      "value": 45595,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "net_income_FY28": {
+      "key": "net_income_FY28",
+      "value": 31680,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY28": {
+      "key": "eps_FY28",
+      "value": 202.69,
+      "unit": "per share",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "gpm_pct_FY28": {
+      "key": "gpm_pct_FY28",
+      "value": 78.0,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "npm_pct_FY28": {
+      "key": "npm_pct_FY28",
+      "value": 69.5,
+      "unit": "%",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "Bernstein 2026-05-01 estimate",
+      "source_file": "2026-05-01_Bernstein",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY25_consensus_bernstein": {
+      "key": "revenue_FY25_consensus_bernstein",
+      "value": 7355,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY25",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-01_Bernstein_sandisk-fq326-nosebleed-asps-raise-estimates-and-tp-to-1700.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY25_consensus_bernstein": {
+      "key": "eps_FY25_consensus_bernstein",
+      "value": 2.99,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY25",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-01_Bernstein_sandisk-fq326-nosebleed-asps-raise-estimates-and-tp-to-1700.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY26_consensus_bernstein": {
+      "key": "revenue_FY26_consensus_bernstein",
+      "value": 19213,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-01_Bernstein_sandisk-fq326-nosebleed-asps-raise-estimates-and-tp-to-1700.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "ni_FY26_consensus_bernstein": {
+      "key": "ni_FY26_consensus_bernstein",
+      "value": 10140,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-01_Bernstein_sandisk-fq326-nosebleed-asps-raise-estimates-and-tp-to-1700.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY26_consensus_bernstein": {
+      "key": "eps_FY26_consensus_bernstein",
+      "value": 64.73,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-28_Bernstein_comment-bernstein-sdc-sandisk.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY27_consensus_bernstein": {
+      "key": "revenue_FY27_consensus_bernstein",
+      "value": 44164,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-01_Bernstein_sandisk-fq326-nosebleed-asps-raise-estimates-and-tp-to-1700.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "ni_FY27_consensus_bernstein": {
+      "key": "ni_FY27_consensus_bernstein",
+      "value": 31206,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-01_Bernstein_sandisk-fq326-nosebleed-asps-raise-estimates-and-tp-to-1700.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY27_consensus_bernstein": {
+      "key": "eps_FY27_consensus_bernstein",
+      "value": 200.47,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-28_Bernstein_comment-bernstein-sdc-sandisk.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY28_consensus_bernstein": {
+      "key": "revenue_FY28_consensus_bernstein",
+      "value": 45595,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-01_Bernstein_sandisk-fq326-nosebleed-asps-raise-estimates-and-tp-to-1700.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "ni_FY28_consensus_bernstein": {
+      "key": "ni_FY28_consensus_bernstein",
+      "value": 31680,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-01_Bernstein_sandisk-fq326-nosebleed-asps-raise-estimates-and-tp-to-1700.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY28_consensus_bernstein": {
+      "key": "eps_FY28_consensus_bernstein",
+      "value": 202.69,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "sell-side (Bernstein)",
+      "source_file": "2026-05-01_Bernstein_sandisk-fq326-nosebleed-asps-raise-estimates-and-tp-to-1700.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY25_consensus_morgan_stanley": {
+      "key": "revenue_FY25_consensus_morgan_stanley",
+      "value": 7355,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY25",
+      "source": "sell-side (Morgan Stanley)",
+      "source_file": "2026-06-03_MS_risk-reward-update-sandisk-corporation-north-america.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY25_consensus_morgan_stanley": {
+      "key": "eps_FY25_consensus_morgan_stanley",
+      "value": 2.74,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY25",
+      "source": "sell-side (Morgan Stanley)",
+      "source_file": "2026-06-03_MS_risk-reward-update-sandisk-corporation-north-america.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY26_consensus_morgan_stanley": {
+      "key": "revenue_FY26_consensus_morgan_stanley",
+      "value": 19480,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "sell-side (Morgan Stanley)",
+      "source_file": "2026-06-03_MS_risk-reward-update-sandisk-corporation-north-america.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY26_consensus_morgan_stanley": {
+      "key": "eps_FY26_consensus_morgan_stanley",
+      "value": 65.03,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "sell-side (Morgan Stanley)",
+      "source_file": "2026-06-03_MS_risk-reward-update-sandisk-corporation-north-america.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY27_consensus_morgan_stanley": {
+      "key": "revenue_FY27_consensus_morgan_stanley",
+      "value": 48826,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "sell-side (Morgan Stanley)",
+      "source_file": "2026-06-03_MS_risk-reward-update-sandisk-corporation-north-america.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY27_consensus_morgan_stanley": {
+      "key": "eps_FY27_consensus_morgan_stanley",
+      "value": 214.73,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "sell-side (Morgan Stanley)",
+      "source_file": "2026-06-03_MS_risk-reward-update-sandisk-corporation-north-america.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "revenue_FY28_consensus_morgan_stanley": {
+      "key": "revenue_FY28_consensus_morgan_stanley",
+      "value": 43405,
+      "unit": "mn",
+      "currency": "USD",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "sell-side (Morgan Stanley)",
+      "source_file": "2026-06-03_MS_risk-reward-update-sandisk-corporation-north-america.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY28_consensus_morgan_stanley": {
+      "key": "eps_FY28_consensus_morgan_stanley",
+      "value": 179.97,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "sell-side (Morgan Stanley)",
+      "source_file": "2026-06-03_MS_risk-reward-update-sandisk-corporation-north-america.md",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY25_consensus_citi": {
+      "key": "eps_FY25_consensus_citi",
+      "value": 2.79,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY25",
+      "source": "sell-side (Citi)",
+      "source_file": "Citi_30425872.pdf",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY26_consensus_citi": {
+      "key": "eps_FY26_consensus_citi",
+      "value": 64.29,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY26",
+      "source": "sell-side (Citi)",
+      "source_file": "Citi_30425872.pdf",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY27_consensus_citi": {
+      "key": "eps_FY27_consensus_citi",
+      "value": 182.26,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY27",
+      "source": "sell-side (Citi)",
+      "source_file": "Citi_30425872.pdf",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    },
+    "eps_FY28_consensus_citi": {
+      "key": "eps_FY28_consensus_citi",
+      "value": 155.13,
+      "unit": "per share",
+      "currency": "",
+      "tier": "T3",
+      "period": "FY28",
+      "source": "sell-side (Citi)",
+      "source_file": "Citi_30425872.pdf",
+      "status": "forecast",
+      "fetched_at": "2026-06-10"
+    }
+  },
+  "broker_reports": [
+    {
+      "broker": "Bernstein",
+      "date": "2026-05-01",
+      "rating": "Outperform",
+      "target_price": 1700,
+      "tp_currency": "USD",
+      "source_file": "2026-05-01_Bernstein_sandisk-fq326-nosebleed-asps-raise-estimates-and-tp-to-1700.md",
+      "valuation_method": "11x four-year through-cycle (FY26-29) EPS",
+      "forecasts": {
+        "FY25": {
+          "revenue": 7355,
+          "ni": null,
+          "eps": 2.99
+        },
+        "FY26": {
+          "revenue": 19213,
+          "ni": 10140,
+          "eps": 64.73
+        },
+        "FY27": {
+          "revenue": 44164,
+          "ni": 31206,
+          "eps": 200.47
+        },
+        "FY28": {
+          "revenue": 45595,
+          "ni": 31680,
+          "eps": 202.69
+        }
+      },
+      "key_thesis": [
+        "FQ3'26 ASP环比+140%远超蓝天情景，EPS $23.41大幅超一致预期$14.51",
+        "5份NBM协议锁定FY27超1/3比特，合约最低总金额$42B",
+        "FY26/FY27 EPS预测分别较一致预期高37%/60%"
+      ]
+    },
+    {
+      "broker": "Bernstein",
+      "date": "2026-05-28",
+      "rating": "Outperform",
+      "target_price": 1700,
+      "tp_currency": "USD",
+      "source_file": "2026-05-28_Bernstein_comment-bernstein-sdc-sandisk.md",
+      "valuation_method": "11x through-cycle EPS",
+      "forecasts": {
+        "FY26": {
+          "revenue": null,
+          "ni": null,
+          "eps": 64.73
+        },
+        "FY27": {
+          "revenue": null,
+          "ni": null,
+          "eps": 200.47
+        }
+      },
+      "key_thesis": [
+        "AI数据中心NAND需求结构性增长（EB增长预期连续上调至70%+）",
+        "NBM协议减少周期性，升级为需求-供给全面对接模式",
+        "供给增长由节点迁移驱动，产能决策提前多年"
+      ]
+    },
+    {
+      "broker": "Morgan Stanley",
+      "date": "2026-06-03",
+      "rating": "Overweight",
+      "target_price": 1750,
+      "tp_currency": "USD",
+      "source_file": "2026-06-03_MS_risk-reward-update-sandisk-corporation-north-america.md",
+      "valuation_method": "28x通盘EPS $62.50 (FY21-FY29平均$56)",
+      "forecasts": {
+        "FY25": {
+          "revenue": 7355,
+          "ni": null,
+          "eps": 2.74
+        },
+        "FY26": {
+          "revenue": 19480,
+          "ni": null,
+          "eps": 65.03
+        },
+        "FY27": {
+          "revenue": 48826,
+          "ni": null,
+          "eps": 214.73
+        },
+        "FY28": {
+          "revenue": 43405,
+          "ni": null,
+          "eps": 179.97
+        }
+      },
+      "key_thesis": [
+        "NAND行业因AI需求快速改善，eSSD驱动盈利达历史峰值数倍",
+        "产能无新投资，AI需求持续扩展，上调空间充裕",
+        "Bull/Base/Bear: $2635/$1750/$1100"
+      ]
+    },
+    {
+      "broker": "Nomura",
+      "date": "2026-05-01",
+      "rating": null,
+      "target_price": null,
+      "tp_currency": null,
+      "source_file": "2026-05-01_Nomura_overseas-results-sandisk-266-q3-results-quick-note.md",
+      "forecasts": {},
+      "key_thesis": [
+        "FQ3'26全面大幅超Street（收入/GPM/OPM），数据中心+233%",
+        "盘后-6%反映市场对NBM约束定价灵活性的担忧",
+        "5份NBM覆盖FY27超1/3比特"
+      ]
+    },
+    {
+      "broker": "JPMorgan",
+      "date": "2026-05-20",
+      "rating": null,
+      "target_price": null,
+      "tp_currency": null,
+      "source_file": "2026-05-20_JPM_sandisk-jp-morgan-tmc-conference-takeaways.md",
+      "forecasts": {},
+      "key_thesis": [
+        "NBM三大平衡：技术公允回报/抑制周期/维持中高双位数比特增长",
+        "3-5年期协议含强制分手费金融担保，无需诉讼即可触发",
+        "成本优化（低双位数%年降）已锁定所有NBM，但不再是核心叙事"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-05-19",
+      "rating": "Buy",
+      "target_price": 2025,
+      "tp_currency": "USD",
+      "source_file": "Citi_30431873.pdf",
+      "valuation_method": "9-10x CY27E PE",
+      "forecasts": {
+        "FY25": {
+          "revenue": null,
+          "ni": null,
+          "eps": 2.79
+        },
+        "FY26": {
+          "revenue": null,
+          "ni": null,
+          "eps": 67.97
+        },
+        "FY27": {
+          "revenue": null,
+          "ni": null,
+          "eps": 217.7
+        },
+        "FY28": {
+          "revenue": null,
+          "ni": null,
+          "eps": 215.09
+        }
+      },
+      "key_thesis": [
+        "Kioxia Q3超预期佐证NAND偏紧，CY26 ASP预测整体+186%/eSSD+265%",
+        "LTA协议在最低定价下可实现80%+毛利率",
+        "$6B回购在高EPS基础上增厚"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-05-01",
+      "rating": "Buy",
+      "target_price": 1300,
+      "tp_currency": "USD",
+      "source_file": "Citi_30425914.pdf",
+      "valuation_method": "7-8x PE",
+      "forecasts": {
+        "FY25": {
+          "revenue": null,
+          "ni": null,
+          "eps": 2.79
+        },
+        "FY26": {
+          "revenue": null,
+          "ni": null,
+          "eps": 64.29
+        },
+        "FY27": {
+          "revenue": null,
+          "ni": null,
+          "eps": 182.26
+        },
+        "FY28": {
+          "revenue": null,
+          "ni": null,
+          "eps": 155.13
+        }
+      },
+      "key_thesis": [
+        "数据中心同比+295%，AI驱动企业SSD加速",
+        "5份NBM（$42B RPO + $11B金融担保），FY27 1/3+比特锁定",
+        "TP上调至$1300（7-8x PE，同业估值收缩）"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-04-30",
+      "rating": "Buy",
+      "target_price": 980,
+      "tp_currency": "USD",
+      "source_file": "Citi_30425754.pdf",
+      "forecasts": {},
+      "key_thesis": [
+        "FQ3'26快讯：收入$59.5B超指引+24%，EPS $23.41超Street 62%",
+        "FQ4'26指引全面碾压Street（收入+25%/GPM+9ppt/EPS+35%）",
+        "盘后-5%，市场等待进一步说明"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-04-13",
+      "rating": "Buy",
+      "target_price": 980,
+      "tp_currency": "USD",
+      "source_file": "Citi_30419564.pdf",
+      "valuation_method": "CY27E PE",
+      "forecasts": {
+        "FY26": {
+          "revenue": null,
+          "ni": null,
+          "eps": 46.74
+        },
+        "FY27": {
+          "revenue": null,
+          "ni": null,
+          "eps": 120.33
+        }
+      },
+      "key_thesis": [
+        "NVIDIA KVCache公告+9%增量NAND需求（2027E）",
+        "无新洁净室限制产能，供需偏紧持续",
+        "TP上调至$980"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-03-26",
+      "rating": "Buy",
+      "target_price": 875,
+      "tp_currency": "USD",
+      "source_file": "Citi_30415931.pdf",
+      "valuation_method": "9x CY27E PE",
+      "forecasts": {},
+      "key_thesis": [
+        "管理层对NAND需求耐久性高度自信",
+        "TrendForce预计C2Q26 NAND ASP +70-75% QoQ",
+        "Nanya $1B投资锁定DRAM供应"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-03-19",
+      "rating": "Buy",
+      "target_price": 875,
+      "tp_currency": "USD",
+      "source_file": "Citi_30414221.pdf",
+      "valuation_method": "9x CY27E PE",
+      "forecasts": {
+        "FY25": {
+          "revenue": null,
+          "ni": null,
+          "eps": 2.79
+        },
+        "FY26": {
+          "revenue": null,
+          "ni": null,
+          "eps": 42.65
+        },
+        "FY27": {
+          "revenue": null,
+          "ni": null,
+          "eps": 101.92
+        }
+      },
+      "key_thesis": [
+        "MU 2月季度超预期：NAND ASP +high 70s%，bits超预期",
+        "MU新加坡新NAND FAB（CY28产出，短期不冲击供需）",
+        "TP上调至$875"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-02-12",
+      "rating": "Buy",
+      "target_price": 750,
+      "tp_currency": "USD",
+      "source_file": "Citi_30405025.pdf",
+      "forecasts": {},
+      "key_thesis": [
+        "Kioxia 12月季度佐证NAND偏紧（bits +MSD%, ASP +低双位数%）",
+        "行业CY26 bits增长高十位数%，需求>供给"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-01-30",
+      "rating": "Buy",
+      "target_price": 750,
+      "tp_currency": "USD",
+      "source_file": "Citi_30400642.pdf",
+      "valuation_method": "10-11x PE",
+      "forecasts": {
+        "FY25": {
+          "revenue": null,
+          "ni": null,
+          "eps": 2.79
+        },
+        "FY26": {
+          "revenue": null,
+          "ni": null,
+          "eps": 38.08
+        },
+        "FY27": {
+          "revenue": null,
+          "ni": null,
+          "eps": 78.39
+        },
+        "FY28": {
+          "revenue": null,
+          "ni": null,
+          "eps": 64.26
+        }
+      },
+      "key_thesis": [
+        "FQ2'26超预期（收入+31% QoQ, GPM 51.1%超指引10ppt+）",
+        "数据中心+64%（占15%），AI驱动需求结构性上移",
+        "TP上调至$750"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-01-29",
+      "rating": "Buy",
+      "target_price": 490,
+      "tp_currency": "USD",
+      "source_file": "Citi_30400537.pdf",
+      "forecasts": {},
+      "key_thesis": [
+        "FQ2'26快讯：EPS $6.20大幅超指引$3.00-3.40和Street $3.62",
+        "FQ3'26指引碾压Street（收入+52%/EPS+144%）"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-01-19",
+      "rating": "Buy",
+      "target_price": 490,
+      "tp_currency": "USD",
+      "source_file": "Citi_30397297.pdf",
+      "valuation_method": "13x FY27 EPS",
+      "forecasts": {
+        "FY26": {
+          "revenue": null,
+          "ni": null,
+          "eps": 17.78
+        },
+        "FY27": {
+          "revenue": null,
+          "ni": null,
+          "eps": 36.29
+        }
+      },
+      "key_thesis": [
+        "CY26超大规模CapEx约$6000亿（+50%），AI推理驱动NAND持续需求",
+        "FY26/FY27 EPS上调反映eSSD比特增长超预期（中40%）",
+        "TP $490 = 13x FY27 EPS"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2025-12-18",
+      "rating": "Buy",
+      "target_price": 280,
+      "tp_currency": "USD",
+      "source_file": "Citi_30392184.pdf",
+      "forecasts": {
+        "FY25": {
+          "revenue": null,
+          "ni": null,
+          "eps": 2.79
+        }
+      },
+      "key_thesis": [
+        "MU 11月季度NAND超预期佐证供需有利",
+        "BiCS8技术壁垒+数据中心占比提升改善利润率",
+        "维持Buy/$280"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2025-12-09",
+      "rating": "Buy",
+      "target_price": 280,
+      "tp_currency": "USD",
+      "source_file": "Citi_30390463.pdf",
+      "forecasts": {},
+      "key_thesis": [
+        "日本地震波及JV工厂，可能进一步收紧NAND供给推高价格",
+        "维持Buy/$280"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-03-22",
+      "rating": "Buy",
+      "target_price": 875,
+      "tp_currency": "USD",
+      "source_file": "Citi_30414777.pdf",
+      "valuation_method": "9x CY27E PE",
+      "forecasts": {
+        "FY25": {
+          "revenue": null,
+          "ni": null,
+          "eps": 2.79
+        },
+        "FY26": {
+          "revenue": null,
+          "ni": null,
+          "eps": 42.65
+        },
+        "FY27": {
+          "revenue": null,
+          "ni": null,
+          "eps": 101.92
+        },
+        "FY28": {
+          "revenue": null,
+          "ni": null,
+          "eps": 84.53
+        }
+      },
+      "key_thesis": [
+        "投资者会面准备：NAND需求耐久性+定价走势+NBM进展",
+        "3月26日波士顿CEO/CFO/IR投资者会面"
+      ]
+    },
+    {
+      "broker": "Citi",
+      "date": "2026-05-01",
+      "rating": "Buy",
+      "target_price": 1300,
+      "tp_currency": "USD",
+      "source_file": "Citi_30425872.pdf",
+      "forecasts": {
+        "FY25": {
+          "revenue": null,
+          "ni": null,
+          "eps": 2.79
+        },
+        "FY26": {
+          "revenue": null,
+          "ni": null,
+          "eps": 64.29
+        },
+        "FY27": {
+          "revenue": null,
+          "ni": null,
+          "eps": 182.26
+        },
+        "FY28": {
+          "revenue": null,
+          "ni": null,
+          "eps": 155.13
+        }
+      },
+      "key_thesis": [
+        "NBM三大驱动：公允定价/消除周期/可预测P&L",
+        "$42B RPO + $11B金融担保覆盖全部5份合约",
+        "协议分属不同时间签订，防止同期集中到期"
+      ]
+    }
+  ],
+  "management_guidance": {
+    "latest_quarter": "FQ3'26 (2026-04-30)",
+    "actuals_vs_guide": {
+      "quarter": "FQ3'26",
+      "date": "2026-04-30",
+      "rows": [
+        {
+          "metric": "Revenue",
+          "prior_guide": "$44-48亿",
+          "actual": "$59.50亿",
+          "note": "超指引上限+24%，环比+97%，同比+251%"
+        },
+        {
+          "metric": "Non-GAAP GPM",
+          "prior_guide": "65-67%",
+          "actual": "78.4%",
+          "note": "超指引上限+11.4ppt，无欠利用/无FAB启动成本"
+        },
+        {
+          "metric": "Non-GAAP EPS",
+          "prior_guide": "$12-14",
+          "actual": "$23.41",
+          "note": "超指引上限+67%，Street $14.43"
+        },
+        {
+          "metric": "OpEx",
+          "prior_guide": "未明确",
+          "actual": "$4.48亿 (7.5% rev)",
+          "note": "优于预期"
+        },
+        {
+          "metric": "Adj FCF",
+          "prior_guide": "正",
+          "actual": "$29.55亿 (49.7%)",
+          "note": "创历史新高"
+        }
+      ]
+    },
+    "forward_guide": {
+      "quarter": "FQ4'26",
+      "rows": [
+        {
+          "metric": "Revenue",
+          "guide": "$77.5-82.5亿"
+        },
+        {
+          "metric": "Non-GAAP GPM",
+          "guide": "79-81%"
+        },
+        {
+          "metric": "Non-GAAP EPS",
+          "guide": "$30-33（~1.58亿股）"
+        },
+        {
+          "metric": "比特增长",
+          "guide": "比特和ASP双重驱动增长"
+        },
+        {
+          "metric": "Stargate QLC",
+          "guide": "开始创收"
+        }
+      ]
+    },
+    "fy_guide": {
+      "period": "FY26",
+      "rows": [
+        {
+          "metric": "比特增长",
+          "guide": "与市场需求同步（中高双位数）"
+        },
+        {
+          "metric": "BiCS8占比",
+          "guide": "FY26末达到多数（>50%）"
+        },
+        {
+          "metric": "CapEx",
+          "guide": "中低双位数%收入（绝对金额略增）"
+        },
+        {
+          "metric": "数据中心EB增长",
+          "guide": "CY26 mid-70%+ YoY"
+        },
+        {
+          "metric": "NBM覆盖",
+          "guide": "FY27超1/3比特，目标>50%"
+        }
+      ]
+    },
+    "key_points": [
+      "FQ3'26为公司历史最强季度：收入/利润率/EPS全面创纪录，标志NAND行业拐点",
+      "5份NBM协议（3+2），RPO $42B，金融担保$11B，含预付款~$4B",
+      "零债务，现金$37.35B，$6B回购授权（无到期日）",
+      "数据中心收入环比+233%至$14.67B（占25%），TLC企业SSD占比25%",
+      "Stargate QLC FQ4'26开始创收，更多超大规模认证进行中",
+      "供需偏紧延续至2027年+，行业无新增洁净室空间"
+    ],
+    "source": "[[earnings_releases/2026-04-30_ER_sndk-fy26q3.md]] + [[earnings_calls/2026-04-30_EC_sndk-fy26q3.md]]"
+  },
+  "qualitative": {
+    "business_description": "Sandisk Corporation（NASDAQ: SNDK）是全球领先的NAND闪存存储解决方案公司，2025年2月从Western Digital（WDC）分拆独立上市。公司通过与Kioxia的25年合资企业（JV延至2034年）运营位于日本的NAND FAB，产出全球约1/3的NAND比特。\n\n**终端市场结构（FQ3'26，已重新分类）**：\n\n| 终端市场 | FQ3'26 收入 | 占比 | 环比 | 关键产品 |\n| ---- | ---- | ---- | ---- | ---- |\n| Edge（PC/移动/嵌入式） | $36.63B | 62% | +118% | 客户端SSD, 嵌入式存储 |\n| Datacenter | $14.67B | 25% | +233% | 企业SSD (TLC Gen5 + Stargate QLC) |\n| Consumer | $8.20B | 13% | -10% | MicroSD, USB, 便携SSD |\n\n**关键事实**：\n- BiCS8 CBA（CMOS Bonded to Array）为当前主力节点，FQ3'26占比>50%\n- 企业SSD占比特出货25%（TLC为主），Stargate QLC FQ4'26开始创收\n- 5份NBM多年期供给协议，RPO $42B，金融担保$11B\n- 消费者品牌SanDisk知名度73%，消费者业务利用>99%晶圆产出\n- 零债务，现金$37.35B，FCF利润率49.7%（FQ3'26）\n- $6B股票回购计划（无到期日）\n- NAND行业CY26 TAM预计约$1500亿",
+    "bull_thesis": [
+      "AI推理/KVCache/RAG驱动数据中心NAND需求结构性爆发：CY2026数据中心exabyte增长预测从mid-20%连续上调至mid-70%+，数据中心首次超越移动成为NAND最大市场 ← EC FY26Q3 CEO + Bernstein 2026-05-28 conf",
+      "NBM（新商业模式）重塑行业商业范式：已签5份多年期协议，RPO $42B，金融担保$11B，FY27超1/3比特锁定，含第三方金融机构托管的预付款+分手费机制，从根本上降低NAND周期性 ← EC FY26Q3 + JPMorgan conf 2026-05-20",
+      "BiCS8 CBA节点领先+Stargate QLC平台构建企业SSD差异化壁垒：BiCS8 2Tb QLC裸片为行业最大，128TB/256TB/512TB路线图清晰，FQ3'26 TLC企业SSD占比25%，Stargate QLC Q4开始创收 ← Analyst Day 2025-02-11 + EC FY26Q3",
+      "供给纪律+零债务+强FCF：行业无新增晶圆产能（新产能需数年），FQ3'26现金$37.35B零债务，FCF利润率49.7%，$6B回购授权，CapEx%下降趋势明确 ← EC FY26Q3 CFO + Citi 2026-05-19",
+      "HBF（高带宽闪存）+3D Matrix Memory提供超周期期权：与SK Hynix联合OCP标准化推进，HBF裸片已在生产（building now），系统级产品2027年面市，匹配HBM带宽但提供8-16x容量 ← Bernstein conf 2026-05-28 + MS conf 2026-03-04"
+    ],
+    "bear_thesis": [
+      "NAND周期性风险未完全消除：尽管NBM减少波动，历史上NAND供需反转往往比预期更快；当前ASP环比+140%为史上罕见，定价可能已近峰值 ← Bernstein 2026-05-01 + Nomura 2026-05-01",
+      "NBM合约可能约束比特价格上行空间：长期固定定价成分限制了现货市场极端上行的参与，市场盘后下跌~5-6%反映对NBM约束利润率增长的担忧 ← Nomura 2026-05-01 + Citi 2026-04-30",
+      "公司信息披露质量有待提升：Bernstein指出公司信息披露较为混乱（messy disclosures），可能令注重质量的投资者望而却步 ← Bernstein 2026-05-01",
+      "竞争对手产能扩张风险：Micron宣布新加坡新建NAND工厂（2H CY28初始产出），长期供给可能增加；YMTC等中国竞争对手持续在消费级市场扩展 ← Citi 2026-03-19 + EC FY25Q4 Q&A",
+      "地缘政治+宏观风险：中美制裁可能冲击市场准入，AI资本开支放缓则直接影响数据中心NAND需求；能源成本上升压缩成本端 ← MS 2026-06-03 + Citi 2026-04-13"
+    ],
+    "tail_risks": [
+      {
+        "scenario": "AI资本开支大幅削减（宏观衰退/AI ROI低于预期）",
+        "probability": "低（10-15%）",
+        "impact": "高（数据中心需求骤降，ASP回落50%+）",
+        "signal": "超大规模云厂商CapEx指引下修>20%，NVIDIA数据中心收入连续两季负增长"
+      },
+      {
+        "scenario": "NAND行业供给端意外大幅扩张（多家同时宣布新产能）",
+        "probability": "低（<10%）",
+        "impact": "中高（供需从偏紧转为过剩，ASP回落至周期均值）",
+        "signal": "Samsung/SK Hynix宣布greenfield NAND FAB，行业CapEx/Revenue超过25%"
+      },
+      {
+        "scenario": "中国制裁升级导致失去市场准入",
+        "probability": "中低（15-20%）",
+        "impact": "中（中国市场收入约占15-20%，但可通过渠道转移部分缓解）",
+        "signal": "美国BIS扩大对NAND技术出口管制范围，YMTC进入Entity List后反制"
+      },
+      {
+        "scenario": "Kioxia JV合作破裂或政治干预",
+        "probability": "极低（<5%）",
+        "impact": "极高（JV产出全球1/3 NAND，产能断裂影响深远）",
+        "signal": "日本政府政策变化，JV续约谈判异常（JV已延至2034年，风险极低）"
+      }
+    ],
+    "catalysts": [
+      {
+        "date": "2026-07 (est)",
+        "event": "FQ4'26 Earnings Release（指引$77.5-82.5B rev, EPS $30-33）",
+        "status": "upcoming"
+      },
+      {
+        "date": "2026-Q3",
+        "event": "Stargate QLC首批企业SSD创收确认",
+        "status": "upcoming"
+      },
+      {
+        "date": "2026-Q3~Q4",
+        "event": "更多NBM协议签署（目标>50%比特锁定）",
+        "status": "upcoming"
+      },
+      {
+        "date": "2026-H2",
+        "event": "HBF NAND Die样品交付",
+        "status": "upcoming"
+      },
+      {
+        "date": "2026-H2",
+        "event": "$6B回购计划开始执行",
+        "status": "upcoming"
+      },
+      {
+        "date": "2027-H1",
+        "event": "HBF控制器样品 + 系统级产品面市",
+        "status": "pending"
+      },
+      {
+        "date": "2027",
+        "event": "NVIDIA KVCache需求开始贡献（+75-100 EB增量）",
+        "status": "pending"
+      },
+      {
+        "date": "2028-H2",
+        "event": "Micron新加坡NAND FAB初始产出（供给端监控）",
+        "status": "pending"
+      }
+    ],
+    "peers": [
+      "MU",
+      "Samsung Electronics (005930.KS)",
+      "SK Hynix (000660.KS)",
+      "Kioxia (6899.T)",
+      "SIMO",
+      "STX",
+      "WDC"
+    ],
+    "price_drivers": [
+      {
+        "period": "2025-02 分拆完成",
+        "driver": "SNDK从WDC独立上市，Analyst Day发布通周期模型（35%GPM/$10B Rev目标）",
+        "direction": "↑",
+        "type": "内因",
+        "thesis_link": "Bull #3 差异化战略+独立运营",
+        "status": "已完成"
+      },
+      {
+        "period": "2025-03~06 NAND mid-cycle pause",
+        "driver": "分拆后首季FQ3'25毛利率22.7%（低谷），商誉减值$18.3B",
+        "direction": "↓",
+        "type": "内因+外因",
+        "thesis_link": "Bear #1 周期性",
+        "status": "已过渡"
+      },
+      {
+        "period": "2025-08~11 提价+复苏",
+        "driver": "FQ4'25/FQ1'26连续超预期，毛利率从22.7%→26.4%→29.9%，净现金提前转正",
+        "direction": "↑↑",
+        "type": "内因",
+        "thesis_link": "Bull #4 供给纪律",
+        "status": "已完成"
+      },
+      {
+        "period": "2026-01 FQ2'26业绩炸裂",
+        "driver": "营收$30.25B，EPS $6.20大幅超预期$3.62，毛利率51.1%（指引41-43%），首个NBM签署",
+        "direction": "↑↑↑",
+        "type": "内因",
+        "thesis_link": "Bull #1+#2 AI需求+NBM",
+        "status": "已完成"
+      },
+      {
+        "period": "2026-03~04 Citi TP连续上调",
+        "driver": "Citi TP从$280→$490→$750→$875→$980→$1300→$2025，MU业绩佐证NAND偏紧",
+        "direction": "↑↑",
+        "type": "外因（同业read-across）",
+        "thesis_link": "Bull #1 供需偏紧延续",
+        "status": "持续中"
+      },
+      {
+        "period": "2026-04-30 FQ3'26超级季度",
+        "driver": "营收$59.5B（+97% QoQ），GPM 78.4%，EPS $23.41，5份NBM，$6B回购，零债务",
+        "direction": "↑↑↑",
+        "type": "内因",
+        "thesis_link": "Bull #1+#2+#4 全面兑现",
+        "status": "已完成"
+      },
+      {
+        "period": "2026-05 盘后下跌~5-6%",
+        "driver": "市场对NBM约束长期定价灵活性的担忧，尽管业绩大幅超预期",
+        "direction": "↓",
+        "type": "内因（市场重定价NBM框架）",
+        "thesis_link": "Bear #2 NBM约束",
+        "status": "消化中"
+      }
+    ],
+    "price_headwinds": [
+      "NBM合约地板/天花板定价可能约束极端上行场景下的ASP弹性 ← Nomura + Citi",
+      "当前估值已充分反映FY26超级周期，FY27 EPS需要持续兑现 ← Bernstein TP $1700 = 11x 4年通周期EPS",
+      "宏观不确定性（中美关系、AI CapEx可持续性）压制长久期估值 ← MS Risk-Reward bear case $1100"
+    ],
+    "price_tailwinds": [
+      "Stargate QLC Q4开始创收+更多NBM签署将进一步提升FY27收入能见度 ← EC FY26Q3",
+      "$6B回购授权在高EPS基础上提供每股收益增厚 ← Citi 2026-05-19",
+      "NVIDIA KVCache需求2027年估计+75-100 EB增量，尚未计入多数分析师模型 ← MS conf 2026-03-04"
+    ],
+    "rerating_triggers": [
+      "FQ4'26指引兑现（$77.5-82.5B rev, GPM 79-81%, EPS $30-33）+ 更多NBM签署 → 估值重评",
+      "Stargate QLC首批创收确认 + 第三/四家超大规模云厂商企业SSD认证完成",
+      "HBF系统级产品2027年面市确认 → 超周期期权价值开始定价"
+    ],
+    "tech_roadmap": {
+      "current_node": "BiCS8 CBA（162层级别，CMOS Bonded to Array晶圆键合，行业领先）",
+      "roadmap": [
+        {
+          "node": "BiCS8 CBA",
+          "status": "量产主力",
+          "spec": "162L级, 2Tb QLC裸片（行业最大）, CBA晶圆键合",
+          "timeline": "FQ3'26占比>50%",
+          "note": "CapEx效率比行业领先30%（JV）"
+        },
+        {
+          "node": "Stargate平台",
+          "status": "客户认证中",
+          "spec": "BiCS8 QLC, 128TB/256TB/512TB NVMe企业SSD",
+          "timeline": "FQ4'26开始创收",
+          "note": "2家超大规模已认证，3家计划CY26"
+        },
+        {
+          "node": "SN670 Gen5 TLC",
+          "status": "量产",
+          "spec": "PCIe Gen5 企业SSD, NVIDIA GB200/GB300认证",
+          "timeline": "已在多家超大规模出货",
+          "note": "数据中心增长+233%主驱动"
+        },
+        {
+          "node": "HBF高带宽闪存",
+          "status": "裸片生产中",
+          "spec": "匹配HBM带宽, 8-16x HBM容量, 16层堆叠4TB/GPU",
+          "timeline": "Die building now, 系统2027年",
+          "note": "与SK Hynix联合OCP标准化"
+        },
+        {
+          "node": "3D Matrix Memory (Project Neo)",
+          "status": "研发阶段",
+          "spec": "DRAM性能/4x容量/半价, IMEC合作",
+          "timeline": "未公布",
+          "note": "超周期期权，不在当前财务模型"
+        },
+        {
+          "node": "BICS-A (下一代)",
+          "status": "规划中",
+          "spec": "未披露",
+          "timeline": "资本计划中",
+          "note": "维持中低双位数%收入CapEx"
+        }
+      ],
+      "cost_trend": "低十位数%年化比特成本下降（已在所有NBM中锁定）；BiCS8转换带来额外成本优化，FAB启动成本FQ3'26已降至零"
+    },
+    "cost_structure": {
+      "summary": "Sandisk成本结构已发生根本性变化：FQ3'26毛利率78.4%（Non-GAAP），COGS $12.84B仅占收入22%，反映NBM+现货双轨道定价下的极端ASP上行。公司通过Kioxia JV实现比行业低30%的CapEx效率，外部资金来源（政府补贴+JV租赁）覆盖43%总CapEx。OpEx维持在收入的7.5%（$4.48B），远低于Analyst Day 15%目标。",
+      "metrics": [
+        {
+          "name": "Non-GAAP GPM",
+          "value": "78.4%（FQ3'26）",
+          "trend": "FQ3'25 22.7% → FQ3'26 78.4%，4个季度内+56ppt",
+          "source": "ER FQ3'26"
+        },
+        {
+          "name": "ASP QoQ",
+          "value": "+~140%（FQ3'26 vs FQ2'26）",
+          "trend": "Bernstein估计，ASP从$0.096/bit → ~$0.229/bit",
+          "source": "Bernstein 2026-05-28 + Model"
+        },
+        {
+          "name": "NAND CY26 ASP forecast",
+          "value": "整体+186%+, eSSD+265%+",
+          "trend": "Citi CY2026E预测",
+          "source": "Citi 2026-05-19"
+        },
+        {
+          "name": "OpEx % Revenue",
+          "value": "7.5%（FQ3'26）",
+          "trend": "远低于通周期目标15%",
+          "source": "ER FQ3'26"
+        },
+        {
+          "name": "CapEx % Revenue",
+          "value": "中低双位数%（下降趋势）",
+          "trend": "绝对金额略增但占比下降",
+          "source": "EC FQ3'26 CFO"
+        },
+        {
+          "name": "年化比特成本下降",
+          "value": "低十位数%/年",
+          "trend": "已锁定于所有NBM合约",
+          "source": "JPMorgan conf 2026-05-20"
+        },
+        {
+          "name": "FCF Margin",
+          "value": "49.7%（FQ3'26）",
+          "trend": "FQ4'25 adj FCF $77M → FQ3'26 $2.955B",
+          "source": "ER FQ3'26"
+        }
+      ]
+    },
+    "competitive_landscape": {
+      "market_share": [
+        {
+          "company": "Samsung Electronics",
+          "share": "~28%",
+          "note": "NAND整体市占率第一，垂直整合（DRAM+NAND+SSD）"
+        },
+        {
+          "company": "SK Hynix / Solidigm",
+          "share": "~22%",
+          "note": "收购Intel NAND后跃居第二，HBF合作伙伴"
+        },
+        {
+          "company": "Kioxia",
+          "share": "~16%",
+          "note": "Sandisk JV伙伴，合计约28%产能"
+        },
+        {
+          "company": "Sandisk (SNDK)",
+          "share": "~12%",
+          "note": "独立后市占率（不含Kioxia共享产出），企业SSD快速提升"
+        },
+        {
+          "company": "Micron (MU)",
+          "share": "~11%",
+          "note": "新加坡新建NAND FAB（CY28产出），NAND+DRAM双线"
+        },
+        {
+          "company": "YMTC (长江存储)",
+          "share": "~8-10%",
+          "note": "中国最大，受Entity List限制，集中消费级市场"
+        }
+      ],
+      "competitive_dynamics": [
+        "行业整体处于供给纪律期，所有主要厂商均维持审慎CapEx立场，无新增洁净室空间（MU新加坡FAB 2028年才产出）← Citi 2026-03-19",
+        "BiCS8 CBA是Sandisk/Kioxia差异化核心：晶圆键合技术使2Tb QLC裸片成为可能（行业最大），在相同CapEx下实现更优性能/功耗 ← Analyst Day CTO",
+        "NBM框架为行业首创，Samsung/SK Hynix尚未跟进类似模式，Sandisk先发优势明显 ← JPMorgan conf 2026-05-20",
+        "企业SSD竞争加剧但Sandisk通过NVIDIA认证+Stargate差异化产品保持优势地位 ← EC FY26Q1",
+        "YMTC在消费级市场扩展但受出口管制限制无法进入高端企业SSD市场 ← EC FY25Q4 Q&A Citi analyst"
+      ]
+    },
+    "value_chain": {
+      "position": "NAND闪存全产业链参与者：从晶圆制造（JV）→ 裸片/控制器设计 → 成品SSD/存储卡/USB → 直销+渠道分销",
+      "chain": [
+        {
+          "stage": "晶圆制造",
+          "players": "Kioxia（JV伙伴）, Samsung, SK Hynix, Micron, YMTC",
+          "sndk_role": "通过Kioxia JV运营日本4个FAB（四日市+北上），产出全球~1/3 NAND比特"
+        },
+        {
+          "stage": "裸片/控制器设计",
+          "players": "Sandisk, Samsung, Micron, Silicon Motion, Phison",
+          "sndk_role": "自研控制器ASIC（Stargate平台），BiCS8 CBA节点设计领先"
+        },
+        {
+          "stage": "企业SSD成品",
+          "players": "Sandisk, Samsung, Micron/Crucial, SK Hynix/Solidigm, Kioxia",
+          "sndk_role": "Gen5 TLC + Stargate QLC (128-512TB)，5家超大规模客户认证中"
+        },
+        {
+          "stage": "消费级存储",
+          "players": "Sandisk, Samsung, Kingston, Lexar",
+          "sndk_role": "SanDisk品牌（73%知名度），MicroSD/USB/便携SSD，与Nintendo/Xbox联名"
+        },
+        {
+          "stage": "DRAM供应",
+          "players": "Samsung, SK Hynix, Micron, Nanya",
+          "sndk_role": "向Nanya投资~$1B换取长期DRAM优先供应权（用于企业SSD控制器）"
+        }
+      ],
+      "key_relationships": [
+        "Kioxia JV：25年合作延至2034年，共享4个FAB（四日市×3 + 北上×1），JV服务费$11.65B（2026-2029），共同CapEx效率比行业领先30% ← EC FY26Q2 + Bernstein conf 2026-02-25",
+        "NVIDIA：GB200/GB300参考架构认证，KVCache NAND需求合作预测（2027年+75-100 EB增量）← EC FY25Q1 + MS conf 2026-03-04",
+        "SK Hynix：HBF高带宽闪存联合OCP标准化推进 ← EC FY25Q4 + Bernstein conf 2026-05-28",
+        "Nanya：投资~$1B换取长期DRAM优先供应权 ← EC FY26Q2 + FY26Q3",
+        "5家超大规模云厂商：活跃数据中心销售+NBM协议伙伴 ← EC FY26Q1"
+      ]
+    },
+    "product_pricing": {
+      "summary": "**终端市场收入拆分 + ASP/GB 趋势**",
+      "table": [
+        "| 终端市场 | FQ2 ($M) | FQ3 ($M) | QoQ | 占比 | 定价特征 |",
+        "| ---- | ---- | ---- | ---- | ---- | ---- |",
+        "| 数据中心 | 440 | 1,467 | +233% | 25% | NBM 多年锁定（固定+浮动），ASP 最高 |",
+        "| Edge (PC+手机) | 1,678 | 3,663 | +118% | 62% | OEM 合约，高端化趋势 |",
+        "| 消费 | 907 | 820 | -10% | 14% | 渠道/零售，季节性波动 |",
+        "",
+        "**ASP 趋势**：FQ3 $0.229/GB (+138% QoQ)。FQ4E $0.297/GB (+30% QoQ)。NBM 合约含 pricing floor/ceiling，短期上行受限但长期稳定。",
+        "**NBM 定价结构**：近期固定 + 远期浮动，floor 对 SNDK 有利，ceiling 允许双方捕获上行。$42B RPO 按 floor 计算 = worst case。← Bernstein"
+      ]
+    },
+    "capability_vs_peers": {
+      "summary": "**NAND 技术 + ASP 同行对比（FQ3-26 实际）**",
+      "table": [
+        "| 公司 | FQ3 ASP QoQ | 层数 | 下一代 | 市场份额 |",
+        "| ---- | ---- | ---- | ---- | ---- |",
+        "| **Sandisk** | **+140%** | BiCS8 218层 | BiCS-A 300+层(FY27-28) | ~12% |",
+        "| Samsung | +high 80s% | V9 286层 | V10 400+层(H2 2026) | 28% |",
+        "| SK Hynix | +mid 70s% | 321层 QLC | V10 300+层(2027) | 22% |",
+        "| Micron | +high 70s% | 276层 | TBD | ~11% |",
+        "| Kioxia | +85% QoQ rev | BiCS9 | BiCS10 332层(FY26) | 16% |",
+        "",
+        "**SNDK 差异化**：ASP QoQ +140% 远超同行（#1），因 NBM 提前锁定 + 产品组合向数据中心高端倾斜。",
+        "**技术竞赛**：层数落后三星/SK，但 BiCS8 在性能/功耗比上被公认为行业金标准。← Bernstein NAND read-across Exhibit 1"
+      ]
+    }
+  }
+}

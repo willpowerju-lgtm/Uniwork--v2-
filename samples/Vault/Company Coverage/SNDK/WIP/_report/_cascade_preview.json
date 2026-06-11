@@ -1,0 +1,1145 @@
+{
+  "ticker": "SNDK",
+  "reason": "用户更新 model 假设（Path A 手改）",
+  "source": "user model edit (Path A)",
+  "model_out": "/Users/jason/OrchidVault/Vault/Company Coverage/SNDK/model/Sandisk_Corp_SNDK_O_Model_Change.xlsx",
+  "new_digest": "/Users/jason/Desktop/finance cowork/output/SNDK_digest_cascade.json",
+  "driver": null,
+  "written": null,
+  "verify": null,
+  "drift": [
+    {
+      "key": "asp_26Q4",
+      "old": 0.2974,
+      "new": 0.2059,
+      "pct": -30.766644250168124
+    },
+    {
+      "key": "revenue_26Q4",
+      "old": 8895.25,
+      "new": 6158.25,
+      "pct": -30.76923076923077
+    },
+    {
+      "key": "cogs_26Q4",
+      "old": 1779.05,
+      "new": 1231.65,
+      "pct": -30.76923076923076
+    },
+    {
+      "key": "gross_profit_26Q4",
+      "old": 7116.2,
+      "new": 4926.6,
+      "pct": -30.76923076923076
+    },
+    {
+      "key": "rd_expense_26Q4",
+      "old": 369.1529,
+      "new": 255.5674,
+      "pct": -30.76922868545798
+    },
+    {
+      "key": "sga_expense_26Q4",
+      "old": 177.905,
+      "new": 123.165,
+      "pct": -30.769230769230766
+    },
+    {
+      "key": "total_opex_26Q4",
+      "old": 489.2387,
+      "new": 338.7038,
+      "pct": -30.769213473913652
+    },
+    {
+      "key": "operating_income_26Q4",
+      "old": 6626.9613,
+      "new": 4587.8963,
+      "pct": -30.76923053707888
+    },
+    {
+      "key": "ebitda_26Q4",
+      "old": 6664.9613,
+      "new": 4625.8963,
+      "pct": -30.59380104727689
+    },
+    {
+      "key": "pretax_income_26Q4",
+      "old": 6642.9613,
+      "new": 4603.8963,
+      "pct": -30.69512086424468
+    },
+    {
+      "key": "non_gaap_ni_26Q4",
+      "old": 5712.9467,
+      "new": 3959.3508,
+      "pct": -30.695120960956977
+    },
+    {
+      "key": "gaap_ni_26Q4",
+      "old": 5671.9467,
+      "new": 3918.3508,
+      "pct": -30.91700244644401
+    },
+    {
+      "key": "non_gaap_eps_26Q4",
+      "old": 36.1579,
+      "new": 25.0592,
+      "pct": -30.695090146275085
+    },
+    {
+      "key": "npm_pct_26Q4",
+      "old": 64.2,
+      "new": 64.3,
+      "pct": 0.15576323987538054
+    },
+    {
+      "key": "net_income_26Q4",
+      "old": 5712.9467,
+      "new": 3959.3508,
+      "pct": -30.695120960956977
+    },
+    {
+      "key": "eps_26Q4",
+      "old": 36.1579,
+      "new": 25.0592,
+      "pct": -30.695090146275085
+    },
+    {
+      "key": "selling_expense_26Q4",
+      "old": 177.905,
+      "new": 123.165,
+      "pct": -30.769230769230766
+    },
+    {
+      "key": "asp_27Q1",
+      "old": 0.342,
+      "new": 0.2368,
+      "pct": -30.76023391812866
+    },
+    {
+      "key": "revenue_27Q1",
+      "old": 12275.445,
+      "new": 8498.385,
+      "pct": -30.769230769230766
+    },
+    {
+      "key": "cogs_27Q1",
+      "old": 2209.5801,
+      "new": 1529.7093,
+      "pct": -30.769230769230777
+    },
+    {
+      "key": "gross_profit_27Q1",
+      "old": 10065.8649,
+      "new": 6968.6757,
+      "pct": -30.769230769230777
+    },
+    {
+      "key": "rd_expense_27Q1",
+      "old": 429.6406,
+      "new": 297.4435,
+      "pct": -30.769228978825563
+    },
+    {
+      "key": "sga_expense_27Q1",
+      "old": 184.1317,
+      "new": 127.4758,
+      "pct": -30.769226591618924
+    },
+    {
+      "key": "total_opex_27Q1",
+      "old": 527.8441,
+      "new": 365.4306,
+      "pct": -30.769217653470026
+    },
+    {
+      "key": "operating_income_27Q1",
+      "old": 9538.0208,
+      "new": 6603.2451,
+      "pct": -30.76923149507076
+    },
+    {
+      "key": "ebitda_27Q1",
+      "old": 9576.0208,
+      "new": 6641.2451,
+      "pct": -30.647131635303047
+    },
+    {
+      "key": "pretax_income_27Q1",
+      "old": 9554.0208,
+      "new": 6619.2451,
+      "pct": -30.71770264515229
+    },
+    {
+      "key": "non_gaap_ni_27Q1",
+      "old": 8120.9177,
+      "new": 5626.3584,
+      "pct": -30.717702015376908
+    },
+    {
+      "key": "gaap_ni_27Q1",
+      "old": 8079.9177,
+      "new": 5585.3584,
+      "pct": -30.873573130577803
+    },
+    {
+      "key": "non_gaap_eps_27Q1",
+      "old": 51.3982,
+      "new": 35.6099,
+      "pct": -30.71761267904323
+    },
+    {
+      "key": "net_income_27Q1",
+      "old": 8120.9177,
+      "new": 5626.3584,
+      "pct": -30.717702015376908
+    },
+    {
+      "key": "eps_27Q1",
+      "old": 51.3982,
+      "new": 35.6099,
+      "pct": -30.71761267904323
+    },
+    {
+      "key": "selling_expense_27Q1",
+      "old": 184.1317,
+      "new": 127.4758,
+      "pct": -30.769226591618924
+    },
+    {
+      "key": "asp_27Q2",
+      "old": 0.364,
+      "new": 0.252,
+      "pct": -30.769230769230766
+    },
+    {
+      "key": "revenue_27Q2",
+      "old": 15679.918,
+      "new": 10855.3278,
+      "pct": -30.769231063580822
+    },
+    {
+      "key": "cogs_27Q2",
+      "old": 2822.3852,
+      "new": 1953.959,
+      "pct": -30.769230224138084
+    },
+    {
+      "key": "gross_profit_27Q2",
+      "old": 12857.5328,
+      "new": 8901.3688,
+      "pct": -30.769231247848733
+    },
+    {
+      "key": "rd_expense_27Q2",
+      "old": 423.3578,
+      "new": 293.0939,
+      "pct": -30.76922168435304
+    },
+    {
+      "key": "sga_expense_27Q2",
+      "old": 195.999,
+      "new": 135.6916,
+      "pct": -30.769238618564383
+    },
+    {
+      "key": "total_opex_27Q2",
+      "old": 533.1172,
+      "new": 369.0811,
+      "pct": -30.7692379836929
+    },
+    {
+      "key": "operating_income_27Q2",
+      "old": 12324.4155,
+      "new": 8532.2877,
+      "pct": -30.7692303947396
+    },
+    {
+      "key": "ebitda_27Q2",
+      "old": 12362.4155,
+      "new": 8570.2877,
+      "pct": -30.67465092076867
+    },
+    {
+      "key": "pretax_income_27Q2",
+      "old": 12340.4155,
+      "new": 8548.2877,
+      "pct": -30.729336463589892
+    },
+    {
+      "key": "non_gaap_ni_27Q2",
+      "old": 10489.3532,
+      "new": 7266.0445,
+      "pct": -30.72933705769389
+    },
+    {
+      "key": "gaap_ni_27Q2",
+      "old": 10448.3532,
+      "new": 7225.0445,
+      "pct": -30.849920923423607
+    },
+    {
+      "key": "non_gaap_eps_27Q2",
+      "old": 66.3883,
+      "new": 45.9876,
+      "pct": -30.729360444536162
+    },
+    {
+      "key": "net_income_27Q2",
+      "old": 10489.3532,
+      "new": 7266.0445,
+      "pct": -30.72933705769389
+    },
+    {
+      "key": "eps_27Q2",
+      "old": 66.3883,
+      "new": 45.9876,
+      "pct": -30.729360444536162
+    },
+    {
+      "key": "selling_expense_27Q2",
+      "old": 195.999,
+      "new": 135.6916,
+      "pct": -30.769238618564383
+    },
+    {
+      "key": "asp_27Q3",
+      "old": 0.3458,
+      "new": 0.2394,
+      "pct": -30.769230769230766
+    },
+    {
+      "key": "revenue_27Q3",
+      "old": 11916.7377,
+      "new": 8250.0492,
+      "pct": -30.769230575579424
+    },
+    {
+      "key": "cogs_27Q3",
+      "old": 2204.5965,
+      "new": 1526.2591,
+      "pct": -30.769231467073453
+    },
+    {
+      "key": "gross_profit_27Q3",
+      "old": 9712.1412,
+      "new": 6723.7901,
+      "pct": -30.769230373215745
+    },
+    {
+      "key": "rd_expense_27Q3",
+      "old": 417.0858,
+      "new": 288.7517,
+      "pct": -30.76923261352939
+    },
+    {
+      "key": "sga_expense_27Q3",
+      "old": 178.7511,
+      "new": 123.7507,
+      "pct": -30.76926519613027
+    },
+    {
+      "key": "total_opex_27Q3",
+      "old": 530.2948,
+      "new": 367.1272,
+      "pct": -30.769224966942915
+    },
+    {
+      "key": "operating_income_27Q3",
+      "old": 9181.8464,
+      "new": 6356.6629,
+      "pct": -30.76923068545342
+    },
+    {
+      "key": "ebitda_27Q3",
+      "old": 9219.8464,
+      "new": 6394.6629,
+      "pct": -30.642413956050284
+    },
+    {
+      "key": "pretax_income_27Q3",
+      "old": 9197.8464,
+      "new": 6372.6629,
+      "pct": -30.71570645058826
+    },
+    {
+      "key": "non_gaap_ni_27Q3",
+      "old": 7818.1694,
+      "new": 5416.7634,
+      "pct": -30.715706927506588
+    },
+    {
+      "key": "gaap_ni_27Q3",
+      "old": 7777.1694,
+      "new": 5375.7634,
+      "pct": -30.877635248629147
+    },
+    {
+      "key": "non_gaap_eps_27Q3",
+      "old": 49.4821,
+      "new": 34.2833,
+      "pct": -30.715753777628684
+    },
+    {
+      "key": "npm_pct_27Q3",
+      "old": 65.6,
+      "new": 65.7,
+      "pct": 0.15243902439025692
+    },
+    {
+      "key": "net_income_27Q3",
+      "old": 7818.1694,
+      "new": 5416.7634,
+      "pct": -30.715706927506588
+    },
+    {
+      "key": "eps_27Q3",
+      "old": 49.4821,
+      "new": 34.2833,
+      "pct": -30.715753777628684
+    },
+    {
+      "key": "selling_expense_27Q3",
+      "old": 178.7511,
+      "new": 123.7507,
+      "pct": -30.76926519613027
+    },
+    {
+      "key": "asp_27Q4",
+      "old": 0.3354,
+      "new": 0.2322,
+      "pct": -30.769230769230766
+    },
+    {
+      "key": "revenue_27Q4",
+      "old": 12137.1973,
+      "new": 8402.6751,
+      "pct": -30.76923038896302
+    },
+    {
+      "key": "cogs_27Q4",
+      "old": 2245.3815,
+      "new": 1554.4949,
+      "pct": -30.769230084063672
+    },
+    {
+      "key": "gross_profit_27Q4",
+      "old": 9891.8158,
+      "new": 6848.1802,
+      "pct": -30.769230458173315
+    },
+    {
+      "key": "rd_expense_27Q4",
+      "old": 424.8019,
+      "new": 294.0936,
+      "pct": -30.76923620162716
+    },
+    {
+      "key": "sga_expense_27Q4",
+      "old": 182.058,
+      "new": 126.0401,
+      "pct": -30.76926034560415
+    },
+    {
+      "key": "total_opex_27Q4",
+      "old": 534.0367,
+      "new": 369.7177,
+      "pct": -30.7692336500469
+    },
+    {
+      "key": "operating_income_27Q4",
+      "old": 9357.7791,
+      "new": 6478.4625,
+      "pct": -30.769230276017094
+    },
+    {
+      "key": "ebitda_27Q4",
+      "old": 9395.7791,
+      "new": 6516.4625,
+      "pct": -30.64478814747784
+    },
+    {
+      "key": "pretax_income_27Q4",
+      "old": 9373.7791,
+      "new": 6494.4625,
+      "pct": -30.716710616745814
+    },
+    {
+      "key": "non_gaap_ni_27Q4",
+      "old": 7967.7123,
+      "new": 5520.2931,
+      "pct": -30.71671149572005
+    },
+    {
+      "key": "gaap_ni_27Q4",
+      "old": 7926.7123,
+      "new": 5479.2931,
+      "pct": -30.875590123284784
+    },
+    {
+      "key": "non_gaap_eps_27Q4",
+      "old": 50.4286,
+      "new": 34.9386,
+      "pct": -30.716696477792365
+    },
+    {
+      "key": "npm_pct_27Q4",
+      "old": 65.6,
+      "new": 65.7,
+      "pct": 0.15243902439025692
+    },
+    {
+      "key": "net_income_27Q4",
+      "old": 7967.7123,
+      "new": 5520.2931,
+      "pct": -30.71671149572005
+    },
+    {
+      "key": "eps_27Q4",
+      "old": 50.4286,
+      "new": 34.9386,
+      "pct": -30.716696477792365
+    },
+    {
+      "key": "selling_expense_27Q4",
+      "old": 182.058,
+      "new": 126.0401,
+      "pct": -30.76926034560415
+    },
+    {
+      "key": "asp_28Q1",
+      "old": 0.3287,
+      "new": 0.2276,
+      "pct": -30.757529662306055
+    },
+    {
+      "key": "revenue_28Q1",
+      "old": 13083.8987,
+      "new": 9058.0837,
+      "pct": -30.76923088681511
+    },
+    {
+      "key": "cogs_28Q1",
+      "old": 2485.9408,
+      "new": 1721.0359,
+      "pct": -30.769232316393047
+    },
+    {
+      "key": "gross_profit_28Q1",
+      "old": 10597.958,
+      "new": 7337.0478,
+      "pct": -30.76923120472831
+    },
+    {
+      "key": "rd_expense_28Q1",
+      "old": 457.9365,
+      "new": 317.0329,
+      "pct": -30.76924420743925
+    },
+    {
+      "key": "sga_expense_28Q1",
+      "old": 196.2585,
+      "new": 135.8713,
+      "pct": -30.769215091320888
+    },
+    {
+      "key": "total_opex_28Q1",
+      "old": 556.0657,
+      "new": 384.9686,
+      "pct": -30.7692238525052
+    },
+    {
+      "key": "operating_income_28Q1",
+      "old": 10041.8923,
+      "new": 6952.0793,
+      "pct": -30.769230616026416
+    },
+    {
+      "key": "ebitda_28Q1",
+      "old": 10079.8923,
+      "new": 6990.0793,
+      "pct": -30.653234261243046
+    },
+    {
+      "key": "pretax_income_28Q1",
+      "old": 10057.8923,
+      "new": 6968.0793,
+      "pct": -30.72028321480435
+    },
+    {
+      "key": "non_gaap_ni_28Q1",
+      "old": 8549.2084,
+      "new": 5922.8674,
+      "pct": -30.720282827589042
+    },
+    {
+      "key": "gaap_ni_28Q1",
+      "old": 8508.2084,
+      "new": 5881.8674,
+      "pct": -30.868320056664334
+    },
+    {
+      "key": "non_gaap_eps_28Q1",
+      "old": 54.1089,
+      "new": 37.4865,
+      "pct": -30.720269678370837
+    },
+    {
+      "key": "npm_pct_28Q1",
+      "old": 65.3,
+      "new": 65.4,
+      "pct": 0.15313935681471444
+    },
+    {
+      "key": "net_income_28Q1",
+      "old": 8549.2084,
+      "new": 5922.8674,
+      "pct": -30.720282827589042
+    },
+    {
+      "key": "eps_28Q1",
+      "old": 54.1089,
+      "new": 37.4865,
+      "pct": -30.720269678370837
+    },
+    {
+      "key": "selling_expense_28Q1",
+      "old": 196.2585,
+      "new": 135.8713,
+      "pct": -30.769215091320888
+    },
+    {
+      "key": "revenue_FY26",
+      "old": 19213,
+      "new": 17441,
+      "pct": -9.222921979909437
+    },
+    {
+      "key": "gpm_pct_FY26",
+      "old": 62.0,
+      "new": 67.8,
+      "pct": 9.354838709677415
+    },
+    {
+      "key": "npm_pct_FY26",
+      "old": 52.8,
+      "new": 50.4,
+      "pct": -4.545454545454543
+    },
+    {
+      "key": "net_income_FY26",
+      "old": 10140,
+      "new": 8782,
+      "pct": -13.39250493096647
+    },
+    {
+      "key": "eps_FY26",
+      "old": 64.73,
+      "new": 55.88,
+      "pct": -13.672176734126374
+    },
+    {
+      "key": "revenue_FY27",
+      "old": 44164,
+      "new": 36006,
+      "pct": -18.47205869033602
+    },
+    {
+      "key": "gpm_pct_FY27",
+      "old": 80.0,
+      "new": 81.8,
+      "pct": 2.2499999999999964
+    },
+    {
+      "key": "npm_pct_FY27",
+      "old": 70.7,
+      "new": 66.2,
+      "pct": -6.364922206506364
+    },
+    {
+      "key": "net_income_FY27",
+      "old": 31206,
+      "new": 23829,
+      "pct": -23.63968467602384
+    },
+    {
+      "key": "eps_FY27",
+      "old": 200.47,
+      "new": 150.82,
+      "pct": -24.766798024642096
+    },
+    {
+      "key": "revenue_FY28",
+      "old": 45595,
+      "new": 36224,
+      "pct": -20.552692181160214
+    },
+    {
+      "key": "gpm_pct_FY28",
+      "old": 78.0,
+      "new": 80.6,
+      "pct": 3.3333333333333264
+    },
+    {
+      "key": "npm_pct_FY28",
+      "old": 69.5,
+      "new": 65.0,
+      "pct": -6.474820143884892
+    },
+    {
+      "key": "net_income_FY28",
+      "old": 31680,
+      "new": 23544,
+      "pct": -25.681818181818183
+    },
+    {
+      "key": "eps_FY28",
+      "old": 202.69,
+      "new": 149.01,
+      "pct": -26.483792984360356
+    }
+  ],
+  "drift_gate_pct": 5.0,
+  "n_changed": 115,
+  "n_material": 108,
+  "miss_guide": [
+    "26Q4 Revenue: model $6.2B < 指引 $7.8B (−20.5%)"
+  ],
+  "proposed_values": {
+    "bits_eb_26Q4": 29.9132,
+    "asp_26Q4": 0.2059,
+    "revenue_26Q4": 6158.25,
+    "gm_guide_26Q4": 31.5,
+    "cogs_26Q4": 1231.65,
+    "gross_profit_26Q4": 4926.6,
+    "gpm_pct_26Q4": 80.0,
+    "rd_expense_26Q4": 255.5674,
+    "sga_expense_26Q4": 123.165,
+    "total_opex_26Q4": 338.7038,
+    "operating_income_26Q4": 4587.8963,
+    "opm_pct_26Q4": 74.5,
+    "ebitda_26Q4": 4625.8963,
+    "pretax_income_26Q4": 4603.8963,
+    "tax_rate_26Q4": 14.0,
+    "non_gaap_ni_26Q4": 3959.3508,
+    "gaap_ni_26Q4": 3918.3508,
+    "diluted_shares_26Q4": 158,
+    "non_gaap_eps_26Q4": 25.0592,
+    "dps_26Q4": 0,
+    "npm_pct_26Q4": 64.3,
+    "net_income_26Q4": 3959.3508,
+    "eps_26Q4": 25.0592,
+    "selling_expense_26Q4": 123.165,
+    "bits_eb_27Q1": 35.8958,
+    "asp_27Q1": 0.2368,
+    "revenue_27Q1": 8498.385,
+    "cogs_27Q1": 1529.7093,
+    "gross_profit_27Q1": 6968.6757,
+    "gpm_pct_27Q1": 82.0,
+    "rd_expense_27Q1": 297.4435,
+    "sga_expense_27Q1": 127.4758,
+    "total_opex_27Q1": 365.4306,
+    "operating_income_27Q1": 6603.2451,
+    "opm_pct_27Q1": 77.7,
+    "ebitda_27Q1": 6641.2451,
+    "pretax_income_27Q1": 6619.2451,
+    "tax_rate_27Q1": 15.0,
+    "non_gaap_ni_27Q1": 5626.3584,
+    "gaap_ni_27Q1": 5585.3584,
+    "diluted_shares_27Q1": 158,
+    "non_gaap_eps_27Q1": 35.6099,
+    "dps_27Q1": 0,
+    "npm_pct_27Q1": 66.2,
+    "net_income_27Q1": 5626.3584,
+    "eps_27Q1": 35.6099,
+    "selling_expense_27Q1": 127.4758,
+    "bits_eb_27Q2": 43.075,
+    "asp_27Q2": 0.252,
+    "revenue_27Q2": 10855.3278,
+    "cogs_27Q2": 1953.959,
+    "gross_profit_27Q2": 8901.3688,
+    "gpm_pct_27Q2": 82.0,
+    "rd_expense_27Q2": 293.0939,
+    "sga_expense_27Q2": 135.6916,
+    "total_opex_27Q2": 369.0811,
+    "operating_income_27Q2": 8532.2877,
+    "opm_pct_27Q2": 78.6,
+    "ebitda_27Q2": 8570.2877,
+    "pretax_income_27Q2": 8548.2877,
+    "tax_rate_27Q2": 15.0,
+    "non_gaap_ni_27Q2": 7266.0445,
+    "gaap_ni_27Q2": 7225.0445,
+    "diluted_shares_27Q2": 158,
+    "non_gaap_eps_27Q2": 45.9876,
+    "dps_27Q2": 0,
+    "npm_pct_27Q2": 66.9,
+    "net_income_27Q2": 7266.0445,
+    "eps_27Q2": 45.9876,
+    "selling_expense_27Q2": 135.6916,
+    "bits_eb_27Q3": 34.46,
+    "asp_27Q3": 0.2394,
+    "revenue_27Q3": 8250.0492,
+    "cogs_27Q3": 1526.2591,
+    "gross_profit_27Q3": 6723.7901,
+    "gpm_pct_27Q3": 81.5,
+    "rd_expense_27Q3": 288.7517,
+    "sga_expense_27Q3": 123.7507,
+    "total_opex_27Q3": 367.1272,
+    "operating_income_27Q3": 6356.6629,
+    "opm_pct_27Q3": 77.05,
+    "ebitda_27Q3": 6394.6629,
+    "pretax_income_27Q3": 6372.6629,
+    "tax_rate_27Q3": 15.0,
+    "non_gaap_ni_27Q3": 5416.7634,
+    "gaap_ni_27Q3": 5375.7634,
+    "diluted_shares_27Q3": 158,
+    "non_gaap_eps_27Q3": 34.2833,
+    "dps_27Q3": 0,
+    "npm_pct_27Q3": 65.7,
+    "net_income_27Q3": 5416.7634,
+    "eps_27Q3": 34.2833,
+    "selling_expense_27Q3": 123.7507,
+    "bits_eb_27Q4": 36.183,
+    "asp_27Q4": 0.2322,
+    "revenue_27Q4": 8402.6751,
+    "cogs_27Q4": 1554.4949,
+    "gross_profit_27Q4": 6848.1802,
+    "gpm_pct_27Q4": 81.5,
+    "rd_expense_27Q4": 294.0936,
+    "sga_expense_27Q4": 126.0401,
+    "total_opex_27Q4": 369.7177,
+    "operating_income_27Q4": 6478.4625,
+    "opm_pct_27Q4": 77.1,
+    "ebitda_27Q4": 6516.4625,
+    "pretax_income_27Q4": 6494.4625,
+    "tax_rate_27Q4": 15.0,
+    "non_gaap_ni_27Q4": 5520.2931,
+    "gaap_ni_27Q4": 5479.2931,
+    "diluted_shares_27Q4": 158,
+    "non_gaap_eps_27Q4": 34.9386,
+    "dps_27Q4": 0,
+    "npm_pct_27Q4": 65.7,
+    "net_income_27Q4": 5520.2931,
+    "eps_27Q4": 34.9386,
+    "selling_expense_27Q4": 126.0401,
+    "bits_eb_28Q1": 39.8013,
+    "asp_28Q1": 0.2276,
+    "revenue_28Q1": 9058.0837,
+    "cogs_28Q1": 1721.0359,
+    "gross_profit_28Q1": 7337.0478,
+    "gpm_pct_28Q1": 81.0,
+    "rd_expense_28Q1": 317.0329,
+    "sga_expense_28Q1": 135.8713,
+    "total_opex_28Q1": 384.9686,
+    "operating_income_28Q1": 6952.0793,
+    "opm_pct_28Q1": 76.75,
+    "ebitda_28Q1": 6990.0793,
+    "pretax_income_28Q1": 6968.0793,
+    "tax_rate_28Q1": 15.0,
+    "non_gaap_ni_28Q1": 5922.8674,
+    "gaap_ni_28Q1": 5881.8674,
+    "diluted_shares_28Q1": 158,
+    "non_gaap_eps_28Q1": 37.4865,
+    "dps_28Q1": 0,
+    "npm_pct_28Q1": 65.4,
+    "net_income_28Q1": 5922.8674,
+    "eps_28Q1": 37.4865,
+    "selling_expense_28Q1": 135.8713,
+    "bits_eb_28Q2": 44.7367,
+    "asp_28Q2": 0.2208,
+    "revenue_28Q2": 9875.8475,
+    "cogs_28Q2": 1925.7903,
+    "gross_profit_28Q2": 7950.0573,
+    "gpm_pct_28Q2": 80.5,
+    "rd_expense_28Q2": 320.965,
+    "sga_expense_28Q2": 148.1377,
+    "total_opex_28Q2": 395.0339,
+    "operating_income_28Q2": 7555.0234,
+    "opm_pct_28Q2": 76.5,
+    "ebitda_28Q2": 7593.0234,
+    "pretax_income_28Q2": 7571.0234,
+    "tax_rate_28Q2": 15.0,
+    "non_gaap_ni_28Q2": 6435.3699,
+    "gaap_ni_28Q2": 6394.3699,
+    "diluted_shares_28Q2": 158,
+    "non_gaap_eps_28Q2": 40.7302,
+    "dps_28Q2": 0,
+    "npm_pct_28Q2": 65.2,
+    "net_income_28Q2": 6435.3699,
+    "eps_28Q2": 40.7302,
+    "selling_expense_28Q2": 148.1377,
+    "bits_eb_28Q3": 40.263,
+    "asp_28Q3": 0.2097,
+    "revenue_28Q3": 8443.8496,
+    "cogs_28Q3": 1646.5507,
+    "gross_profit_28Q3": 6797.299,
+    "gpm_pct_28Q3": 80.5,
+    "rd_expense_28Q3": 337.754,
+    "sga_expense_28Q3": 147.7674,
+    "total_opex_28Q3": 392.639,
+    "operating_income_28Q3": 6404.6599,
+    "opm_pct_28Q3": 75.85,
+    "ebitda_28Q3": 6442.6599,
+    "pretax_income_28Q3": 6420.6599,
+    "tax_rate_28Q3": 15.0,
+    "non_gaap_ni_28Q3": 5457.561,
+    "gaap_ni_28Q3": 5416.561,
+    "diluted_shares_28Q3": 158,
+    "non_gaap_eps_28Q3": 34.5415,
+    "dps_28Q3": 0,
+    "npm_pct_28Q3": 64.6,
+    "net_income_28Q3": 5457.561,
+    "eps_28Q3": 34.5415,
+    "selling_expense_28Q3": 147.7674,
+    "bits_eb_28Q4": 43.484,
+    "asp_28Q4": 0.2034,
+    "revenue_28Q4": 8845.7769,
+    "cogs_28Q4": 1724.9265,
+    "gross_profit_28Q4": 7120.8504,
+    "gpm_pct_28Q4": 80.5,
+    "rd_expense_28Q4": 353.8311,
+    "sga_expense_28Q4": 154.8011,
+    "total_opex_28Q4": 398.06,
+    "operating_income_28Q4": 6722.7904,
+    "opm_pct_28Q4": 76.0,
+    "ebitda_28Q4": 6760.7904,
+    "pretax_income_28Q4": 6738.7904,
+    "tax_rate_28Q4": 15.0,
+    "non_gaap_ni_28Q4": 5727.9719,
+    "gaap_ni_28Q4": 5686.9719,
+    "diluted_shares_28Q4": 158,
+    "non_gaap_eps_28Q4": 36.253,
+    "dps_28Q4": 0,
+    "npm_pct_28Q4": 64.8,
+    "net_income_28Q4": 5727.9719,
+    "eps_28Q4": 36.253,
+    "selling_expense_28Q4": 154.8011,
+    "bits_eb_29Q1": 47.2889,
+    "asp_29Q1": 0.1994,
+    "revenue_29Q1": 9427.3867,
+    "cogs_29Q1": 1885.4773,
+    "gross_profit_29Q1": 7541.9094,
+    "gpm_pct_29Q1": 80.0,
+    "rd_expense_29Q1": 353.527,
+    "sga_expense_29Q1": 164.9793,
+    "total_opex_29Q1": 424.2324,
+    "operating_income_29Q1": 7117.677,
+    "opm_pct_29Q1": 75.5,
+    "ebitda_29Q1": 7155.677,
+    "pretax_income_29Q1": 7133.677,
+    "tax_rate_29Q1": 15.0,
+    "non_gaap_ni_29Q1": 6063.6254,
+    "gaap_ni_29Q1": 6022.6254,
+    "diluted_shares_29Q1": 158,
+    "non_gaap_eps_29Q1": 38.3774,
+    "dps_29Q1": 0,
+    "npm_pct_29Q1": 64.3,
+    "net_income_29Q1": 6063.6254,
+    "eps_29Q1": 38.3774,
+    "selling_expense_29Q1": 164.9793,
+    "bits_eb_29Q2": 52.0178,
+    "asp_29Q2": 0.1934,
+    "revenue_29Q2": 10059.0216,
+    "cogs_29Q2": 2011.8043,
+    "gross_profit_29Q2": 8047.2173,
+    "gpm_pct_29Q2": 80.0,
+    "rd_expense_29Q2": 377.2133,
+    "sga_expense_29Q2": 176.0329,
+    "total_opex_29Q2": 427.5084,
+    "operating_income_29Q2": 7619.7089,
+    "opm_pct_29Q2": 75.75,
+    "ebitda_29Q2": 7657.7089,
+    "pretax_income_29Q2": 7635.7089,
+    "tax_rate_29Q2": 15.0,
+    "non_gaap_ni_29Q2": 6490.3525,
+    "gaap_ni_29Q2": 6449.3525,
+    "diluted_shares_29Q2": 158,
+    "non_gaap_eps_29Q2": 41.0782,
+    "dps_29Q2": 0,
+    "npm_pct_29Q2": 64.5,
+    "net_income_29Q2": 6490.3525,
+    "eps_29Q2": 41.0782,
+    "selling_expense_29Q2": 176.0329,
+    "bits_eb_29Q3": 46.816,
+    "asp_29Q3": 0.1837,
+    "revenue_29Q3": 8600.4635,
+    "cogs_29Q3": 1720.0927,
+    "gross_profit_29Q3": 6880.3708,
+    "gpm_pct_29Q3": 80.0,
+    "rd_expense_29Q3": 326.8176,
+    "sga_expense_29Q3": 172.0093,
+    "total_opex_29Q3": 430.0232,
+    "operating_income_29Q3": 6450.3476,
+    "opm_pct_29Q3": 75.0,
+    "ebitda_29Q3": 6488.3476,
+    "pretax_income_29Q3": 6466.3476,
+    "tax_rate_29Q3": 15.0,
+    "non_gaap_ni_29Q3": 5496.3955,
+    "gaap_ni_29Q3": 5455.3955,
+    "diluted_shares_29Q3": 158,
+    "non_gaap_eps_29Q3": 34.7873,
+    "dps_29Q3": 0,
+    "npm_pct_29Q3": 63.9,
+    "net_income_29Q3": 5496.3955,
+    "eps_29Q3": 34.7873,
+    "selling_expense_29Q3": 172.0093,
+    "bits_eb_29Q4": 49.1568,
+    "asp_29Q4": 0.1782,
+    "revenue_29Q4": 8759.5721,
+    "cogs_29Q4": 1751.9144,
+    "gross_profit_29Q4": 7007.6576,
+    "gpm_pct_29Q4": 80.0,
+    "rd_expense_29Q4": 350.3829,
+    "sga_expense_29Q4": 175.1914,
+    "total_opex_29Q4": 437.9786,
+    "operating_income_29Q4": 6569.679,
+    "opm_pct_29Q4": 75.0,
+    "ebitda_29Q4": 6607.679,
+    "pretax_income_29Q4": 6585.679,
+    "tax_rate_29Q4": 15.0,
+    "non_gaap_ni_29Q4": 5597.8272,
+    "gaap_ni_29Q4": 5556.8272,
+    "diluted_shares_29Q4": 158,
+    "non_gaap_eps_29Q4": 35.4293,
+    "dps_29Q4": 0,
+    "npm_pct_29Q4": 63.9,
+    "net_income_29Q4": 5597.8272,
+    "eps_29Q4": 35.4293,
+    "selling_expense_29Q4": 175.1914,
+    "bits_eb_FY24": 91.744,
+    "asp_FY24": 0.0788,
+    "revenue_FY24": 7226,
+    "cogs_FY24": 4774,
+    "gross_profit_FY24": 2452,
+    "gpm_pct_FY24": 33.93,
+    "rd_expense_FY24": 1135,
+    "sga_expense_FY24": 461,
+    "total_opex_FY24": 1481.5523,
+    "operating_income_FY24": 970.4477,
+    "opm_pct_FY24": 13.43,
+    "ebitda_FY24": 1164.9477,
+    "pretax_income_FY24": 872.4477,
+    "tax_rate_FY24": 23.38,
+    "non_gaap_ni_FY24": 668.4477,
+    "gaap_ni_FY24": 462,
+    "diluted_shares_FY24": 144,
+    "non_gaap_eps_FY24": 4.642,
+    "dps_FY24": 0,
+    "npm_pct_FY24": 9.3,
+    "net_income_FY24": 668.4477,
+    "eps_FY24": 4.642,
+    "selling_expense_FY24": 461,
+    "bits_eb_FY25": 114.3009,
+    "asp_FY25": 0.0781,
+    "cogs_FY25": 5805,
+    "gross_profit_FY25": 3124,
+    "rd_expense_FY25": 1213,
+    "sga_expense_FY25": 619,
+    "total_opex_FY25": 1644.4853,
+    "operating_income_FY25": 1479.5147,
+    "opm_pct_FY25": 16.57,
+    "ebitda_FY25": 1640.5147,
+    "pretax_income_FY25": 1344.5147,
+    "tax_rate_FY25": 14.73,
+    "non_gaap_ni_FY25": 1146.5147,
+    "gaap_ni_FY25": -1041,
+    "diluted_shares_FY25": 148.75,
+    "non_gaap_eps_FY25": 7.7077,
+    "dps_FY25": 0,
+    "npm_pct_FY25": 12.8,
+    "net_income_FY25": 1146.5147,
+    "selling_expense_FY25": 619,
+    "bits_eb_FY26": 134.8955,
+    "asp_FY26": 0.2332,
+    "revenue_FY26": 17441,
+    "cogs_FY26": 5999.3183,
+    "gross_profit_FY26": 25462.6445,
+    "gpm_pct_FY26": 67.8,
+    "rd_expense_FY26": 1183.1047,
+    "sga_expense_FY26": 547.3324,
+    "total_opex_FY26": 1521.2155,
+    "operating_income_FY26": 23941.4291,
+    "opm_pct_FY26": 76.1,
+    "ebitda_FY26": 24093.4291,
+    "pretax_income_FY26": 23986.4291,
+    "tax_rate_FY26": 14.42,
+    "non_gaap_ni_FY26": 20526.7537,
+    "gaap_ni_FY26": 20343.7537,
+    "diluted_shares_FY26": 157.75,
+    "non_gaap_eps_FY26": 130.1221,
+    "dps_FY26": 0,
+    "npm_pct_FY26": 50.4,
+    "net_income_FY26": 8782,
+    "eps_FY26": 55.88,
+    "selling_expense_FY26": 547.3324,
+    "bits_eb_FY27": 155.1809,
+    "asp_FY27": 0.2293,
+    "revenue_FY27": 36006,
+    "cogs_FY27": 6727.5802,
+    "gross_profit_FY27": 28859.0753,
+    "gpm_pct_FY27": 81.8,
+    "rd_expense_FY27": 1220.8433,
+    "sga_expense_FY27": 533.7998,
+    "total_opex_FY27": 1516.8473,
+    "operating_income_FY27": 27342.228,
+    "opm_pct_FY27": 76.83,
+    "ebitda_FY27": 27494.228,
+    "pretax_income_FY27": 27406.228,
+    "tax_rate_FY27": 15.0,
+    "non_gaap_ni_FY27": 23295.2938,
+    "gaap_ni_FY27": 23131.2938,
+    "diluted_shares_FY27": 158,
+    "non_gaap_eps_FY27": 147.4386,
+    "dps_FY27": 0,
+    "npm_pct_FY27": 66.2,
+    "net_income_FY27": 23829,
+    "eps_FY27": 150.82,
+    "selling_expense_FY27": 533.7998,
+    "bits_eb_FY28": 183.0536,
+    "asp_FY28": 0.2009,
+    "revenue_FY28": 36224,
+    "cogs_FY28": 7268.7588,
+    "gross_profit_FY28": 29507.276,
+    "gpm_pct_FY28": 80.6,
+    "rd_expense_FY28": 1422.3254,
+    "sga_expense_FY28": 643.5806,
+    "total_opex_FY28": 1642.4398,
+    "operating_income_FY28": 27864.8362,
+    "opm_pct_FY28": 75.77,
+    "ebitda_FY28": 28016.8362,
+    "pretax_income_FY28": 27928.8362,
+    "tax_rate_FY28": 15.0,
+    "non_gaap_ni_FY28": 23739.5108,
+    "gaap_ni_FY28": 23575.5108,
+    "diluted_shares_FY28": 158,
+    "non_gaap_eps_FY28": 150.2501,
+    "dps_FY28": 0,
+    "npm_pct_FY28": 65.0,
+    "net_income_FY28": 23544,
+    "eps_FY28": 149.01,
+    "selling_expense_FY28": 643.5806,
+    "bits_eb_FY29": 195.2794,
+    "asp_FY29": 0.1887,
+    "revenue_FY29": 36846.4438,
+    "cogs_FY29": 7369.2888,
+    "gross_profit_FY29": 29477.1551,
+    "gpm_pct_FY29": 80.0,
+    "rd_expense_FY29": 1407.9408,
+    "sga_expense_FY29": 688.2129,
+    "total_opex_FY29": 1719.7426,
+    "operating_income_FY29": 27757.4125,
+    "opm_pct_FY29": 75.33,
+    "ebitda_FY29": 27909.4125,
+    "pretax_income_FY29": 27821.4125,
+    "tax_rate_FY29": 15.0,
+    "non_gaap_ni_FY29": 23648.2006,
+    "gaap_ni_FY29": 23484.2006,
+    "diluted_shares_FY29": 158,
+    "non_gaap_eps_FY29": 149.6722,
+    "dps_FY29": 0,
+    "npm_pct_FY29": 64.2,
+    "net_income_FY29": 23648.2006,
+    "eps_FY29": 149.6722,
+    "selling_expense_FY29": 688.2129
+  }
+}

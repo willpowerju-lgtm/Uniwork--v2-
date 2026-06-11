@@ -1,0 +1,70 @@
+{
+  "company_announcement": [
+    {
+      "date": "2026-05-20",
+      "headline": "NVIDIA FY27Q1业绩: 营收$81.6B(+85%YoY), 非GAAP EPS $1.87, Q2指引$91B±2%",
+      "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000051/q1fy27pr.htm",
+      "source": "SEC EDGAR"
+    },
+    {
+      "date": "2026-06-01",
+      "headline": "NVIDIA Computex 2026: Rubin平台发布, 6款新芯片, 推理token成本降10x vs Blackwell",
+      "url": "https://nvidianews.nvidia.com/news/rubin-platform-ai-supercomputer",
+      "source": "NVIDIA Newsroom"
+    }
+  ],
+  "regulatory": [
+    {
+      "date": "2026-06-01",
+      "headline": "美商务部新规: 中国实体全球范围适用出口许可,影响NVIDIA高端AI芯片(Blackwell)向中国海外子公司销售",
+      "url": "https://www.gurufocus.com/news/8893112/nvidia-faces-stricter-export-restrictions-affecting-ai-chip-sales-nvda",
+      "source": "GuruFocus"
+    },
+    {
+      "date": "2026-06-04",
+      "headline": "参议员Warren邀请Jensen Huang 6/11国会听证AI出口管制+中国业务; Huang 6/8拒绝出席",
+      "url": "https://www.cnbc.com/2026/06/08/nvidia-jensen-huang-senate-elizabeth-warren-ai-china-export-controls.html",
+      "source": "CNBC"
+    },
+    {
+      "date": "2025-04-09",
+      "headline": "美国政府要求NVIDIA H20芯片出口中国须许可证, FY26Q1产生$4.5B H20库存+采购义务减值",
+      "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581025000115/q1fy26pr.htm",
+      "source": "SEC EDGAR"
+    }
+  ],
+  "competitive": [
+    {
+      "date": "2026-04-01",
+      "headline": "Google Cloud Next 2026发布TPU 8t/8i: 训练+推理性能4x提升 vs 上代, 加剧与NVIDIA竞争",
+      "url": "https://finance.yahoo.com/sectors/technology/article/google-announces-2-ai-chips-as-competition-with-nvidia-heats-up-120011883.html",
+      "source": "Yahoo Finance"
+    },
+    {
+      "date": "2026-04-25",
+      "headline": "定制AI芯片(Google TPU+AWS Trainium+Broadcom ASIC)集体构成比AMD更大的结构性威胁; NVDA ~40%营收来自同时在自研芯片的4大超大规模客户",
+      "url": "https://www.fool.com/investing/2026/04/25/meet-biggest-threat-nvidia-ai-chips-its-not-amd/",
+      "source": "Motley Fool"
+    },
+    {
+      "date": "2025-11-25",
+      "headline": "Citi: Meta正谈判2027年使用Google TPU; 定制XPU份额扩大但NVIDIA GPU仍占90%→预计81% by CY28",
+      "url": "internal:Citi_30387538",
+      "source": "Citi Research"
+    }
+  ],
+  "analyst": [
+    {
+      "date": "2026-05-22",
+      "headline": "分析师下调NVDA: 估值风险+持仓拥挤, 尽管基本面仍强",
+      "url": "https://www.marketbeat.com/instant-alerts/nvidia-nasdaqnvda-shares-down-19-after-analyst-downgrade-2026-05-22/",
+      "source": "MarketBeat"
+    },
+    {
+      "date": "2026-05-21",
+      "headline": "Citi维持Buy, TP $300: 正面CPU评论, Blackwell+Rubin平台强化AI基础设施领导地位",
+      "url": "internal:Citi_30432569",
+      "source": "Citi Research"
+    }
+  ]
+}

@@ -1,0 +1,661 @@
+{
+  "meta": {
+    "brand": "Uninodue",
+    "sector": "United States | Semiconductors | NAND Flash 存储",
+    "company": "Sandisk",
+    "company_full": "Sandisk Corporation",
+    "ticker": "SNDK",
+    "research_type": "Equity Research",
+    "date": "June 10, 2026",
+    "note_type": "FULL REPORT (v2 重构估值章)",
+    "title": "Sandisk (SNDK): BUY | NAND 超级周期 × NBM 模式重塑——盈利结构性重估尚未被充分定价",
+    "footer_note": "Please see analyst certifications and important disclosure information at the end of this report.",
+    "firm_note": "* Uninodue Research"
+  },
+  "snapshot": [
+    {
+      "label": "RATING",
+      "value": "BUY"
+    },
+    {
+      "label": "PRICE",
+      "value": "${REG:metadata.stock_data.price}^"
+    },
+    {
+      "label": "PRICE TARGET",
+      "value": "$1,900（OA target，手动上调）"
+    },
+    {
+      "label": "FWD P/E",
+      "value": "{REG:metadata.stock_data.pe_forward}x"
+    },
+    {
+      "label": "52W HIGH-LOW",
+      "value": "{REG:metadata.stock_data.52w_range}"
+    },
+    {
+      "label": "MARKET CAP",
+      "value": "$244B"
+    },
+    {
+      "label": "TICKER",
+      "value": "SNDK"
+    }
+  ],
+  "snapshot_note": "^前一交易日收盘价（yfinance, 2026-06-10）。PT 为 18 家卖方一致目标价均值（区间 $1,000–3,250；Bernstein $1,700 / MS $1,750 / Citi $2,025）。",
+  "analysts": [
+    {
+      "name": "Uninodue Research",
+      "role": "Equity Analyst",
+      "contact": "research@uninodue.com"
+    }
+  ],
+  "modules": [
+    {
+      "type": "lead",
+      "text": "我们首次覆盖 Sandisk (SNDK) 给予买入评级。核心论点一句话：这不是一轮普通的 NAND 涨价周期，而是「AI 数据中心需求结构性爆发」叠加「NBM 长协模式重塑商业范式」共同驱动的盈利结构性重估，而当前 forward P/E 仅 {REG:metadata.stock_data.pe_forward}x 尚未为后者定价。三大支柱：(1) AI 推理/KVCache 驱动数据中心 NAND 需求，CY26 数据中心 exabyte 增长预期已从 mid-20% 连续上调至 mid-70%+，数据中心首次超越移动成为 NAND 最大市场；(2) 公司已签 5 份 NBM 多年期供给协议（RPO $42B、金融担保 $11B、FY27 超 1/3 比特锁定），把一次性商品销售改造成可见度高的类订阅收入，从根本上削弱周期性；(3) BiCS8 CBA 节点 + Stargate QLC 平台构建企业级 SSD 差异化壁垒，叠加全行业供给纪律与公司零债务、49.7% FCF 利润率。FQ3'26 已全面兑现：营收 US${REG:revenue_26Q3}m、毛利率 {REG:gpm_pct_26Q3}、经营利润率 {REG:opm_pct_26Q3}、EPS {REG:non_gaap_eps_26Q3}，均创历史纪录。"
+    },
+    {
+      "type": "body_section",
+      "lead": "核心预期差。",
+      "text": "市场仍按纯周期商品股给 SNDK 定价——「NAND 涨价见顶即杀估值」是 forward P/E 压在 {REG:metadata.stock_data.pe_forward}x、盘后一度因 NBM「约束定价灵活性」下跌 5–6% 的根源。这忽略了 NBM 改变收入性质这一结构性变化：5 份合约在签约时即锁定价格与产能（RPO $42B、金融担保 $11B、含第三方金融机构托管的预付款约 $4B 与强制分手费机制），FY27 已有超 1/3 比特、目标 >50% 比特进入长协。周期峰值盈利的一部分被转化为多年可见的合约收入，公司应享有高于纯商品 NAND 同业的估值中枢。这是本报告的单一核心，后续每一章都回扣它。"
+    },
+    {
+      "type": "body_section",
+      "lead": "为什么是现在。",
+      "text": "供给侧，全行业处于供给纪律期、无新增洁净室空间（Micron 新加坡新 FAB 要到 CY28 才产出），Kioxia/Samsung/SK Hynix 均维持审慎 CapEx；需求侧，NVIDIA GB200/GB300 参考架构对企业 SSD 的认证 + KVCache 在 2027 年估计 +75–100 EB 的增量需求尚未计入多数分析师模型。供需剪刀差推动 FQ3'26 ASP 环比约 +140%（Bernstein 估计 $0.096→$0.229/bit），Citi 预测 CY26 整体 NAND ASP +186%、eSSD +265%。"
+    },
+    {
+      "type": "page_break"
+    },
+    {
+      "type": "heading",
+      "text": "1. 公司基本情况"
+    },
+    {
+      "type": "body_section",
+      "lead": "从 WDC 分拆独立、依托 Kioxia JV 掌握全球约 1/3 NAND 产能。",
+      "text": "Sandisk Corporation（NASDAQ: SNDK）是全球领先的 NAND 闪存存储解决方案公司，2025 年 2 月从 Western Digital 分拆独立上市。公司通过与 Kioxia 的合资企业（合作已延至 2034 年）运营位于日本的 4 个 NAND FAB（四日市 ×3 + 北上 ×1），产出全球约 1/3 的 NAND 比特，并因 JV 共享获得比行业领先约 30% 的 CapEx 效率。收入按终端市场分为 Edge（PC/移动/嵌入式）、Datacenter（企业 SSD）、Consumer（MicroSD/USB/便携 SSD）三块；其中数据中心是当前增长引擎，FQ3'26 环比 +233%。消费者端 SanDisk 品牌知名度 73%，且消费业务利用 >99% 晶圆产出。公司零债务、现金 $37.35B、并持有 $6B 无到期日回购授权。"
+    },
+    {
+      "type": "table",
+      "title": "1.1 终端市场结构（FQ3'26，按收入占比）",
+      "rows": [
+        [
+          "终端市场",
+          "占比",
+          "环比",
+          "关键产品"
+        ],
+        [
+          "Edge（PC/移动/嵌入式）",
+          "62%",
+          "+118%",
+          "客户端 SSD、嵌入式存储"
+        ],
+        [
+          "Datacenter",
+          "25%",
+          "+233%",
+          "企业 SSD（TLC Gen5 + Stargate QLC）"
+        ],
+        [
+          "Consumer",
+          "13%",
+          "-10%",
+          "MicroSD、USB、便携 SSD"
+        ]
+      ]
+    },
+    {
+      "type": "paragraphs",
+      "items": [
+        "来源：ER/EC FQ3'26（2026-04-30）。占比与环比为披露口径。"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "2. 产业链与价值链定位"
+    },
+    {
+      "type": "body_section",
+      "lead": "NAND 全产业链参与者：晶圆制造 → 裸片/控制器 → 成品 SSD/存储 → 直销+渠道。",
+      "text": "公司横跨 NAND 价值链全环节，差异化主要来自两点：上游通过 Kioxia JV 锁定低成本产能（JV 服务费 $11.65B 覆盖 2026–2029，共同 CapEx 效率领先约 30%），中游自研控制器 ASIC（Stargate 平台）与 BiCS8 CBA 节点设计领先。关键外部依赖与合作构成其护城河的一部分：与 NVIDIA 的 GB200/GB300 认证与 KVCache 需求合作、与 SK Hynix 的 HBF 联合 OCP 标准化、向 Nanya 投资约 $1B 换取长期 DRAM 优先供应权（用于企业 SSD 控制器）。"
+    },
+    {
+      "type": "table",
+      "title": "2.1 价值链环节与 SNDK 角色",
+      "rows": [
+        [
+          "环节",
+          "主要参与者",
+          "SNDK 角色"
+        ],
+        [
+          "晶圆制造",
+          "Kioxia(JV)、Samsung、SK Hynix、Micron、YMTC",
+          "经 Kioxia JV 运营日本 4 FAB，产出全球约 1/3 NAND 比特"
+        ],
+        [
+          "裸片/控制器设计",
+          "Sandisk、Samsung、Micron、Silicon Motion、Phison",
+          "自研控制器 ASIC（Stargate），BiCS8 CBA 节点设计领先"
+        ],
+        [
+          "企业 SSD 成品",
+          "Sandisk、Samsung、Micron、SK Hynix/Solidigm、Kioxia",
+          "Gen5 TLC + Stargate QLC（128–512TB），5 家超大规模认证中"
+        ],
+        [
+          "消费级存储",
+          "Sandisk、Samsung、Kingston、Lexar",
+          "SanDisk 品牌（73% 知名度），MicroSD/USB/便携 SSD"
+        ],
+        [
+          "DRAM 供应",
+          "Samsung、SK Hynix、Micron、Nanya",
+          "投资约 $1B 换取 Nanya 长期 DRAM 优先供应权"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "3. 竞争格局与竞争者"
+    },
+    {
+      "type": "body_section",
+      "lead": "份额第四但企业 SSD 快速提升；NBM 为行业首创、先发优势明显。",
+      "text": "按独立后口径（不含 Kioxia 共享产出），SNDK NAND 份额约 12%，位列 Samsung、SK Hynix/Solidigm、Kioxia 之后。但竞争焦点正从「份额」转向「结构」：(1) 行业整体供给纪律，无新增洁净室空间，MU 新加坡 FAB 2028 才产出；(2) BiCS8 CBA 晶圆键合使 2Tb QLC 裸片（行业最大）成为可能，同等 CapEx 下性能/功耗更优；(3) NBM 框架为行业首创，Samsung/SK Hynix 尚未跟进，先发优势明显；(4) YMTC 受出口管制限制，无法进入高端企业 SSD。综合看，SNDK 的竞争优势不在规模而在「成本节点 + 商业模式 + 客户认证」三重差异化。"
+    },
+    {
+      "type": "table",
+      "title": "3.1 NAND 市场份额（估算）",
+      "rows": [
+        [
+          "公司",
+          "份额",
+          "备注"
+        ],
+        [
+          "Samsung Electronics",
+          "~28%",
+          "整体第一，垂直整合（DRAM+NAND+SSD）"
+        ],
+        [
+          "SK Hynix / Solidigm",
+          "~22%",
+          "收购 Intel NAND 后第二，HBF 合作伙伴"
+        ],
+        [
+          "Kioxia",
+          "~16%",
+          "SNDK JV 伙伴，合计约 28% 产能"
+        ],
+        [
+          "Sandisk (SNDK)",
+          "~12%",
+          "独立后口径，企业 SSD 快速提升"
+        ],
+        [
+          "Micron (MU)",
+          "~11%",
+          "新加坡新 FAB（CY28 产出），NAND+DRAM 双线"
+        ],
+        [
+          "YMTC（长江存储）",
+          "~8-10%",
+          "受 Entity List 限制，集中消费级"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "4. 技术路线与 Competitive Edge"
+    },
+    {
+      "type": "body_section",
+      "lead": "护城河四支柱：BiCS8 CBA 成本节点 + Stargate QLC 差异化 + NBM 模式 + HBF 超周期期权。",
+      "text": "当前主力节点 BiCS8 CBA（162 层级、CMOS 晶圆键合）FQ3'26 占比 >50%，2Tb QLC 裸片为行业最大；Stargate 平台（128/256/512TB NVMe 企业 SSD）FQ4'26 开始创收，已 2 家超大规模认证、3 家计划 CY26；SN670 Gen5 TLC 已通过 NVIDIA GB200/GB300 认证并在多家超大规模出货，是数据中心 +233% 的主驱动。更长维度，HBF（高带宽闪存）裸片已在生产、系统级产品 2027 年面市，匹配 HBM 带宽但提供 8–16x 容量，与 SK Hynix 联合 OCP 标准化——这是当前财务模型尚未计入的超周期期权。成本侧，低十位数% 的年化比特成本下降已锁定于所有 NBM 合约，FAB 启动成本 FQ3'26 已降至零。"
+    },
+    {
+      "type": "table",
+      "title": "4.1 技术路线图",
+      "rows": [
+        [
+          "节点/产品",
+          "状态",
+          "规格",
+          "时间线"
+        ],
+        [
+          "BiCS8 CBA",
+          "量产主力",
+          "162L、2Tb QLC 裸片（行业最大）",
+          "FQ3'26 占比 >50%"
+        ],
+        [
+          "Stargate 平台",
+          "客户认证中",
+          "BiCS8 QLC，128/256/512TB NVMe",
+          "FQ4'26 开始创收"
+        ],
+        [
+          "SN670 Gen5 TLC",
+          "量产",
+          "PCIe Gen5，NVIDIA GB200/GB300 认证",
+          "已多家超大规模出货"
+        ],
+        [
+          "HBF 高带宽闪存",
+          "裸片生产中",
+          "匹配 HBM 带宽、8–16x 容量",
+          "系统级 2027 年"
+        ],
+        [
+          "3D Matrix Memory",
+          "研发",
+          "DRAM 性能/4x 容量/半价（IMEC）",
+          "未公布（期权）"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "5. 核心财务表与未来预测（与 Excel 模型对齐）"
+    },
+    {
+      "type": "body_section",
+      "lead": "利润桥：规模效应 + ASP 上行主导，而非一次性成本削减。",
+      "text": "从 FQ2'26 到 FQ3'26，营收由 US${REG:revenue_26Q2}m 升至 US${REG:revenue_26Q3}m，毛利率由 {REG:gpm_pct_26Q2} 跃升至 {REG:gpm_pct_26Q3}、经营利润率达 {REG:opm_pct_26Q3}，Non-GAAP EPS 由 {REG:non_gaap_eps_26Q2} 升至 {REG:non_gaap_eps_26Q3}。驱动来自 ASP 环比约 +140% 与营业杠杆（OpEx 仅占收入 7.5%，远低于 Analyst Day 15% 目标），且 FAB 启动成本已归零。我们预测 FY27 营收 US${REG:revenue_FY27}m、Non-GAAP EPS {REG:eps_FY27}，盈利改善由 ASP 与产能利用率驱动、并由 NBM 锁定其可见度。下表所有数字直接绑定 OA model（registry 占位符），改 Excel 假设重建 registry 后本表自动刷新。"
+    },
+    {
+      "type": "table",
+      "title": "5.1 季度核心利润表（US$m，Non-GAAP；E=预测，与 IS Flash 对齐）",
+      "rows": [
+        [
+          "指标",
+          "26Q1",
+          "26Q2",
+          "26Q3",
+          "26Q4E",
+          "27Q1E",
+          "27Q2E",
+          "27Q3E",
+          "27Q4E"
+        ],
+        [
+          "营收",
+          "{REG:revenue_26Q1}",
+          "{REG:revenue_26Q2}",
+          "{REG:revenue_26Q3}",
+          "{REG:revenue_26Q4}",
+          "{REG:revenue_27Q1}",
+          "{REG:revenue_27Q2}",
+          "{REG:revenue_27Q3}",
+          "{REG:revenue_27Q4}"
+        ],
+        [
+          "营业成本 COGS",
+          "{REG:cogs_26Q1}",
+          "{REG:cogs_26Q2}",
+          "{REG:cogs_26Q3}",
+          "{REG:cogs_26Q4}",
+          "{REG:cogs_27Q1}",
+          "{REG:cogs_27Q2}",
+          "{REG:cogs_27Q3}",
+          "{REG:cogs_27Q4}"
+        ],
+        [
+          "毛利",
+          "{REG:gross_profit_26Q1}",
+          "{REG:gross_profit_26Q2}",
+          "{REG:gross_profit_26Q3}",
+          "{REG:gross_profit_26Q4}",
+          "{REG:gross_profit_27Q1}",
+          "{REG:gross_profit_27Q2}",
+          "{REG:gross_profit_27Q3}",
+          "{REG:gross_profit_27Q4}"
+        ],
+        [
+          "毛利率",
+          "{REG:gpm_pct_26Q1}",
+          "{REG:gpm_pct_26Q2}",
+          "{REG:gpm_pct_26Q3}",
+          "{REG:gpm_pct_26Q4}",
+          "{REG:gpm_pct_27Q1}",
+          "{REG:gpm_pct_27Q2}",
+          "{REG:gpm_pct_27Q3}",
+          "{REG:gpm_pct_27Q4}"
+        ],
+        [
+          "研发 R&D",
+          "{REG:rd_expense_26Q1}",
+          "{REG:rd_expense_26Q2}",
+          "{REG:rd_expense_26Q3}",
+          "{REG:rd_expense_26Q4}",
+          "{REG:rd_expense_27Q1}",
+          "{REG:rd_expense_27Q2}",
+          "{REG:rd_expense_27Q3}",
+          "{REG:rd_expense_27Q4}"
+        ],
+        [
+          "销售 S&M",
+          "{REG:selling_expense_26Q1}",
+          "{REG:selling_expense_26Q2}",
+          "{REG:selling_expense_26Q3}",
+          "{REG:selling_expense_26Q4}",
+          "{REG:selling_expense_27Q1}",
+          "{REG:selling_expense_27Q2}",
+          "{REG:selling_expense_27Q3}",
+          "{REG:selling_expense_27Q4}"
+        ],
+        [
+          "总营业费用",
+          "{REG:total_opex_26Q1}",
+          "{REG:total_opex_26Q2}",
+          "{REG:total_opex_26Q3}",
+          "{REG:total_opex_26Q4}",
+          "{REG:total_opex_27Q1}",
+          "{REG:total_opex_27Q2}",
+          "{REG:total_opex_27Q3}",
+          "{REG:total_opex_27Q4}"
+        ],
+        [
+          "经营利润",
+          "{REG:operating_income_26Q1}",
+          "{REG:operating_income_26Q2}",
+          "{REG:operating_income_26Q3}",
+          "{REG:operating_income_26Q4}",
+          "{REG:operating_income_27Q1}",
+          "{REG:operating_income_27Q2}",
+          "{REG:operating_income_27Q3}",
+          "{REG:operating_income_27Q4}"
+        ],
+        [
+          "经营利润率",
+          "{REG:opm_pct_26Q1}",
+          "{REG:opm_pct_26Q2}",
+          "{REG:opm_pct_26Q3}",
+          "{REG:opm_pct_26Q4}",
+          "{REG:opm_pct_27Q1}",
+          "{REG:opm_pct_27Q2}",
+          "{REG:opm_pct_27Q3}",
+          "{REG:opm_pct_27Q4}"
+        ],
+        [
+          "EBITDA",
+          "{REG:ebitda_26Q1}",
+          "{REG:ebitda_26Q2}",
+          "{REG:ebitda_26Q3}",
+          "{REG:ebitda_26Q4}",
+          "{REG:ebitda_27Q1}",
+          "{REG:ebitda_27Q2}",
+          "{REG:ebitda_27Q3}",
+          "{REG:ebitda_27Q4}"
+        ],
+        [
+          "Non-GAAP 净利",
+          "{REG:non_gaap_ni_26Q1}",
+          "{REG:non_gaap_ni_26Q2}",
+          "{REG:non_gaap_ni_26Q3}",
+          "{REG:non_gaap_ni_26Q4}",
+          "{REG:non_gaap_ni_27Q1}",
+          "{REG:non_gaap_ni_27Q2}",
+          "{REG:non_gaap_ni_27Q3}",
+          "{REG:non_gaap_ni_27Q4}"
+        ],
+        [
+          "净利率",
+          "{REG:npm_pct_26Q1}",
+          "{REG:npm_pct_26Q2}",
+          "{REG:npm_pct_26Q3}",
+          "{REG:npm_pct_26Q4}",
+          "{REG:npm_pct_27Q1}",
+          "{REG:npm_pct_27Q2}",
+          "{REG:npm_pct_27Q3}",
+          "{REG:npm_pct_27Q4}"
+        ],
+        [
+          "Non-GAAP EPS",
+          "{REG:non_gaap_eps_26Q1}",
+          "{REG:non_gaap_eps_26Q2}",
+          "{REG:non_gaap_eps_26Q3}",
+          "{REG:non_gaap_eps_26Q4}",
+          "{REG:non_gaap_eps_27Q1}",
+          "{REG:non_gaap_eps_27Q2}",
+          "{REG:non_gaap_eps_27Q3}",
+          "{REG:non_gaap_eps_27Q4}"
+        ],
+        [
+          "稀释股本 (mn)",
+          "{REG:diluted_shares_26Q1}",
+          "{REG:diluted_shares_26Q2}",
+          "{REG:diluted_shares_26Q3}",
+          "{REG:diluted_shares_26Q4}",
+          "{REG:diluted_shares_27Q1}",
+          "{REG:diluted_shares_27Q2}",
+          "{REG:diluted_shares_27Q3}",
+          "{REG:diluted_shares_27Q4}"
+        ]
+      ]
+    },
+    {
+      "type": "table",
+      "title": "5.2 年度预测（US$m，Non-GAAP；FY 截止 6 月，与模型 FY 列对齐）",
+      "rows": [
+        [
+          "指标",
+          "FY25",
+          "FY26E",
+          "FY27E",
+          "FY28E"
+        ],
+        [
+          "营收",
+          "{REG:revenue_FY25}",
+          "{REG:revenue_FY26}",
+          "{REG:revenue_FY27}",
+          "{REG:revenue_FY28}"
+        ],
+        [
+          "毛利率",
+          "{REG:gpm_pct_FY25}",
+          "{REG:gpm_pct_FY26}",
+          "{REG:gpm_pct_FY27}",
+          "{REG:gpm_pct_FY28}"
+        ],
+        [
+          "Non-GAAP 净利",
+          "—",
+          "{REG:net_income_FY26}",
+          "{REG:net_income_FY27}",
+          "{REG:net_income_FY28}"
+        ],
+        [
+          "净利率",
+          "—",
+          "{REG:npm_pct_FY26}",
+          "{REG:npm_pct_FY27}",
+          "{REG:npm_pct_FY28}"
+        ],
+        [
+          "Non-GAAP EPS",
+          "{REG:eps_FY25}",
+          "{REG:eps_FY26}",
+          "{REG:eps_FY27}",
+          "{REG:eps_FY28}"
+        ]
+      ]
+    },
+    {
+      "type": "paragraphs",
+      "items": [
+        "口径：Non-GAAP（排除 SBC/一次性项目）。来源：OA model [Sandisk_Corp_SNDK_O_Model_Change.xlsx]。所有数值经 registry 占位符绑定到模型单元格，FY25 部分净利项模型未给（标 —）。"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "图 5.3：季度营收与同比增速（OA model，含预测 E）",
+      "unit": "US$ billions / % YoY",
+      "source": "OA model",
+      "image": "charts/SNDK_chart_revenue.png"
+    },
+    {
+      "type": "chart",
+      "title": "图 5.4：季度 Non-GAAP 净利润（OA model，含预测 E）",
+      "unit": "US$ billions",
+      "source": "OA model",
+      "image": "charts/SNDK_chart_ni.png"
+    },
+    {
+      "type": "chart",
+      "title": "图 5.5：关键经营指标——出货量(EB) × ASP($/bit)（OA model，含预测 E）",
+      "unit": "EB / $ per bit",
+      "source": "OA model",
+      "image": "charts/SNDK_chart_ops.png"
+    },
+    {
+      "type": "heading",
+      "text": "6. 关键指引与催化剂"
+    },
+    {
+      "type": "body_section",
+      "lead": "FQ4'26 指引全面碾压 Street，FY26/27 比特锁定持续抬升能见度。",
+      "text": "管理层 FQ4'26 指引：营收 $77.5–82.5亿、Non-GAAP GPM 79–81%、EPS $30–33（约 1.58 亿股），Stargate QLC 开始创收。FY26 全年：比特增长与市场需求同步（中高双位数）、BiCS8 占比 FY26 末 >50%、CapEx 中低双位数% 收入、数据中心 EB 增长 CY26 mid-70%+、NBM 覆盖 FY27 超 1/3 比特并目标 >50%。"
+    },
+    {
+      "type": "table",
+      "title": "6.1 催化剂日历",
+      "rows": [
+        [
+          "日期",
+          "事件",
+          "状态"
+        ],
+        [
+          "2026-07 (est)",
+          "FQ4'26 业绩（指引 $77.5–82.5B rev, EPS $30–33）",
+          "upcoming"
+        ],
+        [
+          "2026-Q3",
+          "Stargate QLC 首批企业 SSD 创收确认",
+          "upcoming"
+        ],
+        [
+          "2026-Q3~Q4",
+          "更多 NBM 协议签署（目标 >50% 比特锁定）",
+          "upcoming"
+        ],
+        [
+          "2026-H2",
+          "HBF NAND Die 样品交付 + $6B 回购开始执行",
+          "upcoming"
+        ],
+        [
+          "2027",
+          "NVIDIA KVCache 需求开始贡献（+75–100 EB 增量）",
+          "pending"
+        ],
+        [
+          "2028-H2",
+          "Micron 新加坡 NAND FAB 初始产出（供给端监控）",
+          "pending"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "7. 风险与反向逻辑"
+    },
+    {
+      "type": "body_section",
+      "lead": "反向逻辑的单一最大变量：NAND 现货价格反转早于预期。",
+      "text": "若做多观点错，最可能的触发是 ASP 在历史高位（环比 +140% 为史上罕见）叠加需求降温或扩产而提前反转，先压制未签约部分的盈利；同时 NBM 长期固定定价成分可能约束现货极端上行的参与（盘后 -5~6% 已部分反映）。其他风险：(1) AI 资本开支大幅削减（概率 10–15%，影响高，监控超大规模 CapEx 指引与 NVIDIA 数据中心收入）；(2) 行业供给意外大幅扩张（概率 <10%，监控 greenfield FAB 公告与行业 CapEx/Revenue >25%）；(3) 中国制裁升级致失去市场准入（概率 15–20%，中国占收入约 15–20%）；(4) Kioxia JV 破裂（概率 <5%，JV 已延至 2034 年）。此外 Bernstein 指出公司信息披露质量偏弱（messy disclosures），增加建模与跟踪难度——下季需重点盯 ASP 环比与已签 NBM RPO 的确认节奏。"
+    },
+    {
+      "type": "heading",
+      "text": "8. 估值"
+    },
+    {
+      "type": "body_section",
+      "lead": "周期上行 + 模式重估，估值未充分定价。",
+      "text": "当前股价 ${REG:metadata.stock_data.price} 对应 forward P/E {REG:metadata.stock_data.pe_forward}x、trailing P/E {REG:metadata.stock_data.pe_trailing}x、EV/Revenue {REG:metadata.stock_data.ev_rev}x。卖方一致目标价均值 $1,843（区间 $1,000–3,250），Bernstein $1,700（11x 四年通周期 EPS）、MS $1,750（28x 通周期 EPS $62.50）、Citi $2,025。我们给予买入：核心在于 NBM 把周期峰值盈利的一部分转为多年可见合约收入，应享高于纯商品 NAND 同业的估值中枢；HBF/3D Matrix 提供尚未定价的超周期期权。Peers：MU / SK Hynix / Kioxia / WDC / Samsung。"
+    },
+    {
+      "type": "table",
+      "title": "8.1 估值多重（CapIQ consensus）",
+      "rows": [
+        [
+          "Multiple",
+          "FY26E",
+          "FY27E",
+          "FY28E"
+        ],
+        [
+          "P/E",
+          "25.1x",
+          "9.0x",
+          "8.7x"
+        ],
+        [
+          "TEV/Revenue",
+          "12.2x",
+          "5.5x",
+          "5.2x"
+        ],
+        [
+          "TEV/EBITDA",
+          "19.8x",
+          "7.0x",
+          "7.1x"
+        ]
+      ]
+    },
+    {
+      "type": "paragraphs",
+      "items": [
+        "来源：S&P Capital IQ consensus（T2）。基于股价 ${REG:metadata.stock_data.price}、EV $240.3B。"
+      ]
+    },
+    {
+      "type": "page_break"
+    },
+    {
+      "type": "heading",
+      "text": "Company Description"
+    },
+    {
+      "type": "subheading",
+      "text": "Sandisk Corporation"
+    },
+    {
+      "type": "paragraphs",
+      "items": [
+        "Sandisk Corporation（NASDAQ: SNDK）2025 年 2 月从 Western Digital 分拆，设计与销售 NAND Flash 存储产品，覆盖企业级 SSD、客户端 SSD 与消费存储，通过与 Kioxia 的日本合资企业运营 NAND 晶圆制造。BiCS8 CBA 技术、Stargate QLC 平台与 NBM 长协模式为其核心差异化。"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Analyst Certification"
+    },
+    {
+      "type": "paragraphs",
+      "items": [
+        "I certify that all views expressed in this research report accurately reflect my personal views about the subject securities and companies, and that no part of my compensation was, is, or will be directly or indirectly related to the specific recommendations or views expressed herein."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Explanation of Uninodue Ratings"
+    },
+    {
+      "type": "paragraphs",
+      "items": [
+        "Buy - 预期未来 12 个月总回报 +15% 或以上。",
+        "Hold - 预期未来 12 个月总回报介于 +15% 与 -10% 之间。",
+        "Underperform - 预期未来 12 个月总回报 -10% 或以下。"
+      ]
+    }
+  ]
+}

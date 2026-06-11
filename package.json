@@ -1,0 +1,16 @@
+{
+  "name": "uniwork-v2",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Uniwork V2 — 选中即问的 AI 投研工作台，接 Claude Code 完整 harness（本地订阅 OAuth）",
+  "scripts": {
+    "start": "node server.mjs",
+    "seed": "node seed-vault.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.3.0",
+    "chokidar": "^4.0.0",
+    "ws": "^8.18.0"
+  }
+}

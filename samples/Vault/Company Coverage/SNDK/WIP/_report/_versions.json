@@ -1,0 +1,270 @@
+{
+  "ticker": "SNDK",
+  "current": "v4.1",
+  "versions": [
+    {
+      "version": "v1",
+      "parent": null,
+      "ts": "2026-06-10T17:41",
+      "note": "首次从代码构建：8章+全财务表(含未来预测)+3图",
+      "from_code": true,
+      "contract_sha": "94705e86",
+      "docx": "output/SNDK/_report/versions/v1/SNDK_report_v1.docx"
+    },
+    {
+      "version": "v1.1",
+      "parent": "v1",
+      "ts": "2026-06-10T17:42",
+      "note": "手动上调 PT 至 $1,900",
+      "from_code": false,
+      "contract_sha": "f99500ea",
+      "docx": "output/SNDK/_report/versions/v1.1/SNDK_report_v1.1.docx"
+    },
+    {
+      "version": "v2",
+      "parent": "v1.1",
+      "ts": "2026-06-10T17:42",
+      "note": "重构估值章 + 升大版",
+      "from_code": false,
+      "contract_sha": "0a08f1c0",
+      "docx": "output/SNDK/_report/versions/v2/SNDK_report_v2.docx"
+    },
+    {
+      "version": "v2.1",
+      "parent": "v2",
+      "ts": "2026-06-10T17:53",
+      "note": "新增 md/xlsx/pptx 多格式导出",
+      "from_code": false,
+      "contract_sha": "7084f54b",
+      "docx": "output/SNDK/_report/versions/v2.1/SNDK_report_v2.1.docx"
+    },
+    {
+      "version": "v2.2",
+      "parent": "v2.1",
+      "ts": "2026-06-10T18:02",
+      "note": "codex 修复后回归 + 多格式",
+      "from_code": false,
+      "contract_sha": "51f4f29b",
+      "docx": "output/SNDK/_report/versions/v2.2/SNDK_report_v2.2.docx"
+    },
+    {
+      "version": "v2.3",
+      "parent": "v2.2",
+      "ts": "2026-06-10T18:14",
+      "note": "drift 基线",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "51f4f29b",
+      "registry_sha": "2793868b",
+      "docx": "output/SNDK/_report/versions/v2.3/SNDK_report_v2.3.docx"
+    },
+    {
+      "version": "v2.4",
+      "parent": "v2.3",
+      "ts": "2026-06-10T18:14",
+      "note": "手动润色:保留批注,接受旧数",
+      "from_code": false,
+      "manual_docx": true,
+      "contract_sha": "51f4f29b",
+      "registry_sha": "d4762793",
+      "docx": "output/SNDK/_report/versions/v2.4/SNDK_report_v2.4.docx"
+    },
+    {
+      "version": "v2.5",
+      "parent": "v2.4",
+      "ts": "2026-06-10T18:53",
+      "note": "ingest 测试基线",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "51f4f29b",
+      "registry_sha": "d4762793",
+      "docx": "output/SNDK/_report/versions/v2.5/SNDK_report_v2.5.docx"
+    },
+    {
+      "version": "v2.6",
+      "parent": "v2.5",
+      "ts": "2026-06-10T18:58",
+      "note": "ingest baseline",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "51f4f29b",
+      "registry_sha": "d4762793",
+      "docx": "output/SNDK/_report/versions/v2.6/SNDK_report_v2.6.docx"
+    },
+    {
+      "version": "v2.7",
+      "parent": "v2.6",
+      "ts": "2026-06-10T18:58",
+      "note": "回灌:手改导语+override gpm",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "94a7a15d",
+      "registry_sha": "d4762793",
+      "docx": "output/SNDK/_report/versions/v2.7/SNDK_report_v2.7.docx"
+    },
+    {
+      "version": "v2.8",
+      "parent": "v2.7",
+      "ts": "2026-06-10T19:07",
+      "note": "简化后基线",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "94a7a15d",
+      "registry_sha": "d4762793",
+      "docx": "output/SNDK/_report/versions/v2.8/SNDK_report_v2.8.docx"
+    },
+    {
+      "version": "v2.9",
+      "parent": "v2.8",
+      "ts": "2026-06-10T19:07",
+      "note": "在上一版基础上改了 note_type",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "92a27378",
+      "registry_sha": "d4762793",
+      "docx": "output/SNDK/_report/versions/v2.9/SNDK_report_v2.9.docx"
+    },
+    {
+      "version": "v3",
+      "parent": "v2.9",
+      "ts": "2026-06-10T19:07",
+      "note": "确认 override registry 级联",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "92a27378",
+      "registry_sha": "0fce02d1",
+      "docx": "output/SNDK/_report/versions/v3/SNDK_report_v3.docx"
+    },
+    {
+      "version": "v3.1",
+      "parent": "v3",
+      "ts": "2026-06-10T19:32",
+      "note": "干净 head",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "13257f64",
+      "registry_sha": "2793868b",
+      "docx": "output/SNDK/_report/versions/v3.1/SNDK_report_v3.1.docx"
+    },
+    {
+      "version": "v3.2",
+      "parent": "v3.1",
+      "ts": "2026-06-10T20:06",
+      "note": "按 wiki 2026-06-10 ground truth 正向同步:补 2027-H1 HBF 控制器/系统级催化剂",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "800fdcae",
+      "registry_sha": "2793868b",
+      "docx": "output/SNDK/_report/versions/v3.2/SNDK_report_v3.2.docx"
+    },
+    {
+      "version": "v3.3",
+      "parent": "v3.2",
+      "ts": "2026-06-10T20:19",
+      "note": "接入 wiki 快照机制（forward diff 基线）",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "800fdcae",
+      "registry_sha": "2793868b",
+      "wiki_sha": "825a98ac",
+      "docx": "output/SNDK/_report/versions/v3.3/SNDK_report_v3.3.docx"
+    },
+    {
+      "version": "v3.4",
+      "parent": "v3.3",
+      "ts": "2026-06-10T20:52",
+      "note": "model v1 级联:下调前瞻 ASP/价格 → revenue/GP/NI/EPS 全链重算",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "800fdcae",
+      "registry_sha": "698f5e9d",
+      "wiki_sha": "825a98ac",
+      "docx": "output/SNDK/_report/versions/v3.4/SNDK_report_v3.4.docx"
+    },
+    {
+      "version": "v3.5",
+      "parent": "v3.4",
+      "ts": "2026-06-10T20:59",
+      "note": "FY 年度表(5.2)+§5 改挂 model:前瞻年 FY26/27/28 = 季度合计,随 model v1 级联",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "800fdcae",
+      "registry_sha": "2c7120a3",
+      "wiki_sha": "825a98ac",
+      "docx": "output/SNDK/_report/versions/v3.5/SNDK_report_v3.5.docx"
+    },
+    {
+      "version": "v3.6",
+      "parent": "v3.5",
+      "ts": "2026-06-10T21:16",
+      "note": "wiki 回灌 model v1（§5.2/5.3/5.4/5.6/6.1/6.2/6.4 对齐+待verify标注）；报告数字同 v3.5，thesis/PT/catalyst 未改",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "800fdcae",
+      "registry_sha": "2c7120a3",
+      "wiki_sha": "04b3f9fd",
+      "docx": "output/SNDK/_report/versions/v3.6/SNDK_report_v3.6.docx"
+    },
+    {
+      "version": "v3.7",
+      "parent": "v3.6",
+      "ts": "2026-06-10T21:53",
+      "note": "demo: 输出收敛为 docx-only(去 md/xlsx/pptx)",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "800fdcae",
+      "registry_sha": "2c7120a3",
+      "wiki_sha": "04b3f9fd",
+      "docx": "output/SNDK/_report/versions/v3.7/SNDK_report_v3.7.docx"
+    },
+    {
+      "version": "v3.8",
+      "parent": "v3.7",
+      "ts": "2026-06-12T22:22",
+      "note": "级联测试: 26Q4价格QoQ +30%→-10%",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "a2469d90",
+      "registry_sha": "1adf6206",
+      "wiki_sha": "825a98ac",
+      "docx": "output/SNDK/_report/versions/v3.8/SNDK_report_v3.8.docx"
+    },
+    {
+      "version": "v3.9",
+      "parent": "v3.8",
+      "ts": "2026-06-12T22:49",
+      "note": "E2E cascade test",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "a2469d90",
+      "registry_sha": "1adf6206",
+      "wiki_sha": "825a98ac",
+      "docx": "output/SNDK/_report/versions/v3.9/SNDK_report_v3.9.docx"
+    },
+    {
+      "version": "v4",
+      "parent": "v3.9",
+      "ts": "2026-06-12T22:55",
+      "note": "Final E2E cascade",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "a2469d90",
+      "registry_sha": "1adf6206",
+      "wiki_sha": "825a98ac",
+      "docx": "output/SNDK/_report/versions/v4/SNDK_report_v4.docx"
+    },
+    {
+      "version": "v4.1",
+      "parent": "v4",
+      "ts": "2026-06-13T01:23",
+      "note": "级联同步: 26Q4 QoQ +30%→−10%，重渲报告正文至 −10% 场景（修复 v4 快照/正文不一致）",
+      "from_code": false,
+      "manual_docx": false,
+      "contract_sha": "a2469d90",
+      "registry_sha": "1adf6206",
+      "wiki_sha": "825a98ac",
+      "docx": "output/SNDK/_report/versions/v4.1/SNDK_report_v4.1.docx"
+    }
+  ],
+  "wiki_source": "~/Desktop/finance cowork/output/SNDK/SNDK.md"
+}

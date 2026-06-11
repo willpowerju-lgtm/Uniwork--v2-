@@ -1,0 +1,14 @@
+node_modules/
+config.local.js
+*.log
+.DS_Store
+
+# Test fixtures / prototypes (not shipped)
+_sndk_test.xlsx
+_model_test.xlsx
+_univer_stress.xlsx
+model-lazy-test.html
+univer-proto.html
+lucky-proto.html
+pptx-test.html
+sample_*
