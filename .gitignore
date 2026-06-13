@@ -2,6 +2,7 @@ node_modules/
 config.local.js
 *.log
 .DS_Store
+.claude/worktrees/
 
 # Test fixtures / prototypes (not shipped)
 WIP files/

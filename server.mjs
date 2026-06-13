@@ -369,6 +369,34 @@ async function handleMessage(conn, raw) {
       await fsp.writeFile(abs, Buffer.from(m.b64 || '', 'base64'));
       send(ws, { ev: 'saved', path: m.path }); break;
     }
+    case 'sheet_patch': {                                // 无损单元格回写：只改被编辑的单元格所在 worksheet XML，其余 zip part 逐字节原样保留
+      const abs = resolveInVault(m.path); if (!abs) return send(ws, { ev: 'error', message: 'bad path' });
+      const edits = Array.isArray(m.edits) ? m.edits : [];
+      if (!edits.length) { send(ws, { ev: 'saved', path: m.path, applied: 0 }); break; }
+      const tmpJson = path.join(os.tmpdir(), `sheetpatch_${Date.now()}_${Math.random().toString(36).slice(2)}.json`);
+      try {
+        await fsp.writeFile(tmpJson, JSON.stringify({ edits }), 'utf8');
+        markSelfWrite(abs, '<binary>');                  // 抑制 watcher 自写回声（二进制：has(abs)+text===null）
+        try { await fsp.chmod(abs, 0o644); } catch {}
+        const scriptPath = path.join(WEBROOT, 'sheet_patch.py');
+        const out = await new Promise((res) => execFile('python3', [scriptPath, abs, tmpJson],
+          { env: { ...process.env, PYTHONIOENCODING: 'utf-8', PYTHONUTF8: '1' }, maxBuffer: 16 * 1024 * 1024 },
+          (err, stdout, stderr) => res({ err, stdout: String(stdout || ''), stderr: String(stderr || '') })));
+        let result = null;
+        try { result = JSON.parse(out.stdout.trim().split('\n').pop() || '{}'); } catch {}
+        if (!result || !result.ok) {
+          const msg = (result && result.errors && result.errors.join('；')) || out.stderr || (out.err && out.err.message) || '未知错误';
+          send(ws, { ev: 'sheet_patch_err', path: m.path, message: msg });
+        } else {
+          send(ws, { ev: 'saved', path: m.path, applied: result.applied });
+        }
+      } catch (e) {
+        send(ws, { ev: 'sheet_patch_err', path: m.path, message: String(e.message || e) });
+      } finally {
+        fsp.unlink(tmpJson).catch(() => {});
+      }
+      break;
+    }
     case 'discard_file': {                               // 拒绝二进制改动：丢弃工作区改动，恢复到 HEAD（上一个已接受/基线版本）→ 通知前端重载
       const abs = resolveInVault(m.path); if (!abs) return send(ws, { ev: 'error', message: 'bad path' });
       const isMd = m.path.toLowerCase().endsWith('.md');

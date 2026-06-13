@@ -1565,40 +1565,71 @@ const app = createApp({
     const sheetReview = reactive({ active:false, path:'', cells:[] });   // AI 改了 xlsx → 列出变更单元格供接受/拒绝
     const sheetLazy = reactive({ active:false, sheets:0, cur:'' });      // 大模型逐表懒加载（只读，不回写）状态
     let sheetSuppressSave=false, sheetSaveT=null;
+    let sheetBaseline=null, baselineT=null, sheetSelfSaveSuppress=0;   // 保真回写：基线快照 / 抓基线防抖 / 自存回声抑制窗
     function sheetValueMap(){          // 当前 Luckysheet 所有非空单元格值 → {sheetName:{"r,c":值}}
       const map={};
       try{ window.luckysheet.getAllSheets().forEach(sh=>{ const o=map[sh.name]={}; (sh.data||[]).forEach((row,r)=>(row||[]).forEach((c,col)=>{ if(c&&(c.v!=null||c.m!=null)) o[r+','+col]=String(c.v ?? c.m); })); }); }catch(e){}
       return map;
     }
-    function sheetToB64(){             // 当前表 → xlsx base64（有公式写公式、否则写值，尽量保真）
-      const wb=XLSX.utils.book_new();
-      window.luckysheet.getAllSheets().forEach(sh=>{
-        const ws={}; let maxR=0,maxC=0, any=false;
-        (sh.data||[]).forEach((row,r)=>(row||[]).forEach((c,col)=>{
-          if(!c||(c.v==null&&c.m==null&&!c.f)) return;
-          const addr=XLSX.utils.encode_cell({r,c:col}); const num=typeof c.v==='number';
-          if(c.f) ws[addr]={t:num?'n':'s', f:String(c.f).replace(/^=/,''), v:c.v};
-          else ws[addr]={t:num?'n':'s', v:(c.v ?? c.m)};
-          any=true; if(r>maxR)maxR=r; if(col>maxC)maxC=col;
-        }));
-        ws['!ref']=XLSX.utils.encode_range({s:{r:0,c:0},e:{r:Math.max(maxR,0),c:Math.max(maxC,0)}});
-        XLSX.utils.book_append_sheet(wb, ws, (sh.name||'Sheet').slice(0,31));
-      });
-      return XLSX.write(wb,{type:'base64',bookType:'xlsx'});
+    // 全单元格快照（公式优先，否则值）→ {sheetName:{"r,c": "<类型前缀><原值>"}}；用于和基线 diff 出「用户实际改了哪些格」
+    function sheetCellMap(){
+      const map={};
+      try{
+        window.luckysheet.getAllSheets().forEach(sh=>{
+          const o=map[sh.name]={};
+          const put=(r,col,c)=>{ if(!c) return;
+            if(c.f!=null && c.f!=='') o[r+','+col]='f'+String(c.f);
+            else if(c.v!=null && c.v!=='') o[r+','+col]=(typeof c.v==='number'?'n':'s')+String(c.v);
+          };
+          if(sh.data && sh.data.length){ sh.data.forEach((row,r)=>(row||[]).forEach((c,col)=>put(r,col,c))); }
+          else if(sh.celldata){ sh.celldata.forEach(cd=>put(cd.r,cd.c,cd.v)); }   // 稀疏兜底
+        });
+      }catch(e){}
+      return map;
     }
-    function saveSheetToVault(){       // 用户改单元格 → 落真实 .xlsx + 记历史（复核中/程序重载时跳过）
+    // 基线 vs 现状 → 仅变更单元格的 edits（喂给服务端无损 patch；公式/数字/字符串/清空四类）
+    function sheetDelta(base, cur){
+      const edits=[]; if(!base) return edits;
+      new Set([...Object.keys(base),...Object.keys(cur)]).forEach(sn=>{
+        const b=base[sn]||{}, cm=cur[sn]||{};
+        new Set([...Object.keys(b),...Object.keys(cm)]).forEach(k=>{
+          if((b[k]||'')===(cm[k]||'')) return;        // 未变（含公式 cached value 重算但公式串没变 → 不算改动）
+          const [r,col]=k.split(',').map(Number); const tok=cm[k];
+          if(tok==null){ edits.push({sheet:sn,r,c:col,t:'empty'}); return; }   // 删除
+          const typ=tok[0], val=tok.slice(1);          // token = 1 字符类型前缀(f/n/s) + 原值
+          if(typ==='f') edits.push({sheet:sn,r,c:col,t:'f',f:val});
+          else if(typ==='n') edits.push({sheet:sn,r,c:col,t:'n',v:Number(val)});
+          else edits.push({sheet:sn,r,c:col,t:'s',v:val});
+        });
+      });
+      return edits;
+    }
+    function captureSheetBaseline(){ try{ sheetBaseline=sheetCellMap(); }catch(e){ sheetBaseline=null; } }
+    // 用户改单元格 → 无损回写：只把「改了的格」(delta) 发给服务端 sheet_patch.py，逐字节保留其余 zip part
+    // （不再用 SheetJS 从内存重建整表——那会丢样式/数字格式/合并/批注/图表/customXml/calcChain，把 1.7MB 模型改成 5.96MB 空壳）
+    function saveSheetToVault(){
       const f=active.value; if(!f||f.kind!=='sheet'||!f.path||sheetSuppressSave||sheetReview.active) return;
-      if(f.lazy) return;               // 大模型逐表懒加载=只读：此刻 getAllSheets 只有已加载表，回写会把未加载表清空→毁文件，绝不回写
+      if(f.lazy) return;               // 懒加载大模型：仅部分表在内存，且只读不可编辑 → 不回写
+      if(!sheetBaseline) return;       // 基线未就绪（渲染中）→ 跳过，避免把整表误判为改动
       clearTimeout(sheetSaveT);
-      sheetSaveT=setTimeout(()=>{ try{ wsSend({op:'save_file_b64', path:f.path, b64:sheetToB64()}); commitManualSoon(f.path); }catch(e){} }, 900);
+      sheetSaveT=setTimeout(()=>{ try{
+        const cur=sheetCellMap(); const edits=sheetDelta(sheetBaseline, cur);
+        if(!edits.length) return;
+        sheetSelfSaveSuppress=Date.now()+4000;        // 自己存盘的 file_changed 回声不当成 AI/外部改动
+        wsSend({op:'sheet_patch', path:f.path, edits});
+        sheetBaseline=cur;                            // 乐观推进基线；patch 失败时 sheet_patch_err → 静默重载纠正
+        commitManualSoon(f.path);
+      }catch(e){} }, 900);
     }
     const SHEET_HOOKS=(f)=>({ rangeSelect(idx,ranges){ const r=Array.isArray(ranges)?ranges[ranges.length-1]:ranges; if(!r){bubble.show=false;return;} const multi=(r.row[1]>r.row[0])||(r.column[1]>r.column[0]); if(!multi){bubble.show=false;return;} setTimeout(positionSheetBubble,10); }, updated(){ saveFilesSoon(); saveSheetToVault(); }, sheetActivate(index){ if(f&&f.lazy){ lazyActivate(f, parseInt(index,10)); } } });
     function createSheet(f, sheets){   // 统一的 Luckysheet 创建（loadSheet / 重载共用）
       window.luckysheet.create({ container:'luckysheet-host', data:sheets, title:f.name, lang:'zh',
         showinfobar:false, showtoolbar:!f.lazy, showsheetbar:true, sheetFormulaBar:true, enableAddRow:false, enableAddBackTop:false, showstatisticBar:true,
-        allowEdit: !f.lazy,   // 懒加载大模型=只读：显示 Excel 缓存值（读数准确），不支持编辑/重算（全量重算需完整公式链，见 只读 提示）
+        allowEdit:!f.lazy,   // 非懒加载 .xlsx 可编辑（改动经 saveSheetToVault 走无损 delta patch 回写）；懒加载大模型只读
         hook:SHEET_HOOKS(f) });
       lsAlive=true;
+      sheetBaseline=null; clearTimeout(baselineT);     // 渲染中先清基线，就绪后再抓（避免半态被误判为改动 + 防初始 updated() 触发回写）
+      if(!f.lazy) baselineT=setTimeout(captureSheetBaseline, 500);
     }
     async function reloadSheetFromDisk(f){   // 拉盘上最新 .xlsx → 返回 Luckysheet sheets 数据
       const blob=await (await fetch(vaultUrl(f.path)+'&t='+Date.now())).blob();
@@ -1992,6 +2023,7 @@ const app = createApp({
       const af=active.value;
       const openMatch = af && af.path===m.path;
       if(openMatch && af.kind==='sheet'){                  // 打开的就是这张表：AI 改了→重载+单元格 diff 复核；回滚/拒绝→静默重载
+        if(Date.now()<sheetSelfSaveSuppress) return;       // 自己 delta-patch 存盘的回声 file_changed → 不重载、不当 AI 改动
         reloadSheetWithDiff(af, !!m.rolledBack); return;
       }
       if(openMatch && af.kind==='doc' && af.isDocx){        // 打开的是 docx：AI 改了→原生修订复核；回滚/拒绝→静默重载
@@ -2141,6 +2173,11 @@ const app = createApp({
           markAuthed(); break; }
         case 'toast': {                              // 服务端轻提示（如：本地打开前自动剥离嵌入字体）
           conn.banner=m.message; setTimeout(()=>{ if(conn.banner===m.message) conn.banner=''; }, 6000);
+          break; }
+        case 'sheet_patch_err': {                    // 无损回写失败 → 提示 + 静默重载盘上真值（纠正乐观推进的基线，丢弃这次没存成的改动）
+          conn.banner='表格保存失败：'+(m.message||'未知错误')+'（已回到盘上版本）';
+          setTimeout(()=>{ if(conn.banner&&conn.banner.indexOf('表格保存失败')===0) conn.banner=''; }, 8000);
+          const af=active.value; if(af&&af.kind==='sheet'&&af.path===m.path){ sheetSelfSaveSuppress=0; reloadSheetWithDiff(af, true); }
           break; }
         case 'error': {
           if(m.auth){ conn.authError=true; conn.authed=false; conn.banner='未登录：终端运行  claude login（选订阅，不要 API key）'; }
@@ -2955,7 +2992,7 @@ const app = createApp({
 
     /* ===== Luckysheet 真·Excel 渲染 ===== */
     /* —— 大模型逐表懒加载：超大 xlsx 不全量解析（LuckyExcel 全量会卡死/崩），只解析当前表，其余点标签才解析 —— */
-    const LAZY_FILE_BYTES = 1_800_000;     // 文件 > ~1.8MB → 走懒加载
+    const LAZY_FILE_BYTES = 2_000_000;     // 文件 > 2MB → 走懒加载只读（≤2MB 全量加载、可编辑、走无损 delta 回写）
     const VALUES_ONLY_CELLS = 60_000;      // 单表网格 > 6 万格 → 纯值渲染（不建公式链，避免卡）
     async function xlsxDirectory(file){    // 只读 workbook.xml → 表目录（名/隐藏/字节）+ 默认 active，不解析任何单元格
       const zip=await window.JSZip.loadAsync(await file.arrayBuffer());
@@ -3873,14 +3910,14 @@ const app = createApp({
       const blob=new Blob([f.pdfBuf],{type:'application/pdf'});
       const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=f.name.endsWith('.pdf')?f.name:f.name+'.pdf'; a.click();
     }
-    function exportSheet(f){
-      const wb=XLSX.utils.book_new();
-      window.luckysheet.getAllSheets().forEach(sh=>{
-        const data=sh.data||[];
-        const aoa=data.map(row=>(row||[]).map(c=> c?(c.v ?? c.m ?? ''):''));
-        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa), (sh.name||'Sheet').slice(0,31));
-      });
-      XLSX.writeFile(wb, f.name.endsWith('.xlsx')?f.name:f.name+'.xlsx');
+    async function exportSheet(f){
+      // 直接下载盘上真实 .xlsx（保真，反映已保存状态）——不再用 SheetJS 从内存重建（那会丢样式/公式/批注/图表）
+      if(!f||!f.path){ return; }
+      try{
+        const blob=await (await fetch(vaultUrl(f.path)+'&t='+Date.now())).blob();
+        const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=f.name.endsWith('.xlsx')?f.name:f.name+'.xlsx'; a.click();
+        setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+      }catch(e){ conn.banner='导出失败：'+(e.message||e); setTimeout(()=>{ if(conn.banner&&conn.banner.indexOf('导出失败')===0) conn.banner=''; }, 5000); }
     }
     function exportDoc(f){
       // docx：编辑过 → 用 html-docx 生成 Word 可打开的 .docx（含改动）；没编辑 → 原始文件原样保存
