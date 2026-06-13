@@ -1547,7 +1547,7 @@ const app = createApp({
         if(chatTabs.length>=MAX_TABS){ return; }   // tab 满：静默，不弹窗
         chatTabs.push(s);
       }
-      activeSessionId.value=s.id; chatOpen.value=true; scrollDown();
+      activeSessionId.value=s.id; chatOpen.value=true; scrollDown(true);   // 切换会话：强制跳到底
     }
     function closeChatTab(s){
       const i=chatTabs.findIndex(t=>t.id===s.id); if(i<0) return;
@@ -1899,16 +1899,13 @@ const app = createApp({
       while(_ckGcd(step,N)!==1) step=(step%(N-1))+1;       // 保证与 N 互质 → 不重复遍历全部词
       return COOKING_WORDS[(start+slot*step)%N];
     }
-    // 时间线已开始后，若仍在 streaming 且当前没有"活的"指示器(运行中的工具自带 spinner、显示中的"思考中…"、
-    // 正文自带光标)，就在时间线尾部继续显示烹饪词——覆盖"工具调用完还在想下一步"这段空窗。
+    // 仅在"工具刚跑完、还没产出下一步正文"这段真空窗显示烹饪词（用户要的"调用工具后还在思考"）。
+    // 不跟随 think/text 的交替而反复增删——否则指示器一会儿出一会儿没，高度抖动 → 对话框乱跳。
     function cookingTail(m){
       if(!m||!m.streaming) return false;
       const tl=m.timeline; if(!tl||!tl.length) return false;
       const last=tl[tl.length-1];
-      if(last.kind==='text') return false;                              // 正文有光标闪烁
-      if(last.kind==='tool' && last.status==='run') return false;       // 工具自带 spinner
-      if(last.kind==='think' && !last.t1 && showCot.value) return false;// "思考中…"已在显示
-      return true;
+      return last.kind==='tool' && last.status!=='run';                 // 工具已完成、在等模型下一步
     }
     /* —— 时间线步骤：图标 / 计时 / 工具名拆分 —— */
     const TOOL_ICONS={Bash:'⚡',Read:'📖',Edit:'✏️',MultiEdit:'✏️',Write:'🖊️',WebSearch:'🔍',WebFetch:'🌐',Grep:'🔎',Glob:'🗂️',Task:'🤖',Skill:'🧩',TodoWrite:'✅',NotebookEdit:'📓'};
@@ -4034,7 +4031,13 @@ const app = createApp({
     }
     function renderMd(t){ return marked.parse(t||""); }
     function escapeHtml(t){ return (t||"").replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).replace(/\n/g,"<br>"); }
-    function scrollDown(){ nextTick(()=>{ if(msgsEl.value) msgsEl.value.scrollTop=msgsEl.value.scrollHeight; }); }
+    function scrollDown(force){
+      const el=msgsEl.value;
+      // 仅当用户已在底部附近时才自动跟随；滚上去看历史就不强行拽回 → 流式逐字输出时不再"乱跳"。
+      // 注意：在 nextTick 之前同步测量（此刻 DOM 还是旧内容，scrollTop 是用户当前位置）。
+      const stick = force || !el || (el.scrollHeight - el.scrollTop - el.clientHeight < 120);
+      nextTick(()=>{ const e=msgsEl.value; if(e && stick) e.scrollTop=e.scrollHeight; });
+    }
     function autosize(){ nextTick(()=>{ const t=document.querySelector(".input-row textarea"); if(t){t.style.height="auto";t.style.height=Math.min(t.scrollHeight,120)+"px";} }); }
 
     return { ask,askToggle,askCustomToggle,askReady,submitAsk,skipAsk,
