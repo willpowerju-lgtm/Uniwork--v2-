@@ -8,7 +8,7 @@
 
 **一句话架构**：数字走 `_data_registry.json`（确定性、schema、单一源），叙述 LLM 直写 `_sections/*.md`（无 JSON 中间层），render 末步拼合。系统是**闭环**：真理源(wiki+registry) —派生→ Office 交付物 —识别核心变更→ 反向级联刷新所有下游 + git 留痕。**机械部分代码做，语义判断停在闸口等人/LLM 确认。**
 
-
+![Finance Cowork 架构总览：三模块闭环 + 工程流水线](assets/finance_cowork_hero_architecture.png)
 *上层 = 三模块闭环（① Ground Truth → ② 报告协作 → ③ 数据级联 → 回写真理）；下层 = 工程流水线（A model_digest → registry → B build_wiki → C report_render → D cascade_update）。*
 
 ---
@@ -85,7 +85,7 @@ python src/model_digest.py {xlsx_path} -o output/{TICKER}_digest.json
 
 全系统最重的模块。`build_wiki.py {T} --wiki-dir {dir}` 串确定性主链；LLM 叙述层由主线程并行 sub-agent 另跑，产物缓存在 `_sections/`。
 
-
+![Wiki Build 子架构](assets/finance_cowork_wiki_build.png)
 *Wiki Build 子架构。定量 §5/6/7/9 自动挂载、定性 §1/2/3/8 LLM 直写；每个 reader 由 `reader_prompt.py` 机械注入"表格读取契约"防列串行。实测 SNDK ~10min / ~500K token（3 Sonnet + 1 Opus，42 份素材）。*
 
 ### 双通道（架构主轴）
@@ -131,7 +131,7 @@ python src/model_digest.py {xlsx_path} -o output/{TICKER}_digest.json
 
 数字层 ground truth。每个数字一条 **flat entry**，key = `{metric}_{period}`。**registry 不复刻依赖 DAG**——血缘在 `model_map.driver_addresses`，文件路由靠下游 `{REG:}` 占位符，registry 只存"当期值 + 信任标注"。
 
-
+![Data Registry 数据流](assets/finance_cowork_registry_flow.png)
 *registry 是唯一数字枢纽。**正向**：model.xlsx（model_digest）/ CapIQ（parse_capiq）/ filings / guide_seeker / `_facts.json` → registry → wiki §5/6/7 表（render.py）+ 报告 docx（`{REG:}`）+ charts（+ provenance 门），三者钉死同源。**反向（级联）**：改 model → COM `CalculateFull` 重算 → re-digest → 漂移/miss-guide 闸口停 → 人确认 → overlay registry → 重渲全下游。*
 
 ```json
