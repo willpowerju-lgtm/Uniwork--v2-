@@ -332,6 +332,7 @@ wss.on('connection', (ws) => {
   send(ws, { ev: 'hello', vault: VAULT, mock: MOCK, model: DEFAULT_MODEL, harness: harnessInfo });
 
   ws.on('message', (raw) => { handleMessage(conn, raw).catch((e) => send(ws, { ev: 'error', message: String(e?.message || e) })); });
+  ws.on('error', (e) => { console.warn('[ws error]', e?.code || e?.message || e); });   // 必须监听：客户端协议错误/异常断开(浏览器关 tab、网络抖动、ECONNRESET)会在 socket 上 emit 'error'，无监听器即成 uncaughtException 崩整服务(崩溃重启循环根因)。后续 'close' 负责清理
   ws.on('close', () => {
     clients.delete(conn);
     for (const tab of conn.tabs.values()) {
@@ -953,6 +954,8 @@ async function ensureRoots() {                                   // 让「回收
 
 // 兜底：单条 stray async 拒绝不应整服务崩溃（如 WS 断开时对已收尾 query 调 interrupt 触发的 reject）。记录但不退出
 process.on('unhandledRejection', (e) => { console.warn('[unhandledRejection]', e?.message || e); });
+// 兜底：任何漏网的同步未捕获异常也不应崩掉本地服务(否则计划任务重启 99 次后彻底停)。记录但不退出
+process.on('uncaughtException', (e) => { console.error('[uncaughtException]', e?.stack || e?.message || e); });
 
 server.listen(PORT, () => {
   console.log(`Uniwork V2 后端  http://localhost:${PORT}`);
