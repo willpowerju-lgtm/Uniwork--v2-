@@ -372,8 +372,15 @@
   .drr-bulk .acc{background:linear-gradient(135deg,#37b24d,#2b8a3e);color:#fff}
   .drr-hint{flex-shrink:0;padding:8px 13px;font-size:11px;color:var(--sub);border-bottom:1px solid #f0f0f0;line-height:1.5}
   .drr-list{flex:1;overflow:auto;padding:6px 10px}
-  .drr-item{padding:9px 2px;border-bottom:1px dashed #eee}
+  .drr-item{padding:9px 8px;border-bottom:1px dashed #eee;cursor:pointer;border-radius:7px;transition:background .12s,box-shadow .12s}
   .drr-item:last-child{border-bottom:0}
+  .drr-item:hover{background:#f6f9ff}
+  .drr-item.active{background:#eaf2ff;box-shadow:inset 3px 0 0 #1971c2}
+  .drr-merged{font-size:10px;font-weight:600;color:#1971c2;background:#e7f1ff;border-radius:4px;padding:1px 6px}
+  .drr-rep{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12px;line-height:1.6}
+  .drr-old{color:#cf1322;text-decoration:line-through;background:#fff1f0;border-radius:4px;padding:2px 6px;word-break:break-word}
+  .drr-arrow{color:#1971c2;font-weight:700;flex-shrink:0}
+  .drr-new{color:#2b8a3e;background:#f0fbf3;border-radius:4px;padding:2px 6px;word-break:break-word}
   .drr-row{display:flex;align-items:center;gap:7px;margin-bottom:5px}
   .drr-badge{font-size:10px;font-weight:700;border-radius:5px;padding:1px 7px;color:#fff;background:#888}
   .drr-badge.insert{background:#2b8a3e}
@@ -390,6 +397,7 @@
   .drr-del{font-size:12px;line-height:1.55;color:#cf1322;text-decoration:line-through;background:#fff1f0;border-radius:4px;padding:2px 6px;margin-bottom:3px;word-break:break-word}
   .drr-ins{font-size:12px;line-height:1.55;color:#2b8a3e;background:#f0fbf3;border-radius:4px;padding:2px 6px;word-break:break-word}
   .drr-empty{font-size:12px;color:var(--sub);padding:16px 10px;text-align:center;line-height:1.6}
+  .docx-host .drr-flash{background:rgba(255,205,40,.6)!important;border-radius:3px;box-shadow:0 0 0 2px rgba(255,205,40,.6);transition:background .25s ease,box-shadow .25s ease}   /* 点复核卡片→正文这处黄闪 */
   /* Luckysheet 全屏宿主 */
   .ls-wrap{flex:1;position:relative;min-height:0;min-width:0;overflow:hidden}
   .ls-host{position:absolute;inset:0;overflow:hidden}
@@ -857,16 +865,22 @@
             <div class="drr-head">📝 AI 修订 · {{ docxReview.items.length }} 处
               <div class="drr-bulk"><button class="rej" @click="rejectAllDocx" title="拒绝全部，还原到改动前">全部拒绝</button><button class="acc" @click="acceptAllDocx" title="接受全部改动">全部接受</button></div>
             </div>
-            <div class="drr-hint">改动已用 Word 修订内联标在正文（红删 / 绿增），可在文中右键或在此逐条处理：</div>
+            <div class="drr-hint">改动已用 Word 修订内联标在正文（红删 / 绿增）。<b>点卡片可跳到正文这处</b>，再逐条 ✓/✗：</div>
             <div class="drr-list">
-              <div v-for="(it,i) in docxReview.items" :key="it.id" class="drr-item">
+              <div v-for="(it,i) in docxReview.items" :key="it.id" class="drr-item" :class="{active: it.id===docxReview.activeId}" @click="jumpToDocxItem(it)" title="点击跳到正文这处改动">
                 <div class="drr-row">
                   <span class="drr-badge" :class="it.type">{{ docxItemLabel(it.type) }}</span><span class="drr-n">#{{ i+1 }}</span>
-                  <span class="drr-acts"><button class="ok" @click="decideDocxItem(it.id,'accept')" title="接受这处">✓</button><button class="no" @click="decideDocxItem(it.id,'reject')" title="拒绝这处">✗</button></span>
+                  <span v-if="it.count>1" class="drr-merged" title="同一处的多个小改动已合并为一处">合并 {{ it.count }}</span>
+                  <span class="drr-acts"><button class="ok" @click.stop="decideDocxItem(it,'accept')" title="接受这处">✓</button><button class="no" @click.stop="decideDocxItem(it,'reject')" title="拒绝这处">✗</button></span>
                 </div>
-                <div v-if="it.del" class="drr-del">{{ it.del }}</div>
-                <div v-if="it.ins" class="drr-ins">{{ it.ins }}</div>
-                <div v-if="!it.del && !it.ins" class="drr-ins">（格式 / 排版调整）</div>
+                <div v-if="it.type==='replacement'" class="drr-rep">
+                  <span class="drr-old">{{ it.del }}</span><span class="drr-arrow">→</span><span class="drr-new">{{ it.ins }}</span>
+                </div>
+                <template v-else>
+                  <div v-if="it.del" class="drr-del">{{ it.del }}</div>
+                  <div v-if="it.ins" class="drr-ins">{{ it.ins }}</div>
+                  <div v-if="!it.del && !it.ins" class="drr-ins">（格式 / 排版调整）</div>
+                </template>
               </div>
               <div v-if="!docxReview.items.length" class="drr-empty">没有可逐条处理的文字改动</div>
             </div>
@@ -1726,7 +1740,7 @@ const app = createApp({
       try{ const st=superdoc&&superdoc.superdocStore; if(st&&typeof st.activeZoom==='number') docxZoom.value=st.activeZoom; }catch(e){}
     }
     // AI 改 docx → SuperDoc 原生「Word 审阅/修订」复核：对比 HEAD 基线 vs 盘上新版 → 在正文里内联红删绿增 + 右侧逐条审批
-    const docxReview = reactive({ active:false, busy:false, path:'', items:[] });   // items:[{id,type,ins,del}]
+    const docxReview = reactive({ active:false, busy:false, path:'', items:[], activeId:'' });   // items:[{id,ids,type,ins,del,count}]；activeId=当前高亮卡片
     const docxNonText = reactive({ active:false, path:'', kind:'' });   // 非文字改动（图片/样式等）无法内联标注 → 简单提示条 + 接受/拒绝
     async function docxChangeKind(oldBuf, newBuf){   // 粗判改动性质：比 word/media/* → 图片；否则样式/其它
       try{
@@ -1800,11 +1814,83 @@ const app = createApp({
         wsSend({op:'file_head_b64', path}); setTimeout(()=>finish(null), 6000);
       });
     }
-    function refreshDocxItems(){    // 从编辑器读当前未决 tracked changes → 复核条目（含逐条 红删/绿增 文本）
-      try{ const ed=superdoc&&superdoc.activeEditor; if(!ed||!ed.doc||!ed.doc.trackChanges){ docxReview.items=[]; return; }
-        const lst=ed.doc.trackChanges.list();
-        docxReview.items=(lst.items||[]).map(i=>({ id:i.id, type:i.type, ins:String(i.insertedText||'').replace(/\s+/g,' ').trim(), del:String(i.deletedText||'').replace(/\s+/g,' ').trim() }));
+    function docxHostEl(){ return document.getElementById('docx-host'); }
+    function cssEscId(s){ try{ return (window.CSS&&CSS.escape)?CSS.escape(String(s)):String(s).replace(/["\\\]]/g,'\\$&'); }catch(e){ return String(s); } }
+    function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
+    function isIntraTokenGap(g){ return typeof g==='string' && g.length<=3 && !/\s/.test(g); }   // 「.」「,」「/」等 token 内分隔→并入同一处；含空格或较长→另起一处
+    // 把正文里 SuperDoc 渲染的 tracked-change span（.track-insert/.track-delete/.track-format[data-id]）按文档顺序收成序列，
+    // 并算出相邻改动间「未改动间隙文本」+ 紧贴的同 token 上下文 —— 供分组(groupDocxSeq)与跳转(jumpToDocxItem)使用
+    function docxChangeSeqFromDom(host){
+      if(!host) return [];
+      let spans=[]; try{ spans=Array.from(host.querySelectorAll('.track-insert[data-id],.track-delete[data-id],.track-format[data-id]')); }catch(e){ return []; }
+      if(!spans.length) return [];
+      const byId=new Map();                                  // 同一改动可能因分页/内联样式被拆成多个同 data-id span → 合并
+      for(const el of spans){
+        const id=el.getAttribute('data-id'); if(!id) continue;
+        const type=el.classList.contains('track-insert')?'insert':(el.classList.contains('track-delete')?'delete':'format');
+        const e=byId.get(id);
+        if(!e) byId.set(id,{ id, type, nodes:[el], text:(el.textContent||'') });
+        else { e.nodes.push(el); e.text+=(el.textContent||''); }
+      }
+      const list=Array.from(byId.values());
+      list.sort((a,b)=>{ const p=a.nodes[0].compareDocumentPosition(b.nodes[0]); if(p&Node.DOCUMENT_POSITION_FOLLOWING) return -1; if(p&Node.DOCUMENT_POSITION_PRECEDING) return 1; return 0; });
+      const between=(aLast,bFirst)=>{ try{ const r=document.createRange(); r.setStartAfter(aLast); r.setEndBefore(bFirst); return r.toString(); }catch(e){ return null; } };
+      const ctxTail=(node)=>{ try{ const r=document.createRange(); r.selectNodeContents(host); r.setEndBefore(node); const t=r.toString().slice(-40); const m=t.match(/(\S{0,24})$/); return m?m[1]:''; }catch(e){ return ''; } };
+      const ctxHead=(node)=>{ try{ const r=document.createRange(); r.selectNodeContents(host); r.setStartAfter(node); const t=r.toString().slice(0,40); const m=t.match(/^(\S{0,24})/); return m?m[1]:''; }catch(e){ return ''; } };
+      return list.map((e,i)=>({
+        id:e.id, type:e.type, text:String(e.text||''),
+        gapToNext: i<list.length-1 ? between(e.nodes[e.nodes.length-1], list[i+1].nodes[0]) : null,
+        ctxBefore: ctxTail(e.nodes[0]),
+        ctxAfter: ctxHead(e.nodes[e.nodes.length-1])
+      }));
+    }
+    // 纯函数（可独立单测）：把改动序列按「相邻 + 间隙在 token 内」合并 —— 一处删+增 → 一张「替换」卡，整段数值一起改
+    function groupDocxSeq(seq){
+      const groups=[]; let cur=null;
+      for(let k=0;k<seq.length;k++){
+        const it=seq[k], prev=cur&&cur[cur.length-1];
+        if(prev && prev.type!=='format' && it.type!=='format' && isIntraTokenGap(prev.gapToNext)) cur.push(it);
+        else { cur=[it]; groups.push(cur); }
+      }
+      return groups.map(buildDocxCard);
+    }
+    function buildDocxCard(items){
+      const hasDel=items.some(x=>x.type==='delete'), hasIns=items.some(x=>x.type==='insert');
+      const replacement = hasDel && hasIns;
+      let oldS='', newS='';
+      if(replacement){ const b=items[0].ctxBefore||''; oldS+=b; newS+=b; }     // 替换卡补回前缀，显示完整数值（如 $1,646.54）
+      for(let i=0;i<items.length;i++){
+        const it=items[i];
+        if(it.type==='delete') oldS+=it.text; else if(it.type==='insert') newS+=it.text;
+        if(i<items.length-1){ const g=items[i].gapToNext||''; oldS+=g; newS+=g; }   // 间隙＝未改动文本，old/new 两侧都带
+      }
+      if(replacement){ const a=items[items.length-1].ctxAfter||''; oldS+=a; newS+=a; }
+      const type = replacement?'replacement':(hasIns?'insert':(hasDel?'delete':'format'));
+      return { id:items[0].id, ids:items.map(x=>x.id), type, del:clean(oldS), ins:clean(newS), count:items.length };
+    }
+    function refreshDocxItems(){    // 正文 tracked changes → 智能分组的复核条目（删+增合并成一处替换、可点击跳转）
+      try{
+        const ed=superdoc&&superdoc.activeEditor;
+        if(!ed||!ed.doc||!ed.doc.trackChanges){ docxReview.items=[]; return; }
+        const seq=docxChangeSeqFromDom(docxHostEl());
+        if(seq.length){ docxReview.items=groupDocxSeq(seq); return; }
+        const lst=ed.doc.trackChanges.list();   // 兜底：正文没渲染出 data-id span（少见）→ 退回逐条，不分组/不跳转但不报错
+        docxReview.items=(lst.items||[]).map(i=>({ id:i.id, ids:[i.id], type:i.type, ins:clean(i.insertedText||(i.type==='insert'?i.excerpt:'')), del:clean(i.deletedText||(i.type==='delete'?i.excerpt:'')), count:1 }));
       }catch(e){ docxReview.items=[]; }
+    }
+    function jumpToDocxItem(it){    // 点复核卡片 → 正文滚到这处改动并黄闪一下
+      try{
+        const host=docxHostEl(); if(!host||!it) return;
+        const ids=(it.ids&&it.ids.length)?it.ids:[it.id];
+        let first=null;
+        for(const id of ids){ const n=host.querySelector('[data-id="'+cssEscId(id)+'"]'); if(n&&!first) first=n; }
+        if(!first) return;
+        first.scrollIntoView({behavior:'smooth', block:'center'});
+        docxReview.activeId=it.id;
+        const nodes=[]; for(const id of ids){ host.querySelectorAll('[data-id="'+cssEscId(id)+'"]').forEach(n=>nodes.push(n)); }
+        nodes.forEach(n=>n.classList.add('drr-flash'));
+        setTimeout(()=>{ nodes.forEach(n=>{ try{ n.classList.remove('drr-flash'); }catch(e){} }); }, 1600);
+      }catch(e){}
     }
     function docxItemLabel(t){ return t==='insert'?'新增':t==='delete'?'删除':t==='replacement'?'替换':(t==='format'?'格式':'改动'); }
     async function genDocxReview(f, silent){   // 盘上 docx 变了：silent=回滚/拒绝→静默重载；否则→生成 SuperDoc 原生修订复核
@@ -1862,13 +1948,18 @@ const app = createApp({
       }catch(e){}
       setTimeout(()=>{ superdocSuppress=false; }, 600);
     }
-    function decideDocxItem(id, decision){   // 逐条 ✓接受 / ✗拒绝（用 SuperDoc 专用 by-id 命令，只动这一条，不误伤其它）
+    function decideDocxItem(item, decision){   // 逐条 ✓接受 / ✗拒绝（一处替换=多个底层改动 → 把组里每个 id 都处理掉，不误伤其它处）
       const ed=superdoc&&superdoc.activeEditor; if(!ed) return;
-      try{
-        const c=ed.commands;
-        if(decision==='accept'){ (c.acceptTrackedChangeById||c.acceptTrackedChange).call(c, id); }
-        else { (c.rejectTrackedChangeById||c.rejectTrackedChange).call(c, id); }
-      }catch(e){ try{ ed.doc.trackChanges.decide({decision, target:{id}}); }catch(_){} }   // 兜底回退到底层 decide
+      const ids = Array.isArray(item) ? item : (item&&item.ids&&item.ids.length ? item.ids : [item&&item.id!==undefined ? item.id : item]);
+      const c=ed.commands;
+      for(const id of ids){
+        if(id===undefined||id===null||id==='') continue;
+        try{
+          if(decision==='accept'){ (c.acceptTrackedChangeById||c.acceptTrackedChange).call(c, id); }
+          else { (c.rejectTrackedChangeById||c.rejectTrackedChange).call(c, id); }
+        }catch(e){ try{ ed.doc.trackChanges.decide({decision, target:{id}}); }catch(_){} }   // 兜底回退到底层 decide
+      }
+      docxReview.activeId='';
       refreshDocxItems();
       if(!docxReview.items.length) finishDocxReview();   // 仅当确实全部处理完 → 自动落定存盘
     }
@@ -4058,7 +4149,7 @@ const app = createApp({
              conn,connLabel,vaultName,onModelChange,refreshVault,openByPath,regWarn,triggerCascade,perm,permRespond,acceptEdits,rejectEdits,
              cookingWord,cookingSec,cookingTail,toolIcon,toolDetail,stepSec,fmtDur,toggleStep,fileHistory,toggleHistory,rollbackTo,histTime,
              sheetReview,acceptSheetReview,rejectSheetReview,sheetLazy,
-             docxReview,decideDocxItem,acceptAllDocx,rejectAllDocx,docxItemLabel,docxLoading,docxNonText,acceptDocxNonText,rejectDocxNonText,
+             docxReview,decideDocxItem,jumpToDocxItem,acceptAllDocx,rejectAllDocx,docxItemLabel,docxLoading,docxNonText,acceptDocxNonText,rejectDocxNonText,
              permMode,setPermMode,fastMode,fastSupported,toggleFast,ctxTokens,ctxK,ctxPct,ctxWindowLabel,cuCirc,cuOffset,ctxLevel,
              send,renderMd,escapeHtml,autosize,resetLocal };
   }
