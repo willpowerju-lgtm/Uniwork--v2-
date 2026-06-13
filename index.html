@@ -3827,7 +3827,7 @@ const app = createApp({
       const quotes=pendingOf(sess).slice(); pendingOf(sess).splice(0);   // batch：一次带走全部引用（含批注，发后清空=一次性）
       const refs=refFiles.slice();                                       // @ 引用快照随本条消息，发完清掉（附件跟着消息走，不固定）
       refFiles.splice(0);                                                 // 清掉所有附件 chip（绑定的文档上下文在 boundFileOf 单独管，不受影响）
-      draft.value=””; autosize();
+      draft.value=""; autosize();
       if(sess.busy){                                          // 该 tab 生成中 → 进「等待区」(query 队列)，本回合结束后按序自动发
         (sess.queue=sess.queue||[]).push({ text:q, quotes, refs });
         return;
