@@ -987,6 +987,11 @@
                 <div v-else class="msg ai"><div class="bubble-msg" :class="{'cursor-blink':m.streaming && si===m.timeline.length-1}" v-html="renderMd(st.text)"></div></div>
               </template>
             </div>
+            <!-- 时间线尾部：工具/思考结束后仍在运转的空窗，继续显示烹饪词，告诉用户还在思考 -->
+            <div v-if="cookingTail(m)" class="cooking">
+              <span class="ck-spin"></span><span class="ck-word">{{ cookingWord(m) }}中…</span>
+              <span class="ck-sec" v-if="cookingSec(m)>=1">{{ cookingSec(m) }}s</span>
+            </div>
             <!-- 旧消息（无 timeline）回退：工具 chips + 推理 + 正文气泡 -->
             <template v-else>
               <div v-if="m.tools && m.tools.length" class="tool-chips">
@@ -1882,7 +1887,29 @@ const app = createApp({
     const tickNow = ref(0);
     setInterval(()=>{ tickNow.value = Date.now(); }, 1000);     // 每秒触发一次重算（秒数 + 每 2.4s 轮换一个词）
     function cookingSec(m){ tickNow.value; return m&&m.startedAt ? Math.max(0, Math.floor((Date.now()-m.startedAt)/1000)) : 0; }
-    function cookingWord(m){ tickNow.value; const e=m&&m.startedAt ? (Date.now()-m.startedAt) : 0; return COOKING_WORDS[Math.floor(e/2400)%COOKING_WORDS.length]; }
+    // 每条消息按 startedAt 派生一条"随机起点 + 随机步长(与词数互质)"的环游序列：每 2.4s 换一个词，
+    // 顺序随机、相邻不重复、走完全部才回头；不同回合序列不同；纯函数(不写回 m)，故每秒重算也不闪。
+    function _ckGcd(a,b){ while(b){ const t=a%b; a=b; b=t; } return a; }
+    function _ckHash(x){ x=x>>>0; x=Math.imul(x^(x>>>16),0x45d9f3b); x=Math.imul(x^(x>>>16),0x45d9f3b); return (x^(x>>>16))>>>0; }
+    function cookingWord(m){ tickNow.value;
+      const N=COOKING_WORDS.length; if(!m||!m.startedAt) return COOKING_WORDS[0];
+      const slot=Math.floor((Date.now()-m.startedAt)/2400);
+      const seed=_ckHash(Math.floor(m.startedAt));
+      const start=seed%N; let step=1+(_ckHash(seed^0x9e3779b9)%(N-1));
+      while(_ckGcd(step,N)!==1) step=(step%(N-1))+1;       // 保证与 N 互质 → 不重复遍历全部词
+      return COOKING_WORDS[(start+slot*step)%N];
+    }
+    // 时间线已开始后，若仍在 streaming 且当前没有"活的"指示器(运行中的工具自带 spinner、显示中的"思考中…"、
+    // 正文自带光标)，就在时间线尾部继续显示烹饪词——覆盖"工具调用完还在想下一步"这段空窗。
+    function cookingTail(m){
+      if(!m||!m.streaming) return false;
+      const tl=m.timeline; if(!tl||!tl.length) return false;
+      const last=tl[tl.length-1];
+      if(last.kind==='text') return false;                              // 正文有光标闪烁
+      if(last.kind==='tool' && last.status==='run') return false;       // 工具自带 spinner
+      if(last.kind==='think' && !last.t1 && showCot.value) return false;// "思考中…"已在显示
+      return true;
+    }
     /* —— 时间线步骤：图标 / 计时 / 工具名拆分 —— */
     const TOOL_ICONS={Bash:'⚡',Read:'📖',Edit:'✏️',MultiEdit:'✏️',Write:'🖊️',WebSearch:'🔍',WebFetch:'🌐',Grep:'🔎',Glob:'🗂️',Task:'🤖',Skill:'🧩',TodoWrite:'✅',NotebookEdit:'📓'};
     function toolIcon(name){ return TOOL_ICONS[name] || '🔧'; }
@@ -4026,7 +4053,7 @@ const app = createApp({
              treeRows,toggleFolder,folderIcon,rowIcon,backlinks,openBacklink,
              addSheetRangeToChat,fmtQuote,
              conn,connLabel,vaultName,onModelChange,refreshVault,openByPath,regWarn,triggerCascade,perm,permRespond,acceptEdits,rejectEdits,
-             cookingWord,cookingSec,toolIcon,toolDetail,stepSec,fmtDur,toggleStep,fileHistory,toggleHistory,rollbackTo,histTime,
+             cookingWord,cookingSec,cookingTail,toolIcon,toolDetail,stepSec,fmtDur,toggleStep,fileHistory,toggleHistory,rollbackTo,histTime,
              sheetReview,acceptSheetReview,rejectSheetReview,sheetLazy,
              docxReview,decideDocxItem,acceptAllDocx,rejectAllDocx,docxItemLabel,docxLoading,docxNonText,acceptDocxNonText,rejectDocxNonText,
              permMode,setPermMode,fastMode,fastSupported,toggleFast,ctxTokens,ctxK,ctxPct,ctxWindowLabel,cuCirc,cuOffset,ctxLevel,
