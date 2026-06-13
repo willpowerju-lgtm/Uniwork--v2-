@@ -448,11 +448,14 @@ async function handleMessage(conn, raw) {
       const abs = resolveInVault(m.path); if (!abs) return send(ws, { ev: 'error', message: 'bad path' });
       let isDir = false;
       try { isDir = (await fsp.stat(abs)).isDirectory(); } catch (e) { return send(ws, { ev: 'error', message: '打开文件夹失败：' + e.message }); }
-      let cmd, args;
+      let cmd, args, opts = {};
       if (process.platform === 'darwin') { cmd = 'open'; args = isDir ? [abs] : ['-R', abs]; }                   // open -R 在 Finder 里定位并选中文件
-      else if (process.platform === 'win32') { cmd = 'explorer'; args = isDir ? [abs] : ['/select,' + abs]; }    // explorer /select 选中文件（成功也返回非零退出码）
+      else if (process.platform === 'win32') {                                                                   // explorer 的 /select 必须"裸出"、只给路径本身加引号
+        cmd = 'explorer'; opts = { windowsVerbatimArguments: true };                                            // 否则路径含空格(如 "Company Coverage")时 node 会把整个 "/select,<path>" 连开关一起加引号，
+        args = isDir ? ['"' + abs + '"'] : ['/select,"' + abs + '"'];                                           // explorer 认不出 /select → 跳到默认目录(即用户说的"路径不对")。成功也返回非零退出码
+      }
       else { cmd = 'xdg-open'; args = [isDir ? abs : path.dirname(abs)]; }                                       // Linux：无统一的“选中”，退而打开所在目录
-      execFile(cmd, args, (err) => { if (err && process.platform !== 'win32') send(ws, { ev: 'error', message: '打开文件夹失败：' + err.message }); });
+      execFile(cmd, args, opts, (err) => { if (err && process.platform !== 'win32') send(ws, { ev: 'error', message: '打开文件夹失败：' + err.message }); });
       send(ws, { ev: 'revealed_local', path: m.path }); break;
     }
     case 'make_folder': {                                // 新建文件夹：磁盘 mkdir → 广播刷新树（空目录 listVault 也会带上）
