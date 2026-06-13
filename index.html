@@ -143,7 +143,9 @@
   .hist-btn:hover,.hist-btn.on{background:#eef3ff;color:var(--brand);border-color:#cdd9ff}
   .hist-btn .hist-n{margin-left:5px;background:var(--brand);color:#fff;border-radius:8px;padding:0 5px;font-size:10px}
   .hist-pop{position:absolute;top:34px;right:0;width:340px;max-height:64vh;overflow:auto;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);z-index:60}
-  .hist-head{padding:9px 12px;border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--text);position:sticky;top:0;background:#fff}
+  .hist-head{padding:9px 12px;border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--text);position:sticky;top:0;background:#fff;display:flex;align-items:center}
+  .hist-x{margin-left:auto;cursor:pointer;color:var(--sub);font-size:16px;line-height:1;padding:2px 4px;border-radius:4px}
+  .hist-x:hover{background:var(--hover);color:var(--text)}
   .hist-empty{padding:18px 12px;font-size:12px;color:var(--sub);text-align:center;line-height:1.6}
   .hist-list{padding:4px}
   .hist-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:8px}
@@ -784,7 +786,7 @@
         <div v-if="active && active.path" class="hist-wrap">
           <button class="hist-btn" :class="{on:fileHistory.open}" @click="toggleHistory" title="修改历史 / 回滚到任一版本">🕘 历史<span v-if="fileHistory.open && fileHistory.entries.length" class="hist-n">{{ fileHistory.entries.length }}</span></button>
           <div v-if="fileHistory.open" class="hist-pop">
-            <div class="hist-head">修改历史 · {{ active.name }}</div>
+            <div class="hist-head">修改历史 · {{ active.name }}<span class="hist-x" @click="fileHistory.open=false" title="关闭">×</span></div>
             <div v-if="fileHistory.loading" class="hist-empty">加载中…</div>
             <div v-else-if="!fileHistory.entries.length" class="hist-empty">暂无历史<br>改动并接受后，每个版本会出现在这里，可随时回滚</div>
             <div v-else class="hist-list">
@@ -919,7 +921,8 @@
         <!-- AI 改了真实 .xlsx → 单元格级复核（绿底=改/增、红底=删；接受记历史，拒绝还原 HEAD） -->
         <div v-if="sheetReview.active" class="sheet-review-bar">
           <b>📊 AI 改了 {{ sheetReview.cells.length }} 个单元格</b>
-          <span class="srv-cells">{{ sheetReview.cells.slice(0,4).map(c=>c.a1+'：'+(c.old||'空')+'→'+(c.new||'空')).join('  ·  ') }}{{ sheetReview.cells.length>4?'  …':'' }}</span>
+          <span v-if="sheetReview.tooMany" class="srv-cells" style="color:#e8590c">改动较多，已跳过逐格高亮，建议直接查看文件</span>
+          <span v-else class="srv-cells">{{ sheetReview.cells.slice(0,4).map(c=>c.a1+'：'+(c.old||'空')+'→'+(c.new||'空')).join('  ·  ') }}{{ sheetReview.cells.length>4?'  …':'' }}</span>
           <span style="flex:1"></span>
           <button class="reject" @click="rejectSheetReview">✗ 拒绝（还原）</button>
           <button class="accept" @click="acceptSheetReview">✓ 接受</button>
@@ -1703,9 +1706,12 @@ const app = createApp({
       const changed=[]; const newMap=sheetValueMap();
       new Set([...Object.keys(oldMap||{}),...Object.keys(newMap)]).forEach(sn=>{ const o=oldMap[sn]||{}, n=newMap[sn]||{};
         new Set([...Object.keys(o),...Object.keys(n)]).forEach(k=>{ if((o[k]??'')!==(n[k]??'')){ const [r,c]=k.split(',').map(Number); changed.push({sheet:sn, r, c, a1:colName(c)+(r+1), old:o[k]??'', new:n[k]??''}); } }); });
-      try{ const order=window.luckysheet.getSheet()?.order ?? 0; const curName=(window.luckysheet.getAllSheets()[order]||{}).name;
-        changed.forEach(x=>{ if(x.sheet===curName){ try{ window.luckysheet.setCellFormat(x.r,x.c,'bg', x.new===''?'#ffe3e3':'#d3f9d8',{order}); }catch(e){} } }); }catch(e){}
-      sheetReview.path=f.path; sheetReview.cells=changed; sheetReview.active=changed.length>0;
+      const tooMany = changed.length > 30;
+      if(!tooMany){
+        try{ const order=window.luckysheet.getSheet()?.order ?? 0; const curName=(window.luckysheet.getAllSheets()[order]||{}).name;
+          changed.forEach(x=>{ if(x.sheet===curName){ try{ window.luckysheet.setCellFormat(x.r,x.c,'bg', x.new===''?'#ffe3e3':'#d3f9d8',{order}); }catch(e){} } }); }catch(e){}
+      }
+      sheetReview.path=f.path; sheetReview.cells=changed; sheetReview.tooMany=tooMany; sheetReview.active=changed.length>0;
       sheetSuppressSave=false;
     }
     function acceptSheetReview(){      // 接受 AI 表格改动 → 清高亮 + 记历史 commit（盘上已是 AI 版本，不再回写，避免 SheetJS 再序列化丢公式 + 多一条空 commit）
