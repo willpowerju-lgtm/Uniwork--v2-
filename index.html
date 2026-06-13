@@ -518,7 +518,8 @@
   .quote{font-size:12px;color:var(--sub);background:#f0f6ff;border-left:3px solid var(--brand);padding:6px 10px;border-radius:0 6px 6px 0;max-width:90%;align-self:flex-end;line-height:1.5;white-space:pre-wrap;word-break:break-word}
   .cursor-blink::after{content:"▋";animation:blink 1s steps(2) infinite;color:var(--brand)}
   @keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
-  .chat-input-wrap{border-top:1px solid var(--border);padding:12px;flex-shrink:0}
+  .chat-input-wrap{border-top:1px solid var(--border);padding:12px;flex-shrink:0;position:relative}
+  .chat-drop-hint{position:absolute;inset:4px;display:flex;align-items:center;justify-content:center;background:rgba(234,241,255,.92);border:2px dashed var(--brand);border-radius:10px;color:var(--brand);font-size:13px;font-weight:600;z-index:20;pointer-events:none}
   .ctx-stack{max-height:140px;overflow-y:auto;margin-bottom:8px;display:flex;flex-direction:column;gap:5px}
   .ctx-chip{font-size:12px;background:#f0f6ff;border:1px solid #d4e3ff;color:var(--brand);padding:6px 10px;border-radius:8px;display:flex;align-items:flex-start;gap:6px;line-height:1.5}
   .ctx-chip.file{background:#f7f8fa;border-color:var(--border);color:var(--sub)}
@@ -580,8 +581,8 @@
   .upload-msg.busy{background:#eef3ff;color:var(--brand);border-color:#d4e3ff}
   .upload-msg.busy::before{content:"⏳ "}
 
-  .input-foot{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:var(--sub);flex-wrap:nowrap;overflow:hidden}
-  .input-foot .model-sel{border:1px solid var(--border);border-radius:7px;padding:3px 6px;padding-right:18px;font-size:12px;background:#fff;cursor:pointer;font-weight:600;color:var(--text);width:auto;min-width:0;max-width:140px;text-overflow:ellipsis;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path fill='%23646a73' d='M6 8.5 2.5 5h7z'/></svg>");background-repeat:no-repeat;background-position:right 4px center;background-size:10px}
+  .input-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;font-size:11px;color:var(--sub);flex-wrap:nowrap;overflow:hidden}
+  .input-foot .model-sel{border:1px solid var(--border);border-radius:7px;padding:3px 6px;padding-right:18px;font-size:11px;background:#fff;cursor:pointer;font-weight:600;color:var(--text);flex-shrink:0;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path fill='%23646a73' d='M6 8.5 2.5 5h7z'/></svg>");background-repeat:no-repeat;background-position:right 4px center;background-size:10px}
   .input-foot .conn{color:#22a06b;font-weight:600}
   .input-foot .conn.off{color:#e07a00}
   .input-foot .foot-hint{font-size:11px;color:var(--sub)}
@@ -604,13 +605,15 @@
   .fast-toggle.on .ft-knob{left:14px}
   .fast-toggle.disabled{opacity:.4;cursor:not-allowed}
   .input-foot .cot-toggle input{cursor:pointer}
-  /* 权限开关：auto(绿,门控) / bypass(橙,全放行) */
-  .perm-switch{display:inline-flex;align-items:center;border:1px solid var(--border);border-radius:7px;overflow:hidden;font-size:11px;font-weight:600;cursor:pointer;user-select:none}
-  .perm-switch .ps-opt{padding:3px 9px;color:var(--sub);background:#fff;transition:background .12s}
-  .perm-switch .ps-opt.on{color:#fff}
-  .perm-switch.auto .ps-opt.on{background:#22a06b}
-  .perm-switch.bypass .ps-opt.on{background:#e8590c}
-  .perm-switch .ps-opt:not(.on):hover{background:var(--hover);color:var(--text)}
+  /* 权限开关：YOLO toggle（仿 Fast toggle 样式） */
+  .yolo-toggle{display:inline-flex;align-items:center;gap:5px;cursor:pointer;user-select:none;font-size:11px;font-weight:600;padding:0 2px}
+  .yolo-toggle .yt-label{transition:color .15s}
+  .yolo-toggle.on .yt-label{color:#e8590c}
+  .yolo-toggle:not(.on) .yt-label{color:var(--sub)}
+  .yolo-toggle .yt-track{width:28px;height:16px;border-radius:99px;background:#d0d5dd;position:relative;transition:background .15s}
+  .yolo-toggle.on .yt-track{background:#e8590c}
+  .yolo-toggle .yt-knob{width:12px;height:12px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .yolo-toggle.on .yt-knob{left:14px}
   .key-btn{font-size:11px;border:1px solid var(--border);background:#fff;border-radius:7px;padding:2px 8px;cursor:pointer;color:var(--muted)}
   .key-btn.warn{border-color:#f0c36d;background:#fff8e8;color:#9a6a00}
   .searching{align-self:flex-start;font-size:12px;color:var(--brand);background:#eef3ff;border-radius:8px;padding:5px 10px;animation:pulse 1.2s ease-in-out infinite}
@@ -1037,7 +1040,8 @@
           </div>
         </template>
       </div>
-      <div class="chat-input-wrap" style="position:relative">
+      <div class="chat-input-wrap" style="position:relative" @dragover.prevent="chatDragOver=true" @dragleave.prevent="chatDragOver=false" @drop.prevent="onChatDrop">
+        <div v-if="chatDragOver" class="chat-drop-hint">松开添加为附件</div>
         <!-- 权限审批：输入框上方小型内联条（不弹大窗）；总是允许=本会话该工具免审 -->
         <div v-if="perm.queue.length" class="perm-inline">
           <span class="pi-ic">⚠️</span>
@@ -1105,9 +1109,9 @@
           </div>
         </div>
         <div class="input-row">
-          <label class="attach-btn" title="上传文件作为本对话上下文（存进 Vault/_uploads，AI 直接读真实路径）">📎<input type="file" multiple accept=".docx,.xlsx,.pptx,.ppt,.html,.htm,.md,.txt,.csv,.pdf,.png,.jpg,.jpeg,.m4a,.mp3,.wav,.aac,.amr" style="display:none" @change="onChatAttach"></label>
-          <textarea v-model="draft" rows="1" placeholder="提问… 输入 / 唤起命令，@ 引用文件，📎 上传附件，Esc 中断"
-                    @keydown="onInputKeydown" @input="onInput"></textarea>
+          <label class="attach-btn" title="上传文件作为本对话上下文（存进 Vault/_uploads，AI 直接读真实路径）">＋<input type="file" multiple accept=".docx,.xlsx,.pptx,.ppt,.html,.htm,.md,.txt,.csv,.pdf,.png,.jpg,.jpeg,.m4a,.mp3,.wav,.aac,.amr" style="display:none" @change="onChatAttach"></label>
+          <textarea v-model="draft" rows="1" placeholder="Type / for commands"
+                    @keydown="onInputKeydown" @input="onInput" @paste="onPaste"></textarea>
           <button v-if="curBusy" class="send stop" @click="stopGen" title="停止当前对话生成 (Esc)">■</button>
           <button v-else class="send" :disabled="!draft.trim() && !(curSession && pendingOf(curSession).length)" @click="send">↑</button>
         </div>
@@ -1121,11 +1125,9 @@
           <label class="fast-toggle" :class="{on:fastMode&&fastSupported, disabled:!fastSupported}" @click="fastSupported&&toggleFast()" :title="!fastSupported ? '当前模型不支持 Fast mode（仅 Opus）' : (fastMode ? 'Fast mode 已开：Opus 提速输出（同模型不降级），点击关闭' : 'Fast mode：Opus 提速输出，点击开启')">
             <span class="ft-label">Fast</span><span class="ft-track"><span class="ft-knob"></span></span>
           </label>
-          <select class="model-sel" :value="permMode" @change="setPermMode($event.target.value)" :title="permMode==='bypass' ? 'bypass：全放行——改文件/跑脚本的 Bash 都不弹审批' : 'auto：改 Vault/读取/联网自动放行；Bash 等危险命令弹审批条'">
-            <option value="auto">auto</option>
-            <option value="bypass">bypass</option>
-          </select>
-          <span class="spacer" style="flex:1"></span>
+          <label class="yolo-toggle" :class="{on:permMode==='bypass'}" @click="setPermMode(permMode==='bypass'?'auto':'bypass')" :title="permMode==='bypass' ? 'YOLO：全放行——改文件/跑脚本都不弹审批，点击切回 SAFE' : 'SAFE：Bash 等危险命令弹审批，点击切到 YOLO'">
+            <span class="yt-label">{{ permMode==='bypass' ? 'YOLO' : 'SAFE' }}</span><span class="yt-track"><span class="yt-knob"></span></span>
+          </label>
           <!-- Context 占用：常驻不消失（无数据显示 — ），数字到了原位刷新 -->
           <span class="ctx-usage" :title="ctxTokens>0 ? ('本对话上下文 ≈ '+ctxTokens.toLocaleString()+' tokens（窗口 '+ctxWindowLabel+'，实时刷新）') : '本对话还没有上下文统计（发首条消息后开始计数）'"><span class="cu-label">Context</span><svg class="cu-ring" width="15" height="15" viewBox="0 0 24 24"><circle class="cu-track" cx="12" cy="12" r="9" fill="none" stroke-width="3.5"></circle><circle class="cu-arc" :class="ctxLevel" cx="12" cy="12" r="9" fill="none" stroke-width="3.5" stroke-linecap="round" :stroke-dasharray="cuCirc" :stroke-dashoffset="cuOffset" transform="rotate(-90 12 12)"></circle></svg><template v-if="ctxTokens>0">{{ ctxPct }}%</template><template v-else>—</template></span>
         </div>
@@ -1360,7 +1362,7 @@ const app = createApp({
     }
     const suggCount=ref(0); const ready=ref(false); const sheetLoading=ref(false);
     const sideTab=ref('files'); const openTabs=reactive([]); let editor=null; let lsAlive=false; let suppressDirty=false; let suggSeq=0;
-    const uploading=ref(false); const uploadMsg=ref(''); const dragOver=ref(false);
+    const uploading=ref(false); const uploadMsg=ref(''); const dragOver=ref(false); const chatDragOver=ref(false);
     /* —— 文件拖拽换文件夹（内部 move，区别于外部文件拖入=上传）—— */
     const draggingFile=ref(null), dropFolder=ref('');
     /* —— 新建文件夹（前端建→后端 mkdir 真盘；本地建→watcher addDir→vault_dirty→树同步）—— */
@@ -3652,6 +3654,60 @@ const app = createApp({
       }
       if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }
     }
+    async function onPaste(e){
+      const cd=e.clipboardData; if(!cd) return;
+      // 1) 图片粘贴（截图/复制的图片）→ 存进 Vault/_uploads/ + 加 refFile chip
+      const imgItem=[...cd.items].find(it=>it.type.startsWith('image/'));
+      if(imgItem){
+        e.preventDefault();
+        const blob=imgItem.getAsFile(); if(!blob) return;
+        const ext=blob.type.split('/')[1]||'png';
+        const name='paste_'+Date.now()+'.'+ext;
+        const path='Vault/_uploads/'+name;
+        const b64=await blobToB64(blob);
+        wsSend({op:'save_file_b64', path, b64});
+        const id='att'+Date.now()+Math.round(performance.now());
+        if(!refFiles.some(r=>r.path===path)) refFiles.push({id, name, path, uploaded:true});
+        refreshVaultSoon();
+        return;
+      }
+      // 2) 文件路径粘贴（Windows 从资源管理器复制文件 → 剪贴板含 files 列表；或纯文本是绝对路径）
+      if(cd.files&&cd.files.length){
+        e.preventDefault();
+        for(const file of cd.files){
+          const b64=await blobToB64(file);
+          const path='Vault/_uploads/'+file.name;
+          wsSend({op:'save_file_b64', path, b64});
+          const id='att'+Date.now()+Math.round(performance.now());
+          if(!refFiles.some(r=>r.path===path)) refFiles.push({id, name:file.name, path, uploaded:true});
+        }
+        refreshVaultSoon();
+        return;
+      }
+      // 3) 纯文本如果像一行绝对路径 → 加 refFile chip（AI 用 Read 读真实路径，不复制进 vault）
+      const txt=(cd.getData('text/plain')||'').trim();
+      if(txt && !txt.includes('\n') && /^([A-Za-z]:\\|\/Users\/|\/home\/|~\/)/.test(txt)){
+        e.preventDefault();
+        const name=txt.replace(/\\/g,'/').split('/').filter(Boolean).pop()||txt;
+        const id='path'+Date.now();
+        if(!refFiles.some(r=>r.path===txt)) refFiles.push({id, name, path:txt, uploaded:false, localPath:true});
+        return;
+      }
+      // 4) 普通文本 → 默认行为，粘入 textarea
+    }
+    async function onChatDrop(e){
+      chatDragOver.value=false;
+      const list=[...(e.dataTransfer?.files||[])];
+      if(!list.length) return;
+      for(const file of list){
+        const b64=await blobToB64(file);
+        const path='Vault/_uploads/'+file.name;
+        wsSend({op:'save_file_b64', path, b64});
+        const id='att'+Date.now()+Math.round(performance.now());
+        if(!refFiles.some(r=>r.path===path)) refFiles.push({id, name:file.name, path, uploaded:true});
+      }
+      refreshVaultSoon();
+    }
 
     /* ===== 工具 harness：推理驱动的 function-calling 循环（替代二元 decideSearch） =====
        单一模型(model.value，默认 deepseek-v4-pro)流式 ReAct：边流式 reasoning_content(灰色 COT)边决定调 tools → 执行 → 继续 → 作答。
@@ -3769,8 +3825,9 @@ const app = createApp({
       if(!q && !(existing && pendingOf(existing).length)) return;   // 既无问题也无引用 → 不发
       const sess=ensureSession(); if(!sess) return;          // tab 满员且无当前会话
       const quotes=pendingOf(sess).slice(); pendingOf(sess).splice(0);   // batch：一次带走全部引用（含批注，发后清空=一次性）
-      const refs=refFiles.slice();                                       // @ 引用快照随本条消息（保持原有“粘性”：UI chip 不清，排队也按发送时快照）
-      draft.value=""; autosize();
+      const refs=refFiles.slice();                                       // @ 引用快照随本条消息，发完清掉（附件跟着消息走，不固定）
+      refFiles.splice(0);                                                 // 清掉所有附件 chip（绑定的文档上下文在 boundFileOf 单独管，不受影响）
+      draft.value=””; autosize();
       if(sess.busy){                                          // 该 tab 生成中 → 进「等待区」(query 队列)，本回合结束后按序自动发
         (sess.queue=sess.queue||[]).push({ text:q, quotes, refs });
         return;
@@ -3818,6 +3875,10 @@ const app = createApp({
       // @ 引用的文件作为额外上下文（可多个，依次注入；与挂载的绑定文件叠加）
       for(const f of refs){
         if(f.id===ctxFile?.id) continue;                              // 已作主上下文注入，避免重复
+        if(f.localPath){                                              // 粘贴的本地绝对路径 → 告知 AI 路径，由它 Read
+          ctx+=`\n\n【附件（本地路径）：${f.path}】\n请用 Read 工具读取此文件内容。`;
+          continue;
+        }
         if(f.kind==='doc'){
           const txt = f.isDocx ? (f.docxText||'') : (f.editedHtml||f.html||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
           ctx+=`\n\n【引用文件：${f.name}】\n`+(txt||'').slice(0,6000);
@@ -4043,7 +4104,7 @@ const app = createApp({
 
     return { ask,askToggle,askCustomToggle,askReady,submitAsk,skipAsk,
              files,activeId,active,chatOpen,messages,draft,busy,model,showCot,sidebarW,chatW,resizing,startResize,
-             refFiles,suggest,stopGen,onInput,onInputKeydown,pickSuggest,pendingOf,
+             refFiles,suggest,stopGen,onInput,onInputKeydown,onPaste,onChatDrop,chatDragOver,pickSuggest,pendingOf,
              bubbleInput,submitBubble,onBubbleEnter,autosizeBubble,quoteText,quoteNote,
              tiptapEl,msgsEl,bubble,suggCount,ready,sheetLoading,sheetEdits,
              sideTab,sessions,activeSessionId,newSession,openSession,curSession,archiveSession,
