@@ -783,6 +783,7 @@
         <button v-if="active" class="refresh-btn" @click="refreshActive" :class="{spinning:refreshing}" title="从磁盘重新读取当前文件（agent 改文件后若没自动刷新，手动兜底）">
           <svg viewBox="0 0 16 16" width="13" height="13"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 3v3h-3"/></svg>
         </button>
+        <button v-if="active && active.path" class="hist-btn" @click="manualSave" title="手动存档到 Git（有改动才产生新版本）">💾 存档</button>
         <div v-if="active && active.path" class="hist-wrap">
           <button class="hist-btn" :class="{on:fileHistory.open}" @click="toggleHistory" title="修改历史 / 回滚到任一版本">🕘 历史<span v-if="fileHistory.open && fileHistory.entries.length" class="hist-n">{{ fileHistory.entries.length }}</span></button>
           <div v-if="fileHistory.open" class="hist-pop">
@@ -1611,6 +1612,12 @@ const app = createApp({
     function rollbackTo(sha){ const af=active.value; if(af&&af.path){ wsSend({op:'file_rollback', path:af.path, sha}); fileHistory.open=false; } }
     let manualCommitT=null;
     function commitManualSoon(path){ clearTimeout(manualCommitT); manualCommitT=setTimeout(()=>wsSend({op:'commit_file', path, message:'手动编辑'}), 2500); }   // 人工编辑落盘后稍候 commit 一条
+    function manualSave(){
+      const af=active.value; if(!af||!af.path) return;
+      wsSend({op:'commit_file', path:af.path, message:'手动存档'});
+      manualSaveWaiting=af.path;
+    }
+    let manualSaveWaiting=null;
 
     /* —— Excel(.xlsx) 真盘 ground-truth + 单元格级 diff 复核 —— */
     const sheetReview = reactive({ active:false, path:'', cells:[] });   // AI 改了 xlsx → 列出变更单元格供接受/拒绝
@@ -2232,7 +2239,10 @@ const app = createApp({
         case 'mounted': expandedFolders[IMPORT_ROOT]=true; refreshVaultSoon(); break;   // 挂载成功 → 展开 User import 让用户看到
         case 'vault_dirty': refreshVaultSoon(); break;
         case 'history': if(m.path===fileHistory.path){ fileHistory.entries=m.entries||[]; fileHistory.loading=false; } break;
-        case 'committed': if(fileHistory.open && m.path===fileHistory.path && m.sha) wsSend({op:'file_history', path:m.path}); break;
+        case 'committed':
+          if(fileHistory.open && m.path===fileHistory.path && m.sha) wsSend({op:'file_history', path:m.path});
+          if(manualSaveWaiting===m.path){ manualSaveWaiting=null; const msg=m.sha?'已存档 ✓':'没有变动，无需存档'; conn.banner=msg; setTimeout(()=>{ if(conn.banner===msg) conn.banner=''; },3000); }
+          break;
         case 'registry_warn':                        // 报告里改到了 model 派生数字 → 弹一致性闸（非阻断，引导从 model 级联）
           regWarn.tabId=m.tabId||'main'; regWarn.file=m.file||''; regWarn.divergences=m.divergences||[]; regWarn.prompt=m.prompt||''; regWarn.show=true; break;
         case 'session':
@@ -4136,7 +4146,7 @@ const app = createApp({
              treeRows,toggleFolder,folderIcon,rowIcon,backlinks,openBacklink,
              addSheetRangeToChat,fmtQuote,
              conn,connLabel,vaultName,onModelChange,refreshVault,openByPath,regWarn,triggerCascade,perm,permRespond,acceptEdits,rejectEdits,
-             cookingWord,cookingSec,cookingTail,toolIcon,toolDetail,stepSec,fmtDur,toggleStep,fileHistory,toggleHistory,rollbackTo,histTime,
+             cookingWord,cookingSec,cookingTail,toolIcon,toolDetail,stepSec,fmtDur,toggleStep,fileHistory,toggleHistory,rollbackTo,histTime,manualSave,
              sheetReview,acceptSheetReview,rejectSheetReview,sheetLazy,
              docxReview,decideDocxItem,acceptAllDocx,rejectAllDocx,docxItemLabel,docxLoading,docxNonText,acceptDocxNonText,rejectDocxNonText,
              permMode,setPermMode,fastMode,fastSupported,toggleFast,effortLevel,effortOptions,setEffort,ctxTokens,ctxK,ctxPct,ctxWindowLabel,cuCirc,cuOffset,ctxLevel,
