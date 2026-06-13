@@ -283,6 +283,9 @@
   .textLayer ::selection{background:rgba(51,112,255,.35)}
   .pdf-fail{padding:40px;text-align:center;color:#d33;font-size:13px}
   .pdf-loading{position:absolute;left:50%;top:40px;transform:translateX(-50%);color:var(--sub);font-size:13px}
+  /* 图片(.png/.jpg/.gif/.webp/.svg…) 预览：只读居中自适应，整图可见不裁切 */
+  .img-wrap{flex:1;overflow:auto;min-height:0;display:flex;align-items:center;justify-content:center;background:#f5f6f8;padding:24px}
+  .img-view{max-width:100%;max-height:100%;object-fit:contain;box-shadow:var(--shadow);border-radius:4px;background:#fff;user-select:none}
   /* PPT(.pptx) 预览：aiden0z/pptx-renderer 输出 DOM/SVG → 这里铺布局 + 选中文字浮层接入既有 bubble */
   .pptx-wrap{flex:1;overflow:auto;min-height:0;padding:20px 0;position:relative;background:#f5f6f8}
   .pptx-host{display:flex;flex-direction:column;align-items:center;gap:24px;padding:0 16px 80px}
@@ -812,6 +815,11 @@
       <div class="pdf-wrap" v-show="active && active.kind==='pdf'">
         <div id="pdf-host"></div>
         <div v-if="pdfLoading" class="pdf-loading">⏳ 正在渲染 PDF…</div>
+      </div>
+
+      <!-- 图片预览（png/jpg/jpeg/gif/webp/svg/bmp/ico/avif）→ 只读居中自适应显示 -->
+      <div class="img-wrap" v-show="active && active.kind==='image'">
+        <img v-if="active && active.kind==='image'" class="img-view" :src="active.url" :alt="active.name" draggable="false">
       </div>
 
       <!-- PPT(.pptx) 预览（aiden0z/pptx-renderer，高保真 DOM/SVG 渲染，文字可选→挂到对话；⌘/Ctrl+滚轮 或触控板捏合缩放） -->
@@ -1950,8 +1958,9 @@ const app = createApp({
     const vaultUrl = (p)=> '/vault?path='+encodeURIComponent(p);
     // 渲染前剥掉 YAML frontmatter（--- … ---）：真实 wiki（SNDK/NVDA）带 frontmatter，否则会被当正文渲染。curMd 保留全文（含 frontmatter，不影响双链扫描）
     function mdBody(md){ return marked.parse(String(md||'').replace(/^﻿?---\r?\n[\s\S]*?\r?\n---\r?\n/, '')); }
-    function kindByExt(ext){ if(ext==='.pdf') return 'pdf'; if(ext==='.pptx'||ext==='.ppt') return 'pptx'; if(ext==='.html'||ext==='.htm') return 'html'; if(ext==='.xlsx'||ext==='.xls'||ext==='.csv') return 'sheet'; return 'doc'; }
-    function iconByKind(k,ext){ if(k==='pdf') return '📕'; if(k==='pptx') return '📊'; if(k==='html') return '🌐'; if(k==='sheet') return '📊'; if(ext==='.docx') return '📝'; return '📄'; }
+    const IMG_EXTS = new Set(['.png','.jpg','.jpeg','.gif','.webp','.svg','.bmp','.ico','.avif']);
+    function kindByExt(ext){ if(ext==='.pdf') return 'pdf'; if(ext==='.pptx'||ext==='.ppt') return 'pptx'; if(ext==='.html'||ext==='.htm') return 'html'; if(ext==='.xlsx'||ext==='.xls'||ext==='.csv') return 'sheet'; if(IMG_EXTS.has(ext)) return 'image'; return 'doc'; }
+    function iconByKind(k,ext){ if(k==='pdf') return '📕'; if(k==='pptx') return '📊'; if(k==='html') return '🌐'; if(k==='sheet') return '📊'; if(k==='image') return '🖼️'; if(ext==='.docx') return '📝'; return '📄'; }
 
     function buildFilesFromVault(vfolders, vfiles){
       if(reviewSidMap.size){ pendingVaultRefresh=[vfolders,vfiles]; return; }   // 复核进行中：暂不重建侧栏（openFile 重渲染会抹掉绿增红删），等复核结束再刷
@@ -2001,6 +2010,7 @@ const app = createApp({
         else if(f.kind==='pptx'){ f.pptxBuf=await (await fetch(vaultUrl(f.path))).arrayBuffer(); }
         else if(f.kind==='html'){ f.htmlText=await (await fetch(vaultUrl(f.path))).text(); }
         else if(f.kind==='sheet'){ f.url=vaultUrl(f.path); }
+        else if(f.kind==='image'){ f.url=vaultUrl(f.path); }   // 图片只需 URL，<img :src> 直接渲染，无字节预取
       }catch(e){
         console.warn('ensureLoaded 失败', f.path, e);
         if(f.kind==='doc') f.html='<p>⚠️ 加载失败：'+escapeHtml(String(e.message||e))+'</p>';
@@ -2155,6 +2165,11 @@ const app = createApp({
           if(fileHistory.open&&fileHistory.path===af.path) setTimeout(()=>wsSend({op:'file_history',path:af.path}),400);
         }catch(e){ console.warn('HTML 重渲失败',e); } }, 600);
         return;
+      }
+      if(openMatch && af.kind==='image'){                   // 打开的是图片：盘上变了（AI/外部/回滚）→ 换带时间戳 url 强制重取重绘
+        af.url=vaultUrl(af.path)+'&t='+Date.now();
+        if(fileHistory.open&&fileHistory.path===af.path) setTimeout(()=>wsSend({op:'file_history',path:af.path}),400);
+        refreshVaultSoon(); return;
       }
       const isOpenMd = af && af.kind==='doc' && !af.isDocx && af.path===m.path;
       if(!isOpenMd){ refreshVaultSoon(); return; }
@@ -2457,6 +2472,8 @@ const app = createApp({
         let ls=f.lsData;                                            // 前台表格实时快照（不写回 reactive）
         if(active.value && active.value.id===f.id && lsAlive){ try{ ls=window.luckysheet.getAllSheets(); }catch(e){} }
         if(ls) o.lsData=jclone(ls);
+      }else if(f.kind==='image'){
+        if(f.url)o.url=f.url;                                       // 图片 URL（可由 path 重算，存下免开图瞬间空白）
       }
       return o;
     }
@@ -2493,6 +2510,7 @@ const app = createApp({
             else if(x.kind==='pdf'){ if(x.pdfBuf)f.pdfBuf=x.pdfBuf; if(x.pdfText)f.pdfText=x.pdfText; }
             else if(x.kind==='pptx'){ if(x.pptxBuf)f.pptxBuf=x.pptxBuf; }
             else if(x.kind==='sheet'){ if(x.url)f.url=x.url; if(x.file)f.file=x.file; if(x.lsData)f.lsData=x.lsData; }
+            else if(x.kind==='image'){ if(x.url)f.url=x.url; }
             files.push(f);
           }
           folders.splice(0,folders.length);
@@ -2639,6 +2657,8 @@ const app = createApp({
       }else if(f.kind==='html'){
         destroyLuckysheet(); destroySuperdoc();
         renderHtml(f);
+      }else if(f.kind==='image'){
+        destroyLuckysheet(); destroySuperdoc();                // 图片走 <img :src=active.url> 响应式渲染，无需额外 render 调用
       }else if(f.kind==='sheet'){
         destroySuperdoc(); loadSheet(f);
       }
