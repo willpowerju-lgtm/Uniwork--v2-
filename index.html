@@ -68,6 +68,19 @@
   .review-diff ins{background:#e6ffed;color:#1a7f37;text-decoration:none;border-radius:2px}
   .review-diff del{background:#ffebe9;color:#cf222e;border-radius:2px}
   .login-banner{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#cf1322;color:#fff;padding:9px 16px;border-radius:10px;font-size:13px;box-shadow:var(--shadow);z-index:10000;max-width:90vw;text-align:center}
+  .reg-warn{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#fff7e6;border:1px solid #ffd591;color:#613400;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.16);z-index:10001;width:min(560px,92vw);padding:13px 15px 12px;font-size:13px}
+  .reg-warn .rw-h{display:flex;align-items:center;gap:7px;font-weight:600;margin-bottom:6px}
+  .reg-warn .rw-h .rw-x{margin-left:auto;cursor:pointer;color:#a87f3a;font-size:15px;line-height:1;padding:2px 4px;border-radius:6px}
+  .reg-warn .rw-h .rw-x:hover{background:#ffe7ba}
+  .reg-warn .rw-file{font-family:var(--mono,monospace);font-size:11.5px;color:#8a6d3b;word-break:break-all;margin-bottom:6px}
+  .reg-warn .rw-list{margin:0 0 9px;padding:7px 10px;background:#fffdf5;border:1px solid #ffe7ba;border-radius:8px;max-height:128px;overflow:auto;font-size:12px;line-height:1.55}
+  .reg-warn .rw-list code{color:#cf6a1a;font-weight:600}
+  .reg-warn .rw-acts{display:flex;gap:8px;justify-content:flex-end}
+  .reg-warn .rw-acts button{border:1px solid transparent;border-radius:8px;padding:6px 13px;font-size:12.5px;cursor:pointer}
+  .reg-warn .rw-primary{background:#d48806;color:#fff}
+  .reg-warn .rw-primary:hover{background:#b06f04}
+  .reg-warn .rw-ghost{background:#fff;border-color:#e3c98f;color:#7a5b1e}
+  .reg-warn .rw-ghost:hover{background:#fdf3df}
   /* 权限审批：输入框上方小内联条 */
   .perm-inline{display:flex;align-items:center;gap:8px;background:#fff7e6;border:1px solid #ffe7ba;border-radius:10px;padding:6px 10px;margin-bottom:8px;font-size:12px}
   .perm-inline .pi-ic{color:#d48806}
@@ -256,6 +269,8 @@
   .sheet-review-bar button{font-size:12px;border:0;border-radius:7px;padding:5px 12px;cursor:pointer;white-space:nowrap}
   .sheet-review-bar .reject{background:#fff1f0;color:#cf1322;border:1px solid #ffd6d6}
   .sheet-review-bar .accept{background:linear-gradient(135deg,#37b24d,#2b8a3e);color:#fff}
+  .sheet-lazy-bar{position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:30;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.10);padding:6px 13px;font-size:12.5px;color:#9a3412;white-space:nowrap}
+  .sheet-lazy-bar b{color:#c2410c}
   .ed-scroll{flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;padding:28px;min-height:0}
   /* PDF 预览（pdf.js → canvas + 可选中文字层） */
   .pdf-wrap{flex:1;overflow:auto;min-height:0;padding:24px 0;position:relative}
@@ -901,6 +916,7 @@
           <button class="reject" @click="rejectSheetReview">✗ 拒绝（还原）</button>
           <button class="accept" @click="acceptSheetReview">✓ 接受</button>
         </div>
+        <div v-if="sheetLazy.active" class="sheet-lazy-bar" title="模型过大，按表懒加载：点其它标签即按需解析；为防止空表覆盖真实数据，此模式只读不回写">📖 大模型逐表加载 · 共 {{ sheetLazy.sheets }} 表 · 点标签按需打开 · <b>只读</b></div>
         <div id="luckysheet-host" class="ls-host"></div>
         <div v-if="sheetLoading" class="ls-loading">⏳ 正在渲染电子表格…</div>
       </div>
@@ -1132,6 +1148,20 @@
 
   <!-- 未登录 / 后端离线 横幅 -->
   <div v-if="conn.banner" class="login-banner">{{ conn.banner }}</div>
+
+  <!-- registry 一致性闸：下游报告里改到了 model 派生数字 → 提示从 model 起算级联 -->
+  <div v-if="regWarn.show" class="reg-warn">
+    <div class="rw-h">⚠️ 数字和 model 对不上了<span class="rw-x" @click="regWarn.show=false" title="关闭">×</span></div>
+    <div class="rw-file">{{ regWarn.file }}</div>
+    <div class="rw-list">
+      <div v-for="d in regWarn.divergences" :key="d.key">· {{ d.key }}<template v-if="d.period||d.unit"> （{{ d.period }}{{ d.unit?' '+d.unit:'' }}）</template>：model=<code>{{ d.registry_value }}</code> → 你改成了≈<code>{{ d.gone_replaced_by }}</code></div>
+    </div>
+    <div style="font-size:11.5px;color:#8a6d3b;margin-bottom:9px">这类数字是 model→registry→报告 派生的，应从 model 起算级联，而不是直接改在报告里。</div>
+    <div class="rw-acts">
+      <button class="rw-ghost" @click="regWarn.show=false">我有依据，保留</button>
+      <button class="rw-primary" @click="triggerCascade()">交给 AI 从 model 级联</button>
+    </div>
+  </div>
 </div>
 
 <script type="module">
@@ -1415,8 +1445,10 @@ const app = createApp({
       }
       if(p==='Vault'||p==='WIKI') return row.type==='folder' ? [{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}] : [];   // 结构根：不可改名/删，但可在下面建子文件夹/上传
       const base=[{ic:'✏️',label:'重命名',act:()=>startRename(row)},{ic:'🗑️',label:'删除',note:'移入回收站',danger:true,act:()=>deleteRow(row)}];
-      if(row.type==='folder') return [{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}, ...base];
-      return base;
+      const reveal={ic:'📂',label:'打开本地文件夹',act:()=>wsSend({op:'reveal_local', path:p})};   // 文件夹→直接打开；文件→在 Finder 里定位选中
+      if(row.type==='folder') return [reveal,{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}, ...base];
+      const openLocalIt={ic:'🖥️',label:'本地打开',note:'默认应用',act:()=>openLocalPath(p, row.name)};   // 用系统默认应用（Word/PPT/Excel）打开编辑，带即时提示
+      return [openLocalIt, reveal, ...base];
     }
     function ctxTitleFor(row){ const p=rowPath(row); if(p===TRASH_ROOT) return '🗑 回收站'; if(p===IMPORT_ROOT) return '🔗 User import'; return (row.type==='folder'?'📁 ':'')+row.name; }
     function onRowContext(row,ev){ ev.preventDefault(); ev.stopPropagation(); cancelRename(); const items=menuFor(row); if(!items.length) return;
@@ -1526,6 +1558,7 @@ const app = createApp({
     const perm = reactive({ queue:[] });                                  // 待确认的权限请求
     const ask = reactive({ active:false, reqId:null, tabId:null, questions:[], picks:[] });   // AskUserQuestion 选择卡（一次一个）
     const review = reactive({ edits:[], path:'' });     // 本轮 agent 对当前打开文件的编辑（内联绿增红删复核用）
+    const regWarn = reactive({ show:false, tabId:'main', file:'', divergences:[], prompt:'' });   // registry 一致性闸：报告里改到 model 派生数字 → 提示从 model 级联
     let reviewSidMap = new Map();                        // sid -> {old,new}（接受/拒绝时对盘做精确操作）
     let pendingToolEdits = new Map();                    // toolUseId -> edits（tool_done 成功才纳入复核，排除失败/retry 的 Edit）
     let agentTurnActive = false;                         // agent 回合进行中（区分 agent 改文件 vs 外部改文件）
@@ -1547,6 +1580,7 @@ const app = createApp({
 
     /* —— Excel(.xlsx) 真盘 ground-truth + 单元格级 diff 复核 —— */
     const sheetReview = reactive({ active:false, path:'', cells:[] });   // AI 改了 xlsx → 列出变更单元格供接受/拒绝
+    const sheetLazy = reactive({ active:false, sheets:0, cur:'' });      // 大模型逐表懒加载（只读，不回写）状态
     let sheetSuppressSave=false, sheetSaveT=null;
     function sheetValueMap(){          // 当前 Luckysheet 所有非空单元格值 → {sheetName:{"r,c":值}}
       const map={};
@@ -1571,18 +1605,29 @@ const app = createApp({
     }
     function saveSheetToVault(){       // 用户改单元格 → 落真实 .xlsx + 记历史（复核中/程序重载时跳过）
       const f=active.value; if(!f||f.kind!=='sheet'||!f.path||sheetSuppressSave||sheetReview.active) return;
+      if(f.lazy) return;               // 大模型逐表懒加载=只读：此刻 getAllSheets 只有已加载表，回写会把未加载表清空→毁文件，绝不回写
       clearTimeout(sheetSaveT);
       sheetSaveT=setTimeout(()=>{ try{ wsSend({op:'save_file_b64', path:f.path, b64:sheetToB64()}); commitManualSoon(f.path); }catch(e){} }, 900);
     }
-    const SHEET_HOOKS=(f)=>({ rangeSelect(idx,ranges){ const r=Array.isArray(ranges)?ranges[ranges.length-1]:ranges; if(!r){bubble.show=false;return;} const multi=(r.row[1]>r.row[0])||(r.column[1]>r.column[0]); if(!multi){bubble.show=false;return;} setTimeout(positionSheetBubble,10); }, updated(){ saveFilesSoon(); saveSheetToVault(); } });
+    const SHEET_HOOKS=(f)=>({ rangeSelect(idx,ranges){ const r=Array.isArray(ranges)?ranges[ranges.length-1]:ranges; if(!r){bubble.show=false;return;} const multi=(r.row[1]>r.row[0])||(r.column[1]>r.column[0]); if(!multi){bubble.show=false;return;} setTimeout(positionSheetBubble,10); }, updated(){ saveFilesSoon(); saveSheetToVault(); }, sheetActivate(index){ if(f&&f.lazy){ lazyActivate(f, parseInt(index,10)); } } });
     function createSheet(f, sheets){   // 统一的 Luckysheet 创建（loadSheet / 重载共用）
       window.luckysheet.create({ container:'luckysheet-host', data:sheets, title:f.name, lang:'zh',
-        showinfobar:false, showtoolbar:true, showsheetbar:true, sheetFormulaBar:true, enableAddRow:false, enableAddBackTop:false, showstatisticBar:true, hook:SHEET_HOOKS(f) });
+        showinfobar:false, showtoolbar:!f.lazy, showsheetbar:true, sheetFormulaBar:true, enableAddRow:false, enableAddBackTop:false, showstatisticBar:true,
+        allowEdit: !f.lazy,   // 懒加载大模型=只读：显示 Excel 缓存值（读数准确），不支持编辑/重算（全量重算需完整公式链，见 只读 提示）
+        hook:SHEET_HOOKS(f) });
       lsAlive=true;
     }
     async function reloadSheetFromDisk(f){   // 拉盘上最新 .xlsx → 返回 Luckysheet sheets 数据
       const blob=await (await fetch(vaultUrl(f.path)+'&t='+Date.now())).blob();
       const file=new File([blob], f.name);
+      if(f.lazy){                            // 大模型：LuckyExcel 全量会崩 → 走懒加载重建（只解析当前/已缓存表）
+        const info=await xlsxDirectory(file);
+        f._dir=info.dir; f._cache={}; f._blob=file;
+        const activeIdx=lazyPickActive(info.dir, info.activeTab);
+        await lazyParseSheet(f, activeIdx);
+        sheetLazy.active=true; sheetLazy.sheets=info.dir.length;
+        return lazyBuildSheets(f, activeIdx);
+      }
       return (await new Promise((res,rej)=>window.LuckyExcel.transformExcelToLucky(file,j=>res(j),e=>rej(e)))).sheets;
     }
     async function reloadSheetWithDiff(f, silent){   // 盘上表变了 → 重载 + (非 silent 时)与旧值 diff、高亮变更单元格、起复核条
@@ -2028,6 +2073,14 @@ const app = createApp({
     function closeAsk(){ ask.active=false; ask.questions=[]; ask.picks=[]; ask.reqId=null; ask.tabId=null; }
     function submitAsk(){ if(!ask.active||!askReady.value) return; const picks=ask.questions.map((q,qi)=>({ header:q.header, question:q.question, selected:(ask.picks[qi].selected||[]).slice(), custom:(ask.picks[qi].custom||'').trim() })); wsSend({op:'dialog_response', reqId:ask.reqId, answer:{picks}}); closeAsk(); }
     function skipAsk(){ if(!ask.active) return; wsSend({op:'dialog_response', reqId:ask.reqId, answer:{cancelled:true}}); closeAsk(); }
+    // 一致性闸 →「交给 AI 从 model 级联」：把预置 prompt 当一条用户 turn 发到对应会话（生成中则进等待区），由 AI 先问依据再级联
+    function triggerCascade(){
+      const p=regWarn.prompt; const sess=sessions.find(s=>s.id===regWarn.tabId)||curSession.value||ensureSession();
+      regWarn.show=false; if(!sess||!p) return;
+      if(sess.id!==activeSessionId.value) activeSessionId.value=sess.id;   // 切到该会话让用户看到级联对话
+      if(sess.busy){ (sess.queue=sess.queue||[]).push({ text:p, quotes:[], refs:[] }); }
+      else dispatchTurn(sess, p, [], []);
+    }
 
     /* ---- WebSocket 客户端 ---- */
     let ws=null, reconnectT=null, refreshT=null;
@@ -2072,6 +2125,8 @@ const app = createApp({
         case 'vault_dirty': refreshVaultSoon(); break;
         case 'history': if(m.path===fileHistory.path){ fileHistory.entries=m.entries||[]; fileHistory.loading=false; } break;
         case 'committed': if(fileHistory.open && m.path===fileHistory.path && m.sha) wsSend({op:'file_history', path:m.path}); break;
+        case 'registry_warn':                        // 报告里改到了 model 派生数字 → 弹一致性闸（非阻断，引导从 model 级联）
+          regWarn.tabId=m.tabId||'main'; regWarn.file=m.file||''; regWarn.divergences=m.divergences||[]; regWarn.prompt=m.prompt||''; regWarn.show=true; break;
         case 'session':
           conn.login=m.apiKeySource||''; conn.model=m.model||conn.model; if(Array.isArray(m.skills)) conn.skills=m.skills; if(Array.isArray(m.slash)) conn.slash=m.slash;
           // 不用 apiKeySource 判登录：订阅也会报 'none' 但其实能用；真未登录靠 error(auth) 兜底
@@ -2276,9 +2331,12 @@ const app = createApp({
         if(f.pptxBuf instanceof ArrayBuffer) o.pptxBuf=f.pptxBuf;   // 原始 PPTX 字节
       }else if(f.kind==='sheet'){
         if(f.url)o.url=f.url; if(f.file)o.file=f.file;              // File/Blob 可克隆
-        let ls=f.lsData;                                            // 前台表格实时快照（不写回 reactive）
-        if(active.value && active.value.id===f.id && lsAlive){ try{ ls=window.luckysheet.getAllSheets(); }catch(e){} }
-        if(ls) o.lsData=jclone(ls);
+        if(f.lazy){ o.lazy=true; }                                 // 懒加载大模型：只记标记，重开时重新逐表加载（不存部分快照）
+        else{
+          let ls=f.lsData;                                          // 前台表格实时快照（不写回 reactive）
+          if(active.value && active.value.id===f.id && lsAlive){ try{ ls=window.luckysheet.getAllSheets(); }catch(e){} }
+          if(ls) o.lsData=jclone(ls);
+        }
       }
       return o;
     }
@@ -2410,12 +2468,16 @@ const app = createApp({
     }
 
     function snapshotActiveSheet(){   // 切走前把当前表格的编辑快照存回文件对象（关tab/切换不丢）
-      if(lsAlive && active.value?.kind==='sheet'){
+      if(lsAlive && active.value?.kind==='sheet' && !active.value.lazy){   // 懒加载表只读、且仅部分加载 → 不快照（否则空壳表会污染）
         try{ active.value.lsData=window.luckysheet.getAllSheets(); }catch(e){}
       }
     }
     // 用系统默认应用打开 vault 真实文件（Word/PPT/Excel 原生编辑 → 保存写回同一文件 → watcher 自动 commit + 前端自动重渲）
-    function openLocal(){ const f=active.value; if(f&&f.path) wsSend({op:'open_local', path:f.path}); }
+    function openLocalPath(path, name){ if(!path) return;   // 即时轻提示：大文件 Word/Excel/PPT 冷启动可达 10s，否则点完无反馈像没生效
+      const msg='正在用本地应用打开「'+(name||path.split('/').pop())+'」…（大文件首次打开较慢）';
+      conn.banner=msg; setTimeout(()=>{ if(conn.banner===msg) conn.banner=''; }, 6000);
+      wsSend({op:'open_local', path}); }
+    function openLocal(){ const f=active.value; if(f&&f.path) openLocalPath(f.path, f.name); }
     // 手动 fallback：从磁盘重新读取当前文件并重渲（cover all 4 类，覆盖 agent 改文件后没收到 file_changed 的兜底）
     const refreshing=ref(false);
     async function refreshActive(){
@@ -2907,15 +2969,80 @@ const app = createApp({
       }
     }
 
+    /* ===== 大模型逐表懒加载：超大 xlsx 不全量解析（LuckyExcel 全量会卡死/崩），只解析当前表，其余点标签才解析 ===== */
+    const LAZY_FILE_BYTES = 1_800_000;     // 文件 > ~1.8MB → 走懒加载
+    const VALUES_ONLY_CELLS = 60_000;      // 单表网格 > 6 万格 → 纯值渲染（不建公式链，避免卡）
+    async function xlsxDirectory(file){    // 只读 workbook.xml → 表目录（名/隐藏/字节）+ 默认 active，不解析任何单元格
+      const zip=await window.JSZip.loadAsync(await file.arrayBuffer());
+      const wbxml=await zip.file('xl/workbook.xml').async('string');
+      const relsF=zip.file('xl/_rels/workbook.xml.rels'); const relsXml=relsF?await relsF.async('string'):'';
+      const rid2tgt={}; (relsXml.match(/<Relationship\b[^>]*>/g)||[]).forEach(t=>{ const id=(t.match(/Id="([^"]+)"/)||[])[1]; const tg=(t.match(/Target="([^"]+)"/)||[])[1]; if(id&&tg) rid2tgt[id]=tg; });
+      const activeTab=parseInt((wbxml.match(/activeTab="(\d+)"/)||[])[1]||'0',10);
+      const dir=[]; let i=0,m; const re=/<sheet\b([^>]*?)\/>/g;
+      while((m=re.exec(wbxml))){ const a=m[1];
+        const name=(a.match(/name="([^"]*)"/)||[])[1] ?? ('Sheet'+i);
+        const hidden=/state="(hidden|veryHidden)"/.test(a);
+        const rid=(a.match(/r:id="([^"]+)"/)||[])[1]; let tgt=((rid2tgt[rid]||'').replace(/^\/?/,'')); if(!tgt.startsWith('xl/'))tgt='xl/'+tgt;
+        let bytes=0; try{ const zf=zip.file(tgt); bytes=(zf&&zf._data&&zf._data.uncompressedSize)||0; }catch(e){}
+        dir.push({ name, idx:i, hidden, bytes }); i++;
+      }
+      return { dir, activeTab };
+    }
+    function lazyPickActive(dir, activeTab){   // 默认打开哪张：Excel 上次 active（若可见且不超大）→ 否则最小的可见表
+      const at=dir[activeTab]; if(at && !at.hidden && at.bytes>0 && at.bytes<600000) return activeTab;
+      const vis=dir.filter(d=>!d.hidden);
+      const small=vis.filter(d=>d.bytes>0 && d.bytes<600000).sort((a,b)=>a.bytes-b.bytes)[0];
+      return small ? small.idx : (vis[0]||dir[0]||{idx:0}).idx;
+    }
+    function wsToLucky(ws, name, order, status){   // SheetJS worksheet → Luckysheet 表对象（>6万格自动纯值，不建公式链）
+      const celldata=[]; const ref=ws&&ws['!ref']; let maxR=49,maxC=25;
+      if(ref){ const rng=XLSX.utils.decode_range(ref); maxR=Math.max(maxR,rng.e.r); maxC=Math.max(maxC,rng.e.c);
+        const valuesOnly=((rng.e.r+1)*(rng.e.c+1))>VALUES_ONLY_CELLS;
+        for(let r=rng.s.r;r<=rng.e.r;r++)for(let c=rng.s.c;c<=rng.e.c;c++){
+          const cell=ws[XLSX.utils.encode_cell({r,c})]; if(!cell)continue;
+          const v={ ct:{ t:(typeof cell.v==='number')?'n':'s', fa:cell.z||'General' } };
+          if(!valuesOnly && cell.f!=null) v.f='='+String(cell.f);
+          if(cell.v!=null){ v.v=cell.v; v.m=(cell.w!=null)?String(cell.w):String(cell.v); }
+          celldata.push({r,c,v});
+        }
+      }
+      return { name, color:'', index:String(order), order, status:status?1:0, hide:0, row:Math.max(maxR+1,60), column:Math.max(maxC+1,26), celldata, config:{} };
+    }
+    async function lazyParseSheet(f, idx){   // 解析单张表（SheetJS 选择性解析，不碰其它表）→ 缓存
+      const d=f._dir.find(x=>x.idx===idx); if(!d) return null;
+      if(f._cache[d.name]) return f._cache[d.name];
+      const wb=XLSX.read(await f._blob.arrayBuffer(), { sheets:[idx], cellFormula:true, cellNF:true, cellStyles:false });
+      f._cache[d.name]=wsToLucky(wb.Sheets[d.name], d.name, idx, false);
+      return f._cache[d.name];
+    }
+    function lazyBuildSheets(f, activeIdx){   // 组装喂给 Luckysheet 的 data：已缓存=满数据，其余=空壳标签（点开才填）
+      return f._dir.map(d=>{
+        const sd=f._cache[d.name];
+        if(sd){ sd.status=(d.idx===activeIdx)?1:0; sd.order=d.idx; sd.index=String(d.idx); return sd; }
+        return { name:d.name, color:'', index:String(d.idx), order:d.idx, status:(d.idx===activeIdx)?1:0, hide:0, row:60, column:26, celldata:[], config:{} };
+      });
+    }
+    let lazyRebuilding=false;
+    async function lazyActivate(f, idx){     // 切到未解析的 tab → 解析该表 + 重建（已缓存则不动）
+      if(lazyRebuilding || !f._dir) return;
+      const d=f._dir.find(x=>x.idx===idx); if(!d || f._cache[d.name]) return;
+      lazyRebuilding=true; sheetLoading.value=true; sheetLazy.cur=d.name;
+      try{ await lazyParseSheet(f, idx); const sheets=lazyBuildSheets(f, idx);
+        sheetSuppressSave=true; destroyLuckysheet(); await nextTick(); createSheet(f, sheets);
+        setTimeout(()=>{ sheetSuppressSave=false; }, 400);
+      }catch(e){ console.warn('懒加载切表失败',e); }
+      finally{ sheetLoading.value=false; lazyRebuilding=false; }
+    }
+
     /* ===== Luckysheet 真·Excel 渲染 ===== */
     async function loadSheet(f){
-      sheetLoading.value=true;
+      sheetLoading.value=true; sheetLazy.active=false;
       try{
         let sheets;
-        if(f.lsData){                          // 有编辑快照 → 直接还原（保留改动）
+        if(f.lsData && !f.lazy){                // 有编辑快照（小文件）→ 直接还原（保留改动）；懒加载文件不走快照
           sheets=f.lsData;
         }else{
-          let blob = f.file || await (await fetch(f.url)).blob();
+          let blob = f.file || await (await fetch(f.url||vaultUrl(f.path))).blob();
           // csv：先用 SheetJS 转成 xlsx，再交给 LuckyExcel（LuckyExcel 只吃 xlsx）
           if(/\.csv$/i.test(f.name)){
             const text=await blob.text();
@@ -2924,6 +3051,18 @@ const app = createApp({
             blob=new Blob([out],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
           }
           const file = (blob instanceof File) ? blob : new File([blob], (f.name||'sheet').replace(/\.csv$/i,'.xlsx'));
+          // —— 大文件 → 逐表懒加载（只解析当前表；只读，不回写）——
+          if(file.size>=LAZY_FILE_BYTES && !/\.csv$/i.test(f.name)){
+            try{
+              const info=await xlsxDirectory(file);
+              f.lazy=true; f._dir=info.dir; f._cache={}; f._blob=file; f.lsData=null;
+              const activeIdx=lazyPickActive(info.dir, info.activeTab);
+              await lazyParseSheet(f, activeIdx);
+              sheetLazy.active=true; sheetLazy.sheets=info.dir.length; sheetLazy.cur=(info.dir[activeIdx]||{}).name||'';
+              await nextTick(); destroyLuckysheet(); createSheet(f, lazyBuildSheets(f, activeIdx));
+              return;
+            }catch(e){ console.warn('懒加载失败，回退全量解析',e); f.lazy=false; sheetLazy.active=false; }
+          }
           const data = await new Promise((res,rej)=>
             window.LuckyExcel.transformExcelToLucky(file,(json)=>res(json),(err)=>rej(err)));
           sheets=data.sheets;
@@ -3775,9 +3914,10 @@ const app = createApp({
              addSheetRangeToChat,fmtQuote,
              conn,connLabel,vaultName,onModelChange,refreshVault,perm,permRespond,acceptEdits,rejectEdits,
              cookingWord,cookingSec,toolIcon,toolDetail,stepSec,fmtDur,toggleStep,fileHistory,toggleHistory,rollbackTo,histTime,
-             sheetReview,acceptSheetReview,rejectSheetReview,
+             sheetReview,acceptSheetReview,rejectSheetReview,sheetLazy,
              docxReview,decideDocxItem,acceptAllDocx,rejectAllDocx,docxItemLabel,docxLoading,docxNonText,acceptDocxNonText,rejectDocxNonText,
              permMode,setPermMode,fastMode,fastSupported,toggleFast,ctxTokens,ctxK,ctxPct,ctxWindowLabel,cuCirc,cuOffset,ctxLevel,
+             regWarn,triggerCascade,
              send,renderMd,escapeHtml,autosize,resetLocal };
   }
 });

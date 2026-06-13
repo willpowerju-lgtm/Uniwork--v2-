@@ -67,6 +67,52 @@ async function snapshotBaselineIfNeeded(absPath) {
   } catch {}
 }
 
+// ---------- registry 一致性闸：focus 标的的「下游派生件」(研报 docx / wiki md) 改动 commit 前，
+// 核对里面被动过的数字是否还和 model 派生的 _data_registry.json(SSOT) 对得上。对不上 → 不拦提交（git 非破坏），
+// 但 raise 给前端，引导走"从 model 起算级联"。模型(xlsx)/registry(json) 是上游，不在此闸内。----------
+const REG_CHECK_PY = path.join(__dirname, 'registry_check.py');
+function findRegistryFor(rel) {                          // rel(相对 VAULT) → 该标的的 _data_registry.json 绝对路径，找不到返回 null
+  let d = path.dirname(path.join(VAULT, rel));
+  while (d.startsWith(VAULT)) {                          // 向上找最近的、且位于 Company Coverage 子树内的 registry
+    const reg = path.join(d, '_data_registry.json');
+    if (d.includes(path.sep + 'Company Coverage' + path.sep) && fs.existsSync(reg)) return reg;
+    if (d === VAULT) break;
+    d = path.dirname(d);
+  }
+  if (/(^|\/)WIKI\//i.test(rel)) {                       // WIKI/<T>.md → 映射回 Company Coverage/<T>/registry
+    const t = path.basename(rel).replace(/\.md$/i, '');
+    const cc = path.join(VAULT, 'Vault', 'Company Coverage', t, '_data_registry.json');
+    if (fs.existsSync(cc)) return cc;
+  }
+  return null;
+}
+async function registryConsistencyCheck(rel) {           // 返回 {divergences:[...]} 或 null（一致/不适用）
+  try {
+    const ext = path.extname(rel).toLowerCase();
+    if (!['.docx', '.md'].includes(ext)) return null;    // 只盯报告/wiki 文本派生件
+    if (path.basename(rel) === '_data_registry.json' || /(^|\/)model\//i.test(rel)) return null;  // 上游源，跳过
+    const reg = findRegistryFor(rel);
+    if (!reg) return null;
+    const abs = path.join(VAULT, rel);
+    if (!fs.existsSync(abs)) return null;
+    let oldArg = [], tmp = null;
+    try {                                                // HEAD 版本(= 改动前)落临时文件，二进制安全
+      const buf = await git(['show', 'HEAD:' + rel], 'buffer');
+      tmp = path.join(os.tmpdir(), 'uw_old_' + process.pid + '_' + Date.now() + ext);
+      await fsp.writeFile(tmp, Buffer.from(buf));
+      oldArg = ['--old', tmp];
+    } catch { /* 无 HEAD = 新文件 → 脚本走 no-baseline，不报 */ }
+    const out = await new Promise((res) => {
+      execFile('python3', [REG_CHECK_PY, '--registry', reg, '--new', abs, ...oldArg, '--label', rel],
+        { env: { ...process.env, PYTHONIOENCODING: 'utf-8', PYTHONUTF8: '1' }, maxBuffer: 16 * 1024 * 1024 },
+        (err, stdout) => res(String(stdout || '').trim()));
+    });
+    if (tmp) fsp.unlink(tmp).catch(() => {});
+    let j = null; try { j = JSON.parse(out); } catch { return null; }
+    return (j && j.ok === false && Array.isArray(j.divergences) && j.divergences.length) ? j : null;
+  } catch { return null; }
+}
+
 // 真 SDK 仅在非 mock 时动态加载（mock 模式下即使没装/没鉴权也能跑）
 let agentQuery = null;
 if (!MOCK) {
@@ -334,7 +380,18 @@ async function handleMessage(conn, raw) {
       catch (e) { err = String(e.message || e); }       // 文件从未提交过 → 无 HEAD 版本，前端回退为「无基线」
       send(ws, { ev: 'file_head', path: m.path, b64, err }); break;
     }
-    case 'commit_file': { const sha = await gitCommitFile(m.path, m.message); send(ws, { ev: 'committed', path: m.path, sha }); break; }
+    case 'commit_file': {
+      const warn = await registryConsistencyCheck(m.path);   // 提交前比对（此刻 HEAD 仍是改动前版本）
+      const sha = await gitCommitFile(m.path, m.message);
+      send(ws, { ev: 'committed', path: m.path, sha });
+      if (warn) {                                            // 改到了 model 派生数字 → raise，引导从 model 级联
+        const list = warn.divergences.slice(0, 10).map(d =>
+          `· ${d.key}（${d.period || ''}${d.unit ? ' ' + d.unit : ''}）：model=${d.registry_value} → 你改成了≈${d.gone_replaced_by}`).join('\n');
+        const prompt = `我刚在「${m.path}」里改了下面这些 model 派生的数字，它们已经和 model / registry 对不上了：\n${list}\n\n请按级联铁律处理：先问我这次改动的依据（是否有新信息源 / 幅度多少 / 确不确定），确认后从 model 起算级联（改 model 假设 → 重算 → registry → 研报/wiki/图表全部重渲），不要让数字只停在报告里。`;
+        send(ws, { ev: 'registry_warn', tabId: m.tabId || 'main', file: m.path, divergences: warn.divergences, prompt });
+      }
+      break;
+    }
     case 'open_local': {                                 // 用系统默认应用打开 vault 文件（Word/PPT/Excel 原生编辑；保存后 watcher 自动 commit + 前端自动重渲）
       const abs = resolveInVault(m.path); if (!abs) return send(ws, { ev: 'error', message: 'bad path' });
       // pptx 先剥嵌入字体：Win PowerPoint 嵌入的字体子集在 Mac PowerPoint 上字形错乱（实测全篇乱码）。幂等，无嵌入时 SKIP 不动文件
@@ -353,6 +410,17 @@ async function handleMessage(conn, raw) {
       const args = process.platform === 'win32' ? ['/c', 'start', '', abs] : [abs];
       execFile(cmd, args, (err) => { if (err) send(ws, { ev: 'error', message: '本地打开失败：' + err.message }); });
       send(ws, { ev: 'opened_local', path: m.path }); break;
+    }
+    case 'reveal_local': {                                // 在系统文件管理器里打开：文件夹→直接打开该文件夹；文件→打开所在文件夹并选中该文件
+      const abs = resolveInVault(m.path); if (!abs) return send(ws, { ev: 'error', message: 'bad path' });
+      let isDir = false;
+      try { isDir = (await fsp.stat(abs)).isDirectory(); } catch (e) { return send(ws, { ev: 'error', message: '打开文件夹失败：' + e.message }); }
+      let cmd, args;
+      if (process.platform === 'darwin') { cmd = 'open'; args = isDir ? [abs] : ['-R', abs]; }                   // open -R 在 Finder 里定位并选中文件
+      else if (process.platform === 'win32') { cmd = 'explorer'; args = isDir ? [abs] : ['/select,' + abs]; }    // explorer /select 选中文件（成功也返回非零退出码）
+      else { cmd = 'xdg-open'; args = [isDir ? abs : path.dirname(abs)]; }                                       // Linux：无统一的“选中”，退而打开所在目录
+      execFile(cmd, args, (err) => { if (err && process.platform !== 'win32') send(ws, { ev: 'error', message: '打开文件夹失败：' + err.message }); });
+      send(ws, { ev: 'revealed_local', path: m.path }); break;
     }
     case 'make_folder': {                                // 新建文件夹：磁盘 mkdir → 广播刷新树（空目录 listVault 也会带上）
       const abs = resolveInVault(m.path); if (!abs) return send(ws, { ev: 'error', message: 'bad path' });
@@ -564,6 +632,7 @@ async function startTab(conn, tabId, model, openFile) {
 const UNIWORK_APPEND = `你运行在 Uniwork V2 投研工作台的后端，用户通过浏览器 GUI 与你交互。
 - 工作目录(cwd)就是用户的 Vault 知识库；用户「当前打开的文件」会在消息里以【当前打开的文件：<相对路径>】标注。
 - **默认所有「改/补充/修订/计算/追加/替换」都是直接改当前打开的那个真实文件本身**——不是给建议、不是贴代码块让用户复制、不是只在回答里写改后内容。用户说「这句话末尾加一句 X」「把 D2 改成 52」时，**直接动手改真实文件，不用用户每次说明用什么工具、改哪个路径**（当前打开文件路径已在消息里给你）。改完前端自动显示 diff 复核 + 版本历史，用户接受/拒绝即可。
+- **级联铁律（focus 标的＝ Vault/Company Coverage/<T>/ 下有 _data_registry.json + model/ 的公司，如 SNDK/NVDA）**：这类公司的"数字"是一条有向单链 —— **model（Excel 假设）→ _data_registry.json（SSOT 单一数字源）→ 研报 docx / wiki / 图表（下游派生件）**。凡是会改变**假设或预测数字**的请求（"下季 ASP 下行""下修毛利""价格没那么乐观了""把 26Q4 收入改成 X"），**必须从 model 起算、向下游级联，不能因为"用户正打开着研报"就把数字直接落在研报里**：① 先判定命中哪个 driver / 哪几期（自然语言→driver 是你的 judge），幅度不明确就先 raise 用户确认、绝不臆造；② 走 /finance-cowork 的 cascade：改 model 假设 → 重算 → re-digest → 派生新 registry → 漂移闸＋miss-guide → 出 preview → **逐条 raise 用户确认**（>5% 漂移或击穿管理层 guide 必须确认）→ apply → 研报/wiki/图表全部重渲。③ **执行与回写（AI 真跑级联时）**：cascade 引擎是完整版 finance-cowork（~/.claude/skills/finance-cowork，写到它自己的 output/{T}/，用 --model 指向 vault 里的模型）；跑完把新的 _data_registry.json / 研报 / wiki / 图表**同步回 vault 的 Vault/Company Coverage/<T>/（WIP + 该标的主 registry）**；**关键顺序：先把新 registry 落到 vault 盘上、再提交重渲后的下游文件**——这样下游数字和 registry 同时为新值，一致性闸自然为绿；顺序反了（报告先改、registry 没回写）闸会误报。**禁止直接手改下游 docx/wiki 里的数字、也禁止直接手改 registry**——否则研报会和 model 对不上。只有**纯定性/措辞**改动（风险段、表述、不含数字）才就地直接改下游文件。一句话：**改数字＝从 model 起级联；改文字＝就地改。** 另：若收到系统提示"我刚在某报告里改了 model 派生数字、和 model 对不上"，那是一致性闸触发——按上面流程，先问依据再从 model 级联，别只在报告里改回去。
 - 按文件类型选工具（自动选，别问用户）：.md / .txt → Edit/Write（自动放行）；.xlsx → Bash 跑 python+openpyxl（load_workbook→改单元格→save，尽量保留公式/格式）；.docx → Bash 跑 python+python-docx。xlsx/docx 是二进制，不能用 Edit/Write 文本工具，只能 python。
 - 读文件用 Read、找文件用 Glob/Grep（都自动放行）。别用 Bash 的 cat/sed/ls/echo 读写 Vault 文本文件。Bash 留给改二进制文件和真正的 shell 活（跑脚本/拉数据）。
 - 主动顺着笔记里的 [[双链]] 和 Grep 去读相关笔记，把分散在多篇里的依据串起来再回答，并引用具体文件:行。
