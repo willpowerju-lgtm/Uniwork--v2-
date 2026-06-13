@@ -328,6 +328,7 @@ wss.on('connection', (ws) => {
     permSeq: 0,
     permMode: 'auto',         // 'auto'=危险命令(Bash等)弹审批条 / 'bypass'=全放行(连改文件的 Bash 都不审批)
     fastMode: false,          // Fast mode（Opus 提速输出）；前端开关 → set_fast op
+    effortLevel: null,        // 推理 effort：null=默认(adaptive)；'low'/'medium'/'high'/'xhigh'
   };
   clients.add(conn);
   send(ws, { ev: 'hello', vault: VAULT, mock: MOCK, model: DEFAULT_MODEL, harness: harnessInfo });
@@ -612,6 +613,14 @@ async function handleMessage(conn, raw) {
       }
       break;
     }
+    case 'set_effort': {                                 // Effort level 热切换
+      const v = ['low','medium','high','xhigh'].includes(m.level) ? m.level : null;
+      conn.effortLevel = v;
+      for (const [, tab] of conn.tabs || new Map()) {
+        try { tab.query?.applyFlagSettings?.({ effortLevel: v }); } catch (e) {}
+      }
+      break;
+    }
     case 'set_model': { const tab = conn.tabs.get(m.tabId); if (tab) { tab.model = m.model; if (tab.query?.setModel) { try { await tab.query.setModel(m.model); } catch {} } } break; }
     default: break;
   }
@@ -664,7 +673,7 @@ async function startTab(conn, tabId, model, openFile, resume) {
     model,
     ...(resume ? { resume } : {}),                   // 中断后重建：续上原 session，保留对话上下文
     abortController: abort,
-    settings: { fastMode: !!conn.fastMode },        // Fast mode 初始态（运行中切换走 applyFlagSettings）
+    settings: { fastMode: !!conn.fastMode, ...(conn.effortLevel ? { effortLevel: conn.effortLevel } : {}) },
     settingSources: ['user', 'project', 'local'],   // 加载 ~/.claude/skills + CLAUDE.md + slash cmds
     skills: 'all',
     systemPrompt: { type: 'preset', preset: 'claude_code', append: UNIWORK_APPEND },

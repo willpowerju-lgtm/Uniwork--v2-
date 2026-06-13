@@ -1121,6 +1121,9 @@
             <option value="claude-opus-4-6[1m]">Opus 4.6·1M</option>
             <option value="claude-sonnet-4-6">Sonnet 4.6·200k</option>
           </select>
+          <select v-model="effortLevel" class="model-sel" @change="setEffort(effortLevel)" title="推理 effort：越高越深入思考但越慢">
+            <option v-for="e in effortOptions" :key="e.value" :value="e.value">{{ e.label }}</option>
+          </select>
           <!-- Fast mode：Opus 提速输出（同模型，不降级）；非 Opus 模型不支持 → 置灰 -->
           <label class="fast-toggle" :class="{on:fastMode&&fastSupported, disabled:!fastSupported}" @click="fastSupported&&toggleFast()" :title="!fastSupported ? '当前模型不支持 Fast mode（仅 Opus）' : (fastMode ? 'Fast mode 已开：Opus 提速输出（同模型不降级），点击关闭' : 'Fast mode：Opus 提速输出，点击开启')">
             <span class="ft-label">Fast</span><span class="ft-track"><span class="ft-knob"></span></span>
@@ -1334,6 +1337,14 @@ const app = createApp({
     function setPermMode(mode){ permMode.value=(mode==='bypass'?'bypass':'auto'); try{ localStorage.setItem('uni_perm_mode', permMode.value); }catch{} wsSend({op:'set_perm_mode', mode:permMode.value}); if(permMode.value==='bypass') perm.queue.splice(0); }
     const fastMode=ref((()=>{ try{ return localStorage.getItem('uni_fast_mode')==='1'; }catch{ return false; } })());   // Fast mode：Opus 提速输出
     function toggleFast(){ fastMode.value=!fastMode.value; try{ localStorage.setItem('uni_fast_mode', fastMode.value?'1':'0'); }catch{} wsSend({op:'set_fast', on:fastMode.value}); }
+    const EFFORT_BY_MODEL = {
+      'opus': [{value:'low',label:'low'},{value:'medium',label:'medium'},{value:'high',label:'high'},{value:'xhigh',label:'xhigh'}],
+      'sonnet': [{value:'low',label:'low'},{value:'medium',label:'medium'},{value:'high',label:'high'}],
+    };
+    const effortLevel=ref((()=>{ try{ return localStorage.getItem('uni_effort')||'high'; }catch{ return 'high'; } })());
+    const effortOptions=computed(()=>{ const k=/opus/i.test(model.value)?'opus':'sonnet'; return EFFORT_BY_MODEL[k]; });
+    function setEffort(v){ effortLevel.value=v; try{ localStorage.setItem('uni_effort',v); }catch{} wsSend({op:'set_effort', level:v}); }
+    watch(effortOptions, opts=>{ if(!opts.some(o=>o.value===effortLevel.value)){ setEffort(opts[opts.length-1].value); } });   // 切模型后 effort 选项变了→自动降到该模型最高档
     const showCot=ref(true);                 // 是否显示推理过程(COT)；联网由模型自主决策
     const refFiles=reactive([]);             // @ 引用的额外上下文文件（可多个，全局，按 id 去重；与挂载的绑定文件叠加）
     const suggest=reactive({show:false,type:'',items:[],idx:0});
@@ -2172,7 +2183,7 @@ const app = createApp({
     function connectAgent(){
       try{ ws=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/agent'); }
       catch(e){ conn.status='offline'; return; }
-      ws.onopen=()=>{ conn.status='online'; conn.banner=''; wsSend({op:'list_vault'}); wsSend({op:'set_perm_mode', mode:permMode.value}); if(fastMode.value) wsSend({op:'set_fast', on:true}); };
+      ws.onopen=()=>{ conn.status='online'; conn.banner=''; wsSend({op:'list_vault'}); wsSend({op:'set_perm_mode', mode:permMode.value}); if(fastMode.value) wsSend({op:'set_fast', on:true}); wsSend({op:'set_effort', level:effortLevel.value}); };
       ws.onclose=()=>{ conn.status='offline'; conn.banner='后端未连接：终端运行  node server.mjs  后自动重连'; for(const tid of Array.from(activeTurns.keys())) finishTurn(tid); scheduleReconnect(); };   // 断连/服务重启：旧连接上的回合已死，收尾掉所有在飞回合，否则工具卡永久转
       ws.onerror=()=>{};
       ws.onmessage=(e)=>{ let m; try{ m=JSON.parse(e.data); }catch{ return; } onAgentEvent(m); };
@@ -4121,7 +4132,7 @@ const app = createApp({
              cookingWord,cookingSec,cookingTail,toolIcon,toolDetail,stepSec,fmtDur,toggleStep,fileHistory,toggleHistory,rollbackTo,histTime,
              sheetReview,acceptSheetReview,rejectSheetReview,sheetLazy,
              docxReview,decideDocxItem,acceptAllDocx,rejectAllDocx,docxItemLabel,docxLoading,docxNonText,acceptDocxNonText,rejectDocxNonText,
-             permMode,setPermMode,fastMode,fastSupported,toggleFast,ctxTokens,ctxK,ctxPct,ctxWindowLabel,cuCirc,cuOffset,ctxLevel,
+             permMode,setPermMode,fastMode,fastSupported,toggleFast,effortLevel,effortOptions,setEffort,ctxTokens,ctxK,ctxPct,ctxWindowLabel,cuCirc,cuOffset,ctxLevel,
              send,renderMd,escapeHtml,autosize,resetLocal };
   }
 });
