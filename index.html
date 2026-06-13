@@ -1818,16 +1818,18 @@ const app = createApp({
     function cssEscId(s){ try{ return (window.CSS&&CSS.escape)?CSS.escape(String(s)):String(s).replace(/["\\\]]/g,'\\$&'); }catch(e){ return String(s); } }
     function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
     function isIntraTokenGap(g){ return typeof g==='string' && g.length<=3 && !/\s/.test(g); }   // 「.」「,」「/」等 token 内分隔→并入同一处；含空格或较长→另起一处
-    // 把正文里 SuperDoc 渲染的 tracked-change span（.track-insert/.track-delete/.track-format[data-id]）按文档顺序收成序列，
-    // 并算出相邻改动间「未改动间隙文本」+ 紧贴的同 token 上下文 —— 供分组(groupDocxSeq)与跳转(jumpToDocxItem)使用
+    // 把正文里 SuperDoc 渲染的 tracked-change 装饰 span（.track-insert-dec/.track-delete-dec/.track-format-dec，
+    // 带 data-track-change-id + data-track-change-kind）按文档顺序收成序列，并算出相邻改动间「未改动间隙文本」+
+    // 紧贴的同 token 上下文 —— 供分组(groupDocxSeq)与跳转(jumpToDocxItem)使用
     function docxChangeSeqFromDom(host){
       if(!host) return [];
-      let spans=[]; try{ spans=Array.from(host.querySelectorAll('.track-insert[data-id],.track-delete[data-id],.track-format[data-id]')); }catch(e){ return []; }
+      let spans=[]; try{ spans=Array.from(host.querySelectorAll('.track-insert-dec[data-track-change-id],.track-delete-dec[data-track-change-id],.track-format-dec[data-track-change-id]')); }catch(e){ return []; }
       if(!spans.length) return [];
-      const byId=new Map();                                  // 同一改动可能因分页/内联样式被拆成多个同 data-id span → 合并
+      const byId=new Map();                                  // 同一改动可能因分页/换行被拆成多个同 id 装饰 span → 合并
       for(const el of spans){
-        const id=el.getAttribute('data-id'); if(!id) continue;
-        const type=el.classList.contains('track-insert')?'insert':(el.classList.contains('track-delete')?'delete':'format');
+        const id=el.getAttribute('data-track-change-id'); if(!id) continue;
+        const kind=(el.getAttribute('data-track-change-kind')||'').toLowerCase();
+        const type=kind==='insert'?'insert':kind==='delete'?'delete':kind==='format'?'format':(el.classList.contains('track-insert-dec')?'insert':el.classList.contains('track-delete-dec')?'delete':'format');
         const e=byId.get(id);
         if(!e) byId.set(id,{ id, type, nodes:[el], text:(el.textContent||'') });
         else { e.nodes.push(el); e.text+=(el.textContent||''); }
@@ -1835,8 +1837,11 @@ const app = createApp({
       const list=Array.from(byId.values());
       list.sort((a,b)=>{ const p=a.nodes[0].compareDocumentPosition(b.nodes[0]); if(p&Node.DOCUMENT_POSITION_FOLLOWING) return -1; if(p&Node.DOCUMENT_POSITION_PRECEDING) return 1; return 0; });
       const between=(aLast,bFirst)=>{ try{ const r=document.createRange(); r.setStartAfter(aLast); r.setEndBefore(bFirst); return r.toString(); }catch(e){ return null; } };
-      const ctxTail=(node)=>{ try{ const r=document.createRange(); r.selectNodeContents(host); r.setEndBefore(node); const t=r.toString().slice(-40); const m=t.match(/(\S{0,24})$/); return m?m[1]:''; }catch(e){ return ''; } };
-      const ctxHead=(node)=>{ try{ const r=document.createRange(); r.selectNodeContents(host); r.setStartAfter(node); const t=r.toString().slice(0,40); const m=t.match(/^(\S{0,24})/); return m?m[1]:''; }catch(e){ return ''; } };
+      // 替换卡的上下文只取紧贴的「数字/货币」字符（$ ¥ 1, . % - 等），遇到字母/中文/空格即停 ——
+      // 这样表格里挤在一起的表头文字（cell 间无空格）不会被误抓进卡片，价格仍显示完整（$1,646.54）
+      const NUMCTX = /[0-9.,%$¥€£+\-]/;
+      const ctxTail=(node)=>{ try{ const r=document.createRange(); r.selectNodeContents(host); r.setEndBefore(node); const t=r.toString().slice(-40); let s=''; for(let i=t.length-1;i>=0 && s.length<14 && NUMCTX.test(t[i]);i--) s=t[i]+s; return s; }catch(e){ return ''; } };
+      const ctxHead=(node)=>{ try{ const r=document.createRange(); r.selectNodeContents(host); r.setStartAfter(node); const t=r.toString().slice(0,40); let s=''; for(let i=0;i<t.length && s.length<14 && NUMCTX.test(t[i]);i++) s+=t[i]; return s; }catch(e){ return ''; } };
       return list.map((e,i)=>({
         id:e.id, type:e.type, text:String(e.text||''),
         gapToNext: i<list.length-1 ? between(e.nodes[e.nodes.length-1], list[i+1].nodes[0]) : null,
@@ -1883,11 +1888,11 @@ const app = createApp({
         const host=docxHostEl(); if(!host||!it) return;
         const ids=(it.ids&&it.ids.length)?it.ids:[it.id];
         let first=null;
-        for(const id of ids){ const n=host.querySelector('[data-id="'+cssEscId(id)+'"]'); if(n&&!first) first=n; }
+        for(const id of ids){ const n=host.querySelector('[data-track-change-id="'+cssEscId(id)+'"]'); if(n&&!first) first=n; }
         if(!first) return;
         first.scrollIntoView({behavior:'smooth', block:'center'});
         docxReview.activeId=it.id;
-        const nodes=[]; for(const id of ids){ host.querySelectorAll('[data-id="'+cssEscId(id)+'"]').forEach(n=>nodes.push(n)); }
+        const nodes=[]; for(const id of ids){ host.querySelectorAll('[data-track-change-id="'+cssEscId(id)+'"]').forEach(n=>nodes.push(n)); }
         nodes.forEach(n=>n.classList.add('drr-flash'));
         setTimeout(()=>{ nodes.forEach(n=>{ try{ n.classList.remove('drr-flash'); }catch(e){} }); }, 1600);
       }catch(e){}
@@ -1960,8 +1965,18 @@ const app = createApp({
         }catch(e){ try{ ed.doc.trackChanges.decide({decision, target:{id}}); }catch(_){} }   // 兜底回退到底层 decide
       }
       docxReview.activeId='';
-      refreshDocxItems();
-      if(!docxReview.items.length) finishDocxReview();   // 仅当确实全部处理完 → 自动落定存盘
+      // 是否全部处理完，看编辑器模型（同步、权威），别看 DOM —— SuperDoc 的修订装饰层是「分页异步」重排的：
+      // accept 后装饰 span 不会立刻消失，同步读 DOM 会拿到旧的、误判没处理完。
+      let remaining = -1; try{ remaining = (ed.doc.trackChanges.list().items||[]).length; }catch(e){}
+      if(remaining===0){ finishDocxReview(); return; }
+      // 还有改动 → 等装饰层重排后再按 DOM 重新分组。轮询：刷到 DOM 里唯一 change-id 数 == 模型剩余数为止（≤2s 自停）
+      const host=docxHostEl(); let tries=0;
+      const settle=()=>{
+        const n = host ? new Set(Array.from(host.querySelectorAll('[data-track-change-id]')).map(e=>e.getAttribute('data-track-change-id'))).size : 0;
+        refreshDocxItems();
+        if(n!==remaining && tries++<20) setTimeout(settle, 100);
+      };
+      settle();
     }
     // 非文字改动（图片/样式）的接受/拒绝：盘上已是新版，接受=记历史；拒绝=git checkout HEAD 还原 + 重渲
     function acceptDocxNonText(){ const f=active.value; const p=docxNonText.path; docxNonText.active=false; if(!p) return;
