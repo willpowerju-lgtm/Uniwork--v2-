@@ -959,7 +959,7 @@
                   <span class="tl-tdetail" v-if="toolDetail(st)">{{ toolDetail(st) }}</span>
                   <span class="tl-grow"></span>
                   <span v-if="st.status==='run'" class="tl-spin" title="进行中"></span>
-                  <span v-else class="tl-badge" :class="st.status">{{ st.status==='err'?'✗':'✓' }}</span>
+                  <span v-else class="tl-badge" :class="st.status" :title="st.status==='stop'?'已中断/未完成':''">{{ st.status==='err'?'✗':(st.status==='stop'?'⊘':'✓') }}</span>
                   <span class="tl-dur">{{ fmtDur(stepSec(st)) }}</span>
                 </div>
                 <!-- 正文文本段 -->
@@ -969,7 +969,7 @@
             <!-- 旧消息（无 timeline）回退：工具 chips + 推理 + 正文气泡 -->
             <template v-else>
               <div v-if="m.tools && m.tools.length" class="tool-chips">
-                <span v-for="(t,ti) in m.tools" :key="ti" class="tchip" :class="t.status" :title="t.title||t.name"><span class="tc-ic">{{ t.status==='done' ? '✓' : (t.status==='err' ? '⚠️' : '⟳') }}</span>{{ t.title||t.name }}</span>
+                <span v-for="(t,ti) in m.tools" :key="ti" class="tchip" :class="t.status" :title="t.title||t.name"><span class="tc-ic">{{ t.status==='done' ? '✓' : (t.status==='err' ? '⚠️' : (t.status==='stop' ? '⊘' : '⟳')) }}</span>{{ t.title||t.name }}</span>
               </div>
               <div v-if="m.toolStatus" class="searching">⏳ {{ m.toolStatus }}</div>
               <div v-if="m.reasoning && showCot" class="cot">
@@ -2039,14 +2039,17 @@ const app = createApp({
       try{ ws=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/agent'); }
       catch(e){ conn.status='offline'; return; }
       ws.onopen=()=>{ conn.status='online'; conn.banner=''; wsSend({op:'list_vault'}); wsSend({op:'set_perm_mode', mode:permMode.value}); if(fastMode.value) wsSend({op:'set_fast', on:true}); };
-      ws.onclose=()=>{ conn.status='offline'; conn.banner='后端未连接：终端运行  node server.mjs  后自动重连'; scheduleReconnect(); };
+      ws.onclose=()=>{ conn.status='offline'; conn.banner='后端未连接：终端运行  node server.mjs  后自动重连'; for(const tid of Array.from(activeTurns.keys())) finishTurn(tid); scheduleReconnect(); };   // 断连/服务重启：旧连接上的回合已死，收尾掉所有在飞回合，否则工具卡永久转
       ws.onerror=()=>{};
       ws.onmessage=(e)=>{ let m; try{ m=JSON.parse(e.data); }catch{ return; } onAgentEvent(m); };
     }
     function scheduleReconnect(){ clearTimeout(reconnectT); reconnectT=setTimeout(connectAgent, 1500); }
     const turnOf=(tabId)=>activeTurns.get(tabId);
     function markAuthed(){ conn.authed=true; conn.authError=false; conn.banner=''; }   // 有真实活动=已登录(订阅 apiKeySource 报 none 也算)
-    function finishTurn(tabId){ const t=activeTurns.get(tabId); if(!t) return; t.aiMsg.streaming=false; t.aiMsg.toolStatus=''; tlCloseLast(t.aiMsg); if(t.sess) t.sess.busy=false; genCtrls.delete(tabId); activeTurns.delete(tabId); t.tick&&t.tick(); }
+    function finishTurn(tabId){ const t=activeTurns.get(tabId); if(!t) return; const ai=t.aiMsg; ai.streaming=false; ai.toolStatus='';
+      if(Array.isArray(ai.timeline)) for(const s of ai.timeline){ if(s.kind==='tool'&&s.status==='run'){ s.status='stop'; if(!s.t1) s.t1=Date.now(); } }   // 收尾仍在转的工具步骤：中断/断连时不会再来 tool_done → 不停 spinner 就会永久转
+      if(Array.isArray(ai.tools)) for(const tc of ai.tools){ if(tc.status==='run') tc.status='stop'; }                                                 // 旧版 chips 同理
+      tlCloseLast(ai); if(t.sess) t.sess.busy=false; genCtrls.delete(tabId); activeTurns.delete(tabId); t.tick&&t.tick(); }
     /* —— 时间线（thinking/tool/text 按时序交错 + 每步计时，仿 Claude Code）—— */
     function tlLast(ai){ const a=ai.timeline; return a&&a.length?a[a.length-1]:null; }
     function tlCloseLast(ai){ const s=tlLast(ai); if(s&&!s.t1) s.t1=Date.now(); }
@@ -2088,6 +2091,7 @@ const app = createApp({
         case 'permission_request': {
           const inputStr=m.input?Object.entries(m.input).map(([k,v])=>k+': '+v).join('\n'):'';
           perm.queue.push({ reqId:m.reqId, tabId:m.tabId, toolName:m.toolName, title:m.title||m.toolName, inputStr });
+          const _t=turnOf(m.tabId); if(_t){ _t.aiMsg.toolStatus='待你批准：'+(m.title||m.toolName)+'（看下方 ⚠️ 允许/拒绝）'; _t.tick&&_t.tick(); }   // 工具卡在等审批而非卡死 → 明确提示，别让用户以为冻住
           break; }
         case 'ask_question': {   // Claude 调 AskUserQuestion → 弹选择卡（server 在 canUseTool 里拦截转发；bypass 也弹）
           ask.active=true; ask.reqId=m.reqId; ask.tabId=m.tabId; ask.questions=Array.isArray(m.questions)?m.questions:[];
