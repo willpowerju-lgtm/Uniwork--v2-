@@ -270,6 +270,8 @@
   .sheet-review-bar .accept{background:linear-gradient(135deg,#37b24d,#2b8a3e);color:#fff}
   .sheet-lazy-bar{position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:30;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.10);padding:6px 13px;font-size:12.5px;color:#9a3412;white-space:nowrap}
   .sheet-lazy-bar b{color:#c2410c}
+  .sheet-lazy-bar .slb-x{margin-left:10px;cursor:pointer;color:#c2410c;font-weight:700;font-size:15px;line-height:1;padding:0 2px;opacity:.6}
+  .sheet-lazy-bar .slb-x:hover{opacity:1}
   .ed-scroll{flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;padding:28px;min-height:0}
   /* PDF 预览（pdf.js → canvas + 可选中文字层） */
   .pdf-wrap{flex:1;overflow:auto;min-height:0;padding:24px 0;position:relative}
@@ -789,7 +791,7 @@
         <button v-if="active" class="refresh-btn" @click="refreshActive" :class="{spinning:refreshing}" title="从磁盘重新读取当前文件（agent 改文件后若没自动刷新，手动兜底）">
           <svg viewBox="0 0 16 16" width="13" height="13"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 3v3h-3"/></svg>
         </button>
-        <button v-if="active && active.path" class="hist-btn" @click="manualSave" title="手动存档到 Git（有改动才产生新版本）">💾 存档</button>
+        <button v-if="active && active.path" class="hist-btn" @click="manualSave" title="手动存档到 Git（有改动才产生新版本）">💾 Git</button>
         <div v-if="active && active.path" class="hist-wrap">
           <button class="hist-btn" :class="{on:fileHistory.open}" @click="toggleHistory" title="修改历史 / 回滚到任一版本">🕘 历史<span v-if="fileHistory.open && fileHistory.entries.length" class="hist-n">{{ fileHistory.entries.length }}</span></button>
           <div v-if="fileHistory.open" class="hist-pop">
@@ -939,7 +941,7 @@
           <button class="reject" @click="rejectSheetReview">✗ 拒绝（还原）</button>
           <button class="accept" @click="acceptSheetReview">✓ 接受</button>
         </div>
-        <div v-if="sheetLazy.active" class="sheet-lazy-bar" title="模型过大，已切只读懒加载：点标签按需解析、可框选挂到对话引用；要改数请点右上『本地打开』用 Excel 编辑（原生重算），存盘后这里自动重读">📖 模型过大 · 已切<b>只读</b>逐表加载（共 {{ sheetLazy.sheets }} 表，点标签按需打开）· 可框选引用 · 要改数请点 <b>本地打开</b> 用 Excel</div>
+        <div v-if="sheetLazy.active && !sheetLazy.dismissed" class="sheet-lazy-bar" title="模型过大，已切只读懒加载：点标签按需解析、可框选挂到对话引用；要改数请点右上『本地打开』用 Excel 编辑（原生重算），存盘后这里自动重读">📖 模型过大 · 已切<b>只读</b>逐表加载（共 {{ sheetLazy.sheets }} 表，点标签按需打开）· 可框选引用 · 要改数请点 <b>本地打开</b> 用 Excel<span class="slb-x" @click="sheetLazy.dismissed=true" title="关闭提示">×</span></div>
         <div id="luckysheet-host" class="ls-host"></div>
         <div v-if="sheetLoading" class="ls-loading">⏳ 正在渲染电子表格…</div>
       </div>
@@ -1650,7 +1652,7 @@ const app = createApp({
 
     /* —— Excel(.xlsx) 真盘 ground-truth + 单元格级 diff 复核 —— */
     const sheetReview = reactive({ active:false, path:'', cells:[] });   // AI 改了 xlsx → 列出变更单元格供接受/拒绝
-    const sheetLazy = reactive({ active:false, sheets:0, cur:'' });      // 大模型逐表懒加载（只读，不回写）状态
+    const sheetLazy = reactive({ active:false, sheets:0, cur:'', dismissed:false });      // 大模型逐表懒加载（只读，不回写）状态
     let sheetSuppressSave=false, sheetSaveT=null;
     let sheetBaseline=null, baselineT=null, sheetSelfSaveSuppress=0;   // 保真回写：基线快照 / 抓基线防抖 / 自存回声抑制窗
     function sheetValueMap(){          // 当前 Luckysheet 所有非空单元格值 → {sheetName:{"r,c":值}}
@@ -1726,7 +1728,7 @@ const app = createApp({
         f._dir=info.dir; f._cache={}; f._blob=file;
         const activeIdx=lazyPickActive(info.dir, info.activeTab);
         await lazyParseSheet(f, activeIdx);
-        sheetLazy.active=true; sheetLazy.sheets=info.dir.length;
+        sheetLazy.active=true; sheetLazy.dismissed=false; sheetLazy.sheets=info.dir.length;
         return lazyBuildSheets(f, activeIdx);
       }
       return (await new Promise((res,rej)=>window.LuckyExcel.transformExcelToLucky(file,j=>res(j),e=>rej(e)))).sheets;
@@ -1983,6 +1985,18 @@ const app = createApp({
     function kindByExt(ext){ if(ext==='.pdf') return 'pdf'; if(ext==='.pptx'||ext==='.ppt') return 'pptx'; if(ext==='.html'||ext==='.htm') return 'html'; if(ext==='.xlsx'||ext==='.xls'||ext==='.csv') return 'sheet'; if(IMG_EXTS.has(ext)) return 'image'; return 'doc'; }
     function iconByKind(k,ext){ if(k==='pdf') return '📕'; if(k==='pptx') return '📊'; if(k==='html') return '🌐'; if(k==='sheet') return '📊'; if(k==='image') return '🖼️'; if(ext==='.docx') return '📝'; return '📄'; }
 
+    let sessionRestored=false;                            // 刷新后只在首个 vault 列表里恢复一次上次会话
+    function restoreOpenTabs(){                            // 按 path 找回上次打开的标签 + 当前页（id='v:'+path 稳定，可跨刷新）
+      if(sessionRestored) return false;
+      sessionRestored=true;
+      let saved=null; try{ saved=JSON.parse(localStorage.getItem('uni_open')||'null'); }catch{}
+      if(!saved || !Array.isArray(saved.tabs) || !saved.tabs.length) return false;
+      const toOpen=saved.tabs.map(p=>files.find(f=>f.path===p)).filter(Boolean);     // 只恢复仍存在的文件
+      if(!toOpen.length) return false;
+      for(const f of toOpen){ if(!openTabs.some(t=>t.id===f.id)) openTabs.push(f); }  // 先把标签栏铺好
+      openFile(files.find(f=>f.path===saved.act) || toOpen[0]);                       // 再激活上次的当前页
+      return true;
+    }
     function buildFilesFromVault(vfolders, vfiles){
       if(reviewSidMap.size){ pendingVaultRefresh=[vfolders,vfiles]; return; }   // 复核进行中：暂不重建侧栏（openFile 重渲染会抹掉绿增红删），等复核结束再刷
       const prevId = active.value?.id;
@@ -2003,6 +2017,7 @@ const app = createApp({
       if(pendingOpenPath){ const pf=files.find(f=>f.path===pendingOpenPath); if(pf){ pendingOpenPath=null; openFile(pf); return; } }   // 刚生成的报告：树刷新后兜底自动打开
       if(keep) openFile(keep);
       else if(!active.value || stale){
+        if(restoreOpenTabs()) return;                                // 首次加载：优先恢复上次打开的标签/当前页
         const def = files.find(f=>/(^|\/)SNDK\.md$/i.test(f.path))   // 默认定位 SNDK focus wiki
                   || files.find(f=>/focus\//.test(f.path))
                   || files.find(f=>/^WIKI\//.test(f.path)) || files[0];
@@ -2229,6 +2244,9 @@ const app = createApp({
       if(f){ pendingOpenPath=null; openFile(f); }
       else { pendingOpenPath=path; wsSend({op:'list_vault'}); }
     }
+    // 记住打开的标签 + 当前页 → localStorage；刷新后由 restoreOpenTabs 按 path 恢复
+    watch(()=>JSON.stringify({tabs:openTabs.map(t=>t.path).filter(Boolean), act:active.value?.path||null}),
+      s=>{ try{ localStorage.setItem('uni_open', s); }catch{} });
     function connectAgent(){
       try{ ws=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/agent'); }
       catch(e){ conn.status='offline'; return; }
@@ -3266,7 +3284,7 @@ const app = createApp({
               f.lazy=true; f._dir=info.dir; f._cache={}; f._blob=file; f.lsData=null;
               const activeIdx=lazyPickActive(info.dir, info.activeTab);
               await lazyParseSheet(f, activeIdx);
-              sheetLazy.active=true; sheetLazy.sheets=info.dir.length; sheetLazy.cur=(info.dir[activeIdx]||{}).name||'';
+              sheetLazy.active=true; sheetLazy.dismissed=false; sheetLazy.sheets=info.dir.length; sheetLazy.cur=(info.dir[activeIdx]||{}).name||'';
               await nextTick(); destroyLuckysheet(); createSheet(f, lazyBuildSheets(f, activeIdx));
               return;
             }catch(e){ console.warn('懒加载失败，回退全量解析',e); f.lazy=false; sheetLazy.active=false; }
