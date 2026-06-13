@@ -604,6 +604,12 @@
   .searching{align-self:flex-start;font-size:12px;color:var(--brand);background:#eef3ff;border-radius:8px;padding:5px 10px;animation:pulse 1.2s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
   .thought{align-self:flex-start;max-width:92%;font-size:12.5px;color:var(--muted);line-height:1.55;padding:1px 2px 3px;font-style:italic;opacity:.92}
+  .rcards{align-self:flex-start;display:flex;flex-direction:column;gap:6px;margin-top:6px;max-width:100%}
+  .rcard{display:flex;align-items:center;gap:8px;border:1px solid #cdddff;background:#f3f7ff;border-radius:9px;padding:7px 11px;cursor:pointer;font-size:13px;color:#2452c8;font-weight:600;transition:background .15s}
+  .rcard:hover{background:#e6efff}
+  .rcard .rc-ic{font-size:15px;flex-shrink:0}
+  .rcard .rc-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rcard .rc-act{font-size:11px;color:#7a90c0;font-weight:500;flex-shrink:0}
   .qcards{align-self:flex-start;display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
   .qcard{min-width:150px;border:1px solid var(--border);border-radius:10px;padding:8px 11px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.04)}
   .qcard.up{border-left:3px solid #d33}.qcard.down{border-left:3px solid #138a52}
@@ -987,6 +993,12 @@
                 <div class="qc-top"><span class="qc-name">{{ qc.name||qc.symbol }}</span><span class="qc-sym">{{ qc.symbol }}</span></div>
                 <div class="qc-mid"><span class="qc-px">{{ qc.price }}</span> <span class="qc-cur">{{ qc.currency }}</span><span class="qc-chg">{{ qc.changePct>=0?'▲':'▼' }} {{ qc.changePct!=null ? Math.abs(qc.changePct).toFixed(2)+'%' : '—' }}</span></div>
                 <div class="qc-foot">PE {{ qc.pe!=null ? (+qc.pe).toFixed(1) : '—' }} · 市值 {{ qc.marketCap!=null ? (qc.marketCap/1e8).toFixed(0)+'亿' : '—' }}</div>
+              </div>
+            </div>
+            <!-- 产出报告卡：点击在右侧预览打开 -->
+            <div v-if="m.reportCards && m.reportCards.length" class="rcards">
+              <div v-for="(rc,ci) in m.reportCards" :key="'rc'+ci" class="rcard" @click="openByPath(rc.path)" :title="rc.path">
+                <span class="rc-ic">📄</span><span class="rc-name">{{ rc.name }}</span><span class="rc-act">点击预览 ↗</span>
               </div>
             </div>
             <!-- 尾部：文档改动接受/拒绝 + 参考来源（包在 .msg.ai 里保持左对齐样式） -->
@@ -1847,6 +1859,7 @@ const app = createApp({
       const stale = active.value && !files.find(f=>f.id===active.value.id);   // 当前打开的是已不存在的旧种子文件 → 强制换默认
       // 清掉标签栏里指向已删文件的死标签
       for(let i=openTabs.length-1;i>=0;i--){ if(!files.find(f=>f.id===openTabs[i].id)) openTabs.splice(i,1); }
+      if(pendingOpenPath){ const pf=files.find(f=>f.path===pendingOpenPath); if(pf){ pendingOpenPath=null; openFile(pf); return; } }   // 刚生成的报告：树刷新后兜底自动打开
       if(keep) openFile(keep);
       else if(!active.value || stale){
         const def = files.find(f=>/(^|\/)SNDK\.md$/i.test(f.path))   // 默认定位 SNDK focus wiki
@@ -1967,6 +1980,15 @@ const app = createApp({
     }
     function handleFileChanged(m){
       if(m.deleted){ const af=active.value; if(af && af.path===m.path){ const f=openTabs.find(t=>t.path===m.path); if(f) closeTab(f); } refreshVaultSoon(); return; }
+      // 产出报告：AI 回合中/刚结束时 Output/ 里新出现报告文件 → ① 自动预览打开 ② 在对话挂可点卡片
+      if(/\/Output\/[^/]+\.(docx|pdf|pptx|xlsx|md|html)$/i.test(m.path) && (agentTurnActive || Date.now()-lastTurnEndAt<30000) && !autoOpenedReports.has(m.path)){
+        autoOpenedReports.add(m.path);
+        const nm=m.path.split('/').pop();
+        const s=curSession.value; const lastAi=s && [...s.messages].reverse().find(x=>x.role==='ai');
+        if(lastAi){ (lastAi.reportCards=lastAi.reportCards||[]).push({path:m.path, name:nm}); }
+        setTimeout(()=>openByPath(m.path), 1000);          // 等盘写稳再开预览
+        refreshVaultSoon(); return;
+      }
       const af=active.value;
       const openMatch = af && af.path===m.path;
       if(openMatch && af.kind==='sheet'){                  // 打开的就是这张表：AI 改了→重载+单元格 diff 复核；回滚/拒绝→静默重载
@@ -2048,9 +2070,17 @@ const app = createApp({
     /* ---- WebSocket 客户端 ---- */
     let ws=null, reconnectT=null, refreshT=null;
     const activeTurns=new Map();                         // tabId -> { sess, aiMsg, tick }
+    const autoOpenedReports=new Set();                   // 已自动预览过的报告路径（防多次写盘回声重复打开）
+    let pendingOpenPath=null;                            // openByPath 时文件还没进 files → 刷新树后由 buildFilesFromVault 兜底打开
     function wsSend(o){ try{ if(ws&&ws.readyState===1) ws.send(JSON.stringify(o)); else console.warn('wsSend 丢弃（连接未就绪）:', o.op); }catch(e){ console.warn('wsSend 异常:', o.op, e); } }
     function refreshVaultSoon(){ clearTimeout(refreshT); refreshT=setTimeout(()=>wsSend({op:'list_vault'}), 400); }
     function refreshVault(){ wsSend({op:'list_vault'}); }
+    function openByPath(path){                            // 按 vault 相对路径打开预览（找不到就刷新树后由 buildFilesFromVault 兜底打开）
+      if(!path) return;
+      const f=files.find(x=>x.path===path);
+      if(f){ pendingOpenPath=null; openFile(f); }
+      else { pendingOpenPath=path; wsSend({op:'list_vault'}); }
+    }
     function connectAgent(){
       try{ ws=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/agent'); }
       catch(e){ conn.status='offline'; return; }
@@ -3652,7 +3682,7 @@ const app = createApp({
       }).filter(Boolean);
       sess.messages.push({role:"user",content:q,quotes});
       if(sess.title==='新会话') sess.title=(q||'引用提问').slice(0,18);
-      const aiMsg=reactive({role:"ai",content:"",reasoning:"",streaming:true,toolStatus:"",tools:[],timeline:[],sources:[],quoteCards:[],editReview:null,startedAt:Date.now()}); sess.messages.push(aiMsg);
+      const aiMsg=reactive({role:"ai",content:"",reasoning:"",streaming:true,toolStatus:"",tools:[],timeline:[],sources:[],quoteCards:[],reportCards:[],editReview:null,startedAt:Date.now()}); sess.messages.push(aiMsg);
       sess.busy=true;
       const ctrl=new AbortController(); genCtrls.set(sess.id,ctrl); const signal=ctrl.signal;
       const tick=()=>{ if(activeSessionId.value===sess.id) scrollDown(); };  // 只滚当前可见 tab
@@ -3913,7 +3943,7 @@ const app = createApp({
              mounting,mtInput,startMount,doMount,cancelMount,
              treeRows,toggleFolder,folderIcon,rowIcon,backlinks,openBacklink,
              addSheetRangeToChat,fmtQuote,
-             conn,connLabel,vaultName,onModelChange,refreshVault,perm,permRespond,acceptEdits,rejectEdits,
+             conn,connLabel,vaultName,onModelChange,refreshVault,openByPath,perm,permRespond,acceptEdits,rejectEdits,
              cookingWord,cookingSec,toolIcon,toolDetail,stepSec,fmtDur,toggleStep,fileHistory,toggleHistory,rollbackTo,histTime,
              sheetReview,acceptSheetReview,rejectSheetReview,sheetLazy,
              docxReview,decideDocxItem,acceptAllDocx,rejectAllDocx,docxItemLabel,docxLoading,docxNonText,acceptDocxNonText,rejectDocxNonText,
