@@ -1358,14 +1358,29 @@ const app = createApp({
     function setPermMode(mode){ permMode.value=(mode==='bypass'?'bypass':'auto'); try{ localStorage.setItem('uni_perm_mode', permMode.value); }catch{} wsSend({op:'set_perm_mode', mode:permMode.value}); if(permMode.value==='bypass') perm.queue.splice(0); }
     const fastMode=ref((()=>{ try{ return localStorage.getItem('uni_fast_mode')==='1'; }catch{ return false; } })());   // Fast mode：Opus 提速输出
     function toggleFast(){ fastMode.value=!fastMode.value; try{ localStorage.setItem('uni_fast_mode', fastMode.value?'1':'0'); }catch{} wsSend({op:'set_fast', on:fastMode.value}); }
-    const EFFORT_BY_MODEL = {
-      'opus': [{value:'low',label:'low'},{value:'medium',label:'medium'},{value:'high',label:'high'},{value:'xhigh',label:'xhigh'}],
-      'sonnet': [{value:'low',label:'low'},{value:'medium',label:'medium'},{value:'high',label:'high'}],
-    };
+    // effort 档位按模型给（对齐 Claude API）：xhigh=Opus 4.7+/Fable，max=Opus 4.6+/Sonnet 4.6/Fable；更老的只到 high
+    const EFFORT_LEVELS = { low:{value:'low',label:'low'}, medium:{value:'medium',label:'medium'}, high:{value:'high',label:'high'}, xhigh:{value:'xhigh',label:'xhigh'}, max:{value:'max',label:'max'} };
+    const EFFORT_RANK = { low:0, medium:1, high:2, xhigh:3, max:4 };
+    function effortOptionsFor(model){
+      const m=(model||'').toLowerCase();
+      const opus=m.match(/opus-4-(\d+)/);                                                    // Opus 次版本号（opus-4-8[1m] → "8"）
+      const fable=/fable/.test(m);
+      const out=[EFFORT_LEVELS.low, EFFORT_LEVELS.medium, EFFORT_LEVELS.high];
+      if(fable || (opus && +opus[1]>=7)) out.push(EFFORT_LEVELS.xhigh);                       // xhigh：Opus 4.7+ / Fable
+      if(fable || (opus && +opus[1]>=6) || /sonnet-4-6/.test(m)) out.push(EFFORT_LEVELS.max); // max：Opus 4.6+ / Sonnet 4.6 / Fable
+      return out;
+    }
     const effortLevel=ref((()=>{ try{ return localStorage.getItem('uni_effort')||'high'; }catch{ return 'high'; } })());
-    const effortOptions=computed(()=>{ const k=/opus/i.test(model.value)?'opus':'sonnet'; return EFFORT_BY_MODEL[k]; });
+    const effortOptions=computed(()=> effortOptionsFor(model.value));
     function setEffort(v){ effortLevel.value=v; try{ localStorage.setItem('uni_effort',v); }catch{} wsSend({op:'set_effort', level:v}); }
-    watch(effortOptions, opts=>{ if(!opts.some(o=>o.value===effortLevel.value)){ setEffort(opts[opts.length-1].value); } });   // 切模型后 effort 选项变了→自动降到该模型最高档
+    watch(effortOptions, opts=>{                                          // 切模型后当前档位新模型不支持 → 就近下钳到 ≤ 当前档的最高可用档（不擅自升档，如 4.8 的 xhigh 切 4.6 落到 high 而非 max）
+      if(opts.some(o=>o.value===effortLevel.value)) return;
+      const cur=EFFORT_RANK[effortLevel.value] ?? EFFORT_RANK.high;
+      const ranked=opts.map(o=>o.value).sort((a,b)=>EFFORT_RANK[a]-EFFORT_RANK[b]);
+      let pick=ranked[0];
+      for(const v of ranked){ if(EFFORT_RANK[v]<=cur) pick=v; }
+      setEffort(pick);
+    });
     const showCot=ref(true);                 // 是否显示推理过程(COT)；联网由模型自主决策
     const refFiles=reactive([]);             // @ 引用的额外上下文文件（可多个，全局，按 id 去重；与挂载的绑定文件叠加）
     const suggest=reactive({show:false,type:'',items:[],idx:0});
@@ -3724,6 +3739,7 @@ const app = createApp({
         if(e.key==='ArrowDown'){ e.preventDefault(); suggest.idx=(suggest.idx+1)%Math.max(suggest.items.length,1); return; }
         if(e.key==='ArrowUp'){ e.preventDefault(); suggest.idx=(suggest.idx-1+suggest.items.length)%Math.max(suggest.items.length,1); return; }
         if(e.key==='Enter'){ e.preventDefault(); pickSuggest(suggest.idx); return; }
+        if(e.key==='Tab'){ e.preventDefault(); pickSuggest(suggest.idx); return; }   // Tab 载入当前选中的 / 命令（与 Enter 一致）
         if(e.key==='Escape'){ suggest.show=false; return; }
       }
       if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }

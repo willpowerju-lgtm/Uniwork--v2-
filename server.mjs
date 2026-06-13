@@ -330,7 +330,7 @@ wss.on('connection', (ws) => {
     permSeq: 0,
     permMode: 'auto',         // 'auto'=危险命令(Bash等)弹审批条 / 'bypass'=全放行(连改文件的 Bash 都不审批)
     fastMode: false,          // Fast mode（Opus 提速输出）；前端开关 → set_fast op
-    effortLevel: null,        // 推理 effort：null=默认(adaptive)；'low'/'medium'/'high'/'xhigh'
+    effortLevel: null,        // 推理 effort：null=默认(adaptive)；'low'/'medium'/'high'/'xhigh'/'max'
   };
   clients.add(conn);
   send(ws, { ev: 'hello', vault: VAULT, mock: MOCK, model: DEFAULT_MODEL, harness: harnessInfo });
@@ -616,7 +616,7 @@ async function handleMessage(conn, raw) {
       break;
     }
     case 'set_effort': {                                 // Effort level 热切换
-      const v = ['low','medium','high','xhigh'].includes(m.level) ? m.level : null;
+      const v = ['low','medium','high','xhigh','max'].includes(m.level) ? m.level : null;   // max=Opus 4.6+/Sonnet 4.6；xhigh=Opus 4.7+；前端按模型只发该模型支持的档位
       conn.effortLevel = v;
       for (const [, tab] of conn.tabs || new Map()) {
         try { tab.query?.applyFlagSettings?.({ effortLevel: v }); } catch (e) {}
