@@ -139,7 +139,7 @@
   .queue-strip .qi-x:hover{color:#e03131}
   /* 修改历史 / 回滚 下拉 */
   .hist-wrap{position:relative;align-self:center;display:flex}
-  .hist-btn{font-size:12px;border:1px solid var(--border);background:#fff;color:var(--sub);border-radius:7px;padding:4px 10px;cursor:pointer;margin-right:6px;white-space:nowrap}
+  .hist-btn{font-size:12px;border:1px solid var(--border);background:#fff;color:var(--sub);border-radius:7px;padding:0 10px;height:28px;display:inline-flex;align-items:center;align-self:center;flex-shrink:0;cursor:pointer;margin-right:6px;white-space:nowrap}
   .hist-btn:hover,.hist-btn.on{background:#eef3ff;color:var(--brand);border-color:#cdd9ff}
   .hist-btn .hist-n{margin-left:5px;background:var(--brand);color:#fff;border-radius:8px;padding:0 5px;font-size:10px}
   .hist-pop{position:absolute;top:34px;right:0;width:340px;max-height:64vh;overflow:auto;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);z-index:60}
@@ -249,9 +249,7 @@
   .ed-empty{flex:1;display:flex;align-items:center;justify-content:center;color:var(--sub)}
   .ed-bar{display:flex;align-items:stretch;height:40px;flex-shrink:0;border-bottom:1px solid var(--border);background:var(--panel)}
   .ed-bar .ed-tabs{flex:1;border-bottom:0}
-  .autosave{flex-shrink:0;align-self:center;font-size:11px;color:#22a06b;white-space:nowrap;margin-right:14px}
-  .autosave::before{content:"● ";font-size:9px}
-  .save-btn{flex-shrink:0;align-self:center;margin:0 4px 0 8px;border:1px solid var(--border);background:#fff;color:var(--text);font-size:12px;padding:5px 12px;border-radius:8px;cursor:pointer}
+  .save-btn{flex-shrink:0;align-self:center;height:28px;display:inline-flex;align-items:center;margin:0 4px 0 8px;border:1px solid var(--border);background:#fff;color:var(--text);font-size:12px;padding:0 12px;border-radius:7px;cursor:pointer}
   .save-btn:hover{background:var(--hover);border-color:var(--brand);color:var(--brand)}
   .refresh-btn{flex-shrink:0;align-self:center;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid var(--border);background:#fff;color:var(--sub);border-radius:7px;cursor:pointer;margin-right:6px;padding:0}
   .refresh-btn:hover{background:#eef3ff;color:var(--brand);border-color:#cdd9ff}
@@ -788,7 +786,6 @@
           </div>
           <div v-if="!openTabs.length" class="ed-empty" style="font-size:13px">从左侧打开文件</div>
         </div>
-        <span v-if="active" class="autosave">已自动保存</span>
         <button v-if="active" class="refresh-btn" @click="refreshActive" :class="{spinning:refreshing}" title="从磁盘重新读取当前文件（agent 改文件后若没自动刷新，手动兜底）">
           <svg viewBox="0 0 16 16" width="13" height="13"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 3v3h-3"/></svg>
         </button>
