@@ -1985,18 +1985,6 @@ const app = createApp({
     function kindByExt(ext){ if(ext==='.pdf') return 'pdf'; if(ext==='.pptx'||ext==='.ppt') return 'pptx'; if(ext==='.html'||ext==='.htm') return 'html'; if(ext==='.xlsx'||ext==='.xls'||ext==='.csv') return 'sheet'; if(IMG_EXTS.has(ext)) return 'image'; return 'doc'; }
     function iconByKind(k,ext){ if(k==='pdf') return '📕'; if(k==='pptx') return '📊'; if(k==='html') return '🌐'; if(k==='sheet') return '📊'; if(k==='image') return '🖼️'; if(ext==='.docx') return '📝'; return '📄'; }
 
-    let sessionRestored=false;                            // 刷新后只在首个 vault 列表里恢复一次上次会话
-    function restoreOpenTabs(){                            // 按 path 找回上次打开的标签 + 当前页（id='v:'+path 稳定，可跨刷新）
-      if(sessionRestored) return false;
-      sessionRestored=true;
-      let saved=null; try{ saved=JSON.parse(localStorage.getItem('uni_open')||'null'); }catch{}
-      if(!saved || !Array.isArray(saved.tabs) || !saved.tabs.length) return false;
-      const toOpen=saved.tabs.map(p=>files.find(f=>f.path===p)).filter(Boolean);     // 只恢复仍存在的文件
-      if(!toOpen.length) return false;
-      for(const f of toOpen){ if(!openTabs.some(t=>t.id===f.id)) openTabs.push(f); }  // 先把标签栏铺好
-      openFile(files.find(f=>f.path===saved.act) || toOpen[0]);                       // 再激活上次的当前页
-      return true;
-    }
     function buildFilesFromVault(vfolders, vfiles){
       if(reviewSidMap.size){ pendingVaultRefresh=[vfolders,vfiles]; return; }   // 复核进行中：暂不重建侧栏（openFile 重渲染会抹掉绿增红删），等复核结束再刷
       const prevId = active.value?.id;
@@ -2017,7 +2005,6 @@ const app = createApp({
       if(pendingOpenPath){ const pf=files.find(f=>f.path===pendingOpenPath); if(pf){ pendingOpenPath=null; openFile(pf); return; } }   // 刚生成的报告：树刷新后兜底自动打开
       if(keep) openFile(keep);
       else if(!active.value || stale){
-        if(restoreOpenTabs()) return;                                // 首次加载：优先恢复上次打开的标签/当前页
         const def = files.find(f=>/(^|\/)SNDK\.md$/i.test(f.path))   // 默认定位 SNDK focus wiki
                   || files.find(f=>/focus\//.test(f.path))
                   || files.find(f=>/^WIKI\//.test(f.path)) || files[0];
@@ -2101,7 +2088,7 @@ const app = createApp({
       if(!path) return;
       let af=files.find(f=>f.path===path);
       if(!af || af.kind!=='doc'){ refreshVaultSoon(); return; }
-      if(!cur || cur.id!==af.id){ await openFile(af); await nextTick(); }   // 不是当前文件 → 自动打开，改动直接标在文档上
+      if(!cur || cur.id!==af.id){ if(closedByUser.has(af.path)) return; await openFile(af); await nextTick(); }   // 不是当前文件 → 自动打开，改动直接标在文档上；用户关过的让路
       af=active.value; if(!af || af.path!==path || !editor) return;
       const oldMd=af.curMd||'';
       let newMd; try{ newMd=await (await fetch(vaultUrl(af.path)+'&t='+Date.now())).text(); }catch{ return; }
@@ -2238,15 +2225,16 @@ const app = createApp({
     function wsSend(o){ try{ if(ws&&ws.readyState===1) ws.send(JSON.stringify(o)); else console.warn('wsSend 丢弃（连接未就绪）:', o.op); }catch(e){ console.warn('wsSend 异常:', o.op, e); } }
     function refreshVaultSoon(){ clearTimeout(refreshT); refreshT=setTimeout(()=>wsSend({op:'list_vault'}), 400); }
     function refreshVault(){ wsSend({op:'list_vault'}); }
-    function openByPath(path){                            // 按 vault 相对路径打开预览（找不到就刷新树后由 buildFilesFromVault 兜底打开）
+    function openByPath(path, opts){                       // 按 vault 相对路径打开预览（找不到就刷新树后由 buildFilesFromVault 兜底打开）
       if(!path) return;
+      if(!(opts&&opts.user) && closedByUser.has(path)) return;   // 用户手动关过 → 自动重开让路
       const f=files.find(x=>x.path===path);
       if(f){ pendingOpenPath=null; openFile(f); }
       else { pendingOpenPath=path; wsSend({op:'list_vault'}); }
     }
-    // 记住打开的标签 + 当前页 → localStorage；刷新后由 restoreOpenTabs 按 path 恢复
+    // 记住打开的标签 + 当前页 → sessionStorage（每 tab 独立：刷新保留、不被其它 4199 tab 覆盖）；刷新后由 restoreOpenTabs 按 path 恢复
     watch(()=>JSON.stringify({tabs:openTabs.map(t=>t.path).filter(Boolean), act:active.value?.path||null}),
-      s=>{ try{ localStorage.setItem('uni_open', s); }catch{} });
+      s=>{ try{ sessionStorage.setItem('uni_open', s); }catch{} });
     function connectAgent(){
       try{ ws=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/agent'); }
       catch(e){ conn.status='offline'; return; }
@@ -2570,15 +2558,21 @@ const app = createApp({
         }
         chatTabs.splice(0,chatTabs.length);
         (meta.chatTabIds||[]).forEach(id=>{ const s=sessions.find(y=>y.id===id); if(s)chatTabs.push(s); });
+        // 打开的标签/当前页：优先用 sessionStorage（本 tab 独立、刷新保留、比 IndexedDB 更新鲜），否则回退到 IndexedDB 存的（首次打开/新 tab）
+        let ssOpen=null; try{ ssOpen=JSON.parse(sessionStorage.getItem('uni_open')||'null'); }catch{}
         openTabs.splice(0,openTabs.length);
-        (meta.openTabIds||[]).forEach(id=>{ const f=files.find(y=>y.id===id); if(f)openTabs.push(f); });
+        if(ssOpen && Array.isArray(ssOpen.tabs) && ssOpen.tabs.length){
+          ssOpen.tabs.forEach(p=>{ const f=files.find(y=>y.path===p); if(f) openTabs.push(f); });
+        }else{
+          (meta.openTabIds||[]).forEach(id=>{ const f=files.find(y=>y.id===id); if(f)openTabs.push(f); });
+        }
         if(meta.model && /^deepseek-v4-/.test(meta.model))model.value=meta.model;   // 只还原 V4 档（旧 reasoner/chat ID 落回默认，避免下拉框错位）
         if(typeof meta.showCot==='boolean')showCot.value=meta.showCot;
         if((meta.seedVer||1)!==SEED_VER){                    // 种子文档升级：刷新内置 md(一页纸/快速入门)到最新，保留用户上传与会话
           for(const f of files){ if(SEED_MD[f.id]) f.html=mdBody(SEED_MD[f.id]); }
         }
         activeSessionId.value = (meta.activeSessionId && sessions.some(s=>s.id===meta.activeSessionId)) ? meta.activeSessionId : (chatTabs[0]?.id||null);
-        const af=files.find(f=>f.id===meta.activeId)||files[0];
+        const af= (ssOpen?.act ? files.find(f=>f.path===ssOpen.act) : null) || files.find(f=>f.id===meta.activeId) || files[0];
         hydrating=false;
         if(af) openFile(af);
         return true;
@@ -2675,6 +2669,7 @@ const app = createApp({
     }
     async function openFile(f){
       if(!f) return;
+      if(f.path) closedByUser.delete(f.path);                // 打开 = 解除"手动关闭"标记（用户从侧栏/标签重新打开）
       if(active.value?.id!==f.id) snapshotActiveSheet();     // 离开当前表格前先存
       if(!openTabs.some(t=>t.id===f.id)) openTabs.push(f);   // 加入标签栏
       expandAncestors(f.folder);                             // 展开文件所在的各级文件夹，让它在树里可见
@@ -3031,8 +3026,10 @@ const app = createApp({
         host.innerHTML='<div class="pdf-fail">⚠️ PPT 渲染失败：'+escapeHtml(String(e.message||e).slice(0,120))+'</div>';
       }finally{ if(myToken===pptxRenderToken) pptxLoading.value=false; }
     }
+    const closedByUser=new Set();                            // 用户手动关的 tab path → 自动重开（file_changed/agent_review）让路，刷新后清空（uni_open 已经不含这些路径）
     function closeTab(f){
       const i=openTabs.findIndex(t=>t.id===f.id); if(i<0) return;
+      if(f.path) closedByUser.add(f.path);                  // 记住：用户主动关了这个
       if(activeId.value===f.id) snapshotActiveSheet();       // 关掉前先存表格快照（文件仍在侧边栏）
       openTabs.splice(i,1);
       if(activeId.value===f.id){
@@ -4048,7 +4045,7 @@ const app = createApp({
         else reason=target?.kind==='sheet' ? `请先切换到「${target.name}」再执行修改` : '该对话绑定的不是表格文件';
       }else if(obj.target==='doc'){
         if(target?.kind==='doc'){
-          if(active.value?.id!==target.id) openFile(target);                       // 自动切到绑定文档展示修改
+          if(active.value?.id!==target.id && !closedByUser.has(target.path)) openFile(target);   // 自动切到绑定文档展示修改；用户关过的让路
           applied=applyDocOps(ops);
           if(!applied) reason='未在文档中定位到要修改的原文';
         }else reason='该对话绑定的不是文档文件';
