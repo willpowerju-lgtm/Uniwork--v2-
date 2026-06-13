@@ -921,7 +921,7 @@
         <!-- AI 改了真实 .xlsx → 单元格级复核（绿底=改/增、红底=删；接受记历史，拒绝还原 HEAD） -->
         <div v-if="sheetReview.active" class="sheet-review-bar">
           <b>📊 AI 改了 {{ sheetReview.cells.length }} 个单元格</b>
-          <span v-if="sheetReview.tooMany" class="srv-cells" style="color:#e8590c">改动较多，已跳过逐格高亮，建议直接查看文件</span>
+          <span v-if="sheetReview.tooMany" class="srv-cells" style="color:#e8590c">改动太多防止卡死，已在文件落盘修改，可以前往查看</span>
           <span v-else class="srv-cells">{{ sheetReview.cells.slice(0,4).map(c=>c.a1+'：'+(c.old||'空')+'→'+(c.new||'空')).join('  ·  ') }}{{ sheetReview.cells.length>4?'  …':'' }}</span>
           <span style="flex:1"></span>
           <button class="reject" @click="rejectSheetReview">✗ 拒绝（还原）</button>
@@ -3640,9 +3640,10 @@ const app = createApp({
     function onInput(){
       autosize();
       const v=draft.value;
-      if(v.startsWith('/') && !v.includes('\n')){
-        const kw=v.slice(1).trim().toLowerCase();
-        // /命令 = claude-code harness 真·加载的 slash_commands（与本地 Claude Code 完全一致；不掺任何自定义模板）
+      // /命令匹配：取末尾的 /xxx（支持行中多个 /command，只联想光标处这一个）
+      const slash=v.match(/\/([^\s/]*)$/);
+      if(slash){
+        const kw=slash[1].toLowerCase();
         suggest.items=(conn.slash||[]).filter(n=>!kw||n.toLowerCase().includes(kw)).map(n=>({label:'/'+n, cmd:n, kind:'cmd'}));
         suggest.type='/'; suggest.idx=0; suggest.show=true; return;
       }
@@ -3656,8 +3657,8 @@ const app = createApp({
     }
     function pickSuggest(i){
       const it=suggest.items[i]; if(!it) return;
-      if(suggest.type==='/'){ draft.value=it.label+' '; }   // 插入 /命令 ，交给 harness 执行（与本地 Claude Code 一致）
-      else { if(!refFiles.some(f=>f.id===it.file.id)) refFiles.push(it.file); draft.value=draft.value.replace(/@[^\s@]*$/,''); }   // 多文件：追加去重
+      if(suggest.type==='/'){ draft.value=draft.value.replace(/\/[^\s/]*$/, it.label+' '); }   // 只替换末尾的 /token，保留前面已输入的内容
+      else { if(!refFiles.some(f=>f.id===it.file.id)) refFiles.push(it.file); draft.value=draft.value.replace(/@[^\s@]*$/,''); }
       suggest.show=false; autosize();
       nextTick(()=>document.querySelector('.input-row textarea')?.focus());
     }
