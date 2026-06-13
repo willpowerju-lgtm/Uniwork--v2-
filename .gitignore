@@ -4,6 +4,7 @@ config.local.js
 .DS_Store
 
 # Test fixtures / prototypes (not shipped)
+WIP files/
 _sndk_test.xlsx
 _model_test.xlsx
 _univer_stress.xlsx
