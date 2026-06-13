@@ -104,7 +104,9 @@ def rounding_equiv(V, T, dT):
     """报告里显示的 T（dT 位小数）是不是 registry 真值 V 的取整/小数位版本。"""
     if round(V, dT) == round(T, dT):
         return True
-    return abs(T - V) / max(abs(V), 1e-9) <= 0.005   # 0.5% 兜底，吸收显示舍入
+    # 0.5% 兜底吸收显示舍入。实测：放宽到 2% 反而引入更多"老报告里巧合命中"的误报，故维持 0.5%。
+    # 注：本闸面向"逐次提交"流（同一渲染器，未改的值渲染一致→不误报）；跨报告版本对比的误报是测试假象，非真实场景。
+    return abs(T - V) / max(abs(V), 1e-9) <= 0.005
 
 def present(V, tokens):
     return any(rounding_equiv(V, T, dT) for (T, dT) in tokens)
