@@ -68,19 +68,6 @@
   .review-diff ins{background:#e6ffed;color:#1a7f37;text-decoration:none;border-radius:2px}
   .review-diff del{background:#ffebe9;color:#cf222e;border-radius:2px}
   .login-banner{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#cf1322;color:#fff;padding:9px 16px;border-radius:10px;font-size:13px;box-shadow:var(--shadow);z-index:10000;max-width:90vw;text-align:center}
-  .reg-warn{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#fff7e6;border:1px solid #ffd591;color:#613400;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.16);z-index:10001;width:min(560px,92vw);padding:13px 15px 12px;font-size:13px}
-  .reg-warn .rw-h{display:flex;align-items:center;gap:7px;font-weight:600;margin-bottom:6px}
-  .reg-warn .rw-h .rw-x{margin-left:auto;cursor:pointer;color:#a87f3a;font-size:15px;line-height:1;padding:2px 4px;border-radius:6px}
-  .reg-warn .rw-h .rw-x:hover{background:#ffe7ba}
-  .reg-warn .rw-file{font-family:var(--mono,monospace);font-size:11.5px;color:#8a6d3b;word-break:break-all;margin-bottom:6px}
-  .reg-warn .rw-list{margin:0 0 9px;padding:7px 10px;background:#fffdf5;border:1px solid #ffe7ba;border-radius:8px;max-height:128px;overflow:auto;font-size:12px;line-height:1.55}
-  .reg-warn .rw-list code{color:#cf6a1a;font-weight:600}
-  .reg-warn .rw-acts{display:flex;gap:8px;justify-content:flex-end}
-  .reg-warn .rw-acts button{border:1px solid transparent;border-radius:8px;padding:6px 13px;font-size:12.5px;cursor:pointer}
-  .reg-warn .rw-primary{background:#d48806;color:#fff}
-  .reg-warn .rw-primary:hover{background:#b06f04}
-  .reg-warn .rw-ghost{background:#fff;border-color:#e3c98f;color:#7a5b1e}
-  .reg-warn .rw-ghost:hover{background:#fdf3df}
   /* 权限审批：输入框上方小内联条 */
   .perm-inline{display:flex;align-items:center;gap:8px;background:#fff7e6;border:1px solid #ffe7ba;border-radius:10px;padding:6px 10px;margin-bottom:8px;font-size:12px}
   .perm-inline .pi-ic{color:#d48806}
@@ -725,7 +712,6 @@
                @contextmenu="onRowContext(row,$event)"
                @click="row.type==='folder' ? toggleFolder(row.path) : openFile(row.file)">
             <span v-if="row.type==='folder'" class="tw-caret">{{ row.open?'▾':'▸' }}</span>
-            <span v-else class="tw-caret" aria-hidden="true"></span><!-- 文件占一个 caret 宽的空位，图标才能和同级文件夹对齐（否则文件看着比文件夹外凸 16px） -->
             <span class="tw-ic" v-html="rowIcon(row)"></span>
             <input v-if="renaming.active && renaming.key===rowKey(row)" ref="rnInput" v-model="renaming.name" class="tw-rename"
                    @keydown.enter.stop.prevent="commitRename" @keydown.esc.stop.prevent="cancelRename" @blur="commitRename" @click.stop @dragstart.prevent.stop>
@@ -917,7 +903,7 @@
           <button class="reject" @click="rejectSheetReview">✗ 拒绝（还原）</button>
           <button class="accept" @click="acceptSheetReview">✓ 接受</button>
         </div>
-        <div v-if="sheetLazy.active" class="sheet-lazy-bar" title="模型过大，按表懒加载：点其它标签即按需解析；为防止空表覆盖真实数据，此模式只读不回写">📖 大模型逐表加载 · 共 {{ sheetLazy.sheets }} 表 · 点标签按需打开 · <b>只读</b></div>
+        <div v-if="sheetLazy.active" class="sheet-lazy-bar" title="模型过大，已切只读懒加载：点标签按需解析、可框选挂到对话引用；要改数请点右上『本地打开』用 Excel 编辑（原生重算），存盘后这里自动重读">📖 模型过大 · 已切<b>只读</b>逐表加载（共 {{ sheetLazy.sheets }} 表，点标签按需打开）· 可框选引用 · 要改数请点 <b>本地打开</b> 用 Excel</div>
         <div id="luckysheet-host" class="ls-host"></div>
         <div v-if="sheetLoading" class="ls-loading">⏳ 正在渲染电子表格…</div>
       </div>
@@ -976,7 +962,7 @@
                   <span class="tl-tdetail" v-if="toolDetail(st)">{{ toolDetail(st) }}</span>
                   <span class="tl-grow"></span>
                   <span v-if="st.status==='run'" class="tl-spin" title="进行中"></span>
-                  <span v-else class="tl-badge" :class="st.status" :title="st.status==='stop'?'已中断/未完成':''">{{ st.status==='err'?'✗':(st.status==='stop'?'⊘':'✓') }}</span>
+                  <span v-else class="tl-badge" :class="st.status">{{ st.status==='err'?'✗':'✓' }}</span>
                   <span class="tl-dur">{{ fmtDur(stepSec(st)) }}</span>
                 </div>
                 <!-- 正文文本段 -->
@@ -986,7 +972,7 @@
             <!-- 旧消息（无 timeline）回退：工具 chips + 推理 + 正文气泡 -->
             <template v-else>
               <div v-if="m.tools && m.tools.length" class="tool-chips">
-                <span v-for="(t,ti) in m.tools" :key="ti" class="tchip" :class="t.status" :title="t.title||t.name"><span class="tc-ic">{{ t.status==='done' ? '✓' : (t.status==='err' ? '⚠️' : (t.status==='stop' ? '⊘' : '⟳')) }}</span>{{ t.title||t.name }}</span>
+                <span v-for="(t,ti) in m.tools" :key="ti" class="tchip" :class="t.status" :title="t.title||t.name"><span class="tc-ic">{{ t.status==='done' ? '✓' : (t.status==='err' ? '⚠️' : '⟳') }}</span>{{ t.title||t.name }}</span>
               </div>
               <div v-if="m.toolStatus" class="searching">⏳ {{ m.toolStatus }}</div>
               <div v-if="m.reasoning && showCot" class="cot">
@@ -1149,20 +1135,6 @@
 
   <!-- 未登录 / 后端离线 横幅 -->
   <div v-if="conn.banner" class="login-banner">{{ conn.banner }}</div>
-
-  <!-- registry 一致性闸：下游报告里改到了 model 派生数字 → 提示从 model 起算级联 -->
-  <div v-if="regWarn.show" class="reg-warn">
-    <div class="rw-h">⚠️ 数字和 model 对不上了<span class="rw-x" @click="regWarn.show=false" title="关闭">×</span></div>
-    <div class="rw-file">{{ regWarn.file }}</div>
-    <div class="rw-list">
-      <div v-for="d in regWarn.divergences" :key="d.key">· {{ d.key }}<template v-if="d.period||d.unit"> （{{ d.period }}{{ d.unit?' '+d.unit:'' }}）</template>：model=<code>{{ d.registry_value }}</code> → 你改成了≈<code>{{ d.gone_replaced_by }}</code></div>
-    </div>
-    <div style="font-size:11.5px;color:#8a6d3b;margin-bottom:9px">这类数字是 model→registry→报告 派生的，应从 model 起算级联，而不是直接改在报告里。</div>
-    <div class="rw-acts">
-      <button class="rw-ghost" @click="regWarn.show=false">我有依据，保留</button>
-      <button class="rw-primary" @click="triggerCascade()">交给 AI 从 model 级联</button>
-    </div>
-  </div>
 </div>
 
 <script type="module">
@@ -1447,10 +1419,8 @@ const app = createApp({
       }
       if(p==='Vault'||p==='WIKI') return row.type==='folder' ? [{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}] : [];   // 结构根：不可改名/删，但可在下面建子文件夹/上传
       const base=[{ic:'✏️',label:'重命名',act:()=>startRename(row)},{ic:'🗑️',label:'删除',note:'移入回收站',danger:true,act:()=>deleteRow(row)}];
-      const reveal={ic:'📂',label:'打开本地文件夹',act:()=>wsSend({op:'reveal_local', path:p})};   // 文件夹→直接打开；文件→在 Finder 里定位选中
-      if(row.type==='folder') return [reveal,{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}, ...base];
-      const openLocalIt={ic:'🖥️',label:'本地打开',note:'默认应用',act:()=>openLocalPath(p, row.name)};   // 用系统默认应用（Word/PPT/Excel）打开编辑，带即时提示
-      return [openLocalIt, reveal, ...base];
+      if(row.type==='folder') return [{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}, ...base];
+      return base;
     }
     function ctxTitleFor(row){ const p=rowPath(row); if(p===TRASH_ROOT) return '🗑 回收站'; if(p===IMPORT_ROOT) return '🔗 User import'; return (row.type==='folder'?'📁 ':'')+row.name; }
     function onRowContext(row,ev){ ev.preventDefault(); ev.stopPropagation(); cancelRename(); const items=menuFor(row); if(!items.length) return;
@@ -1560,7 +1530,6 @@ const app = createApp({
     const perm = reactive({ queue:[] });                                  // 待确认的权限请求
     const ask = reactive({ active:false, reqId:null, tabId:null, questions:[], picks:[] });   // AskUserQuestion 选择卡（一次一个）
     const review = reactive({ edits:[], path:'' });     // 本轮 agent 对当前打开文件的编辑（内联绿增红删复核用）
-    const regWarn = reactive({ show:false, tabId:'main', file:'', divergences:[], prompt:'' });   // registry 一致性闸：报告里改到 model 派生数字 → 提示从 model 级联
     let reviewSidMap = new Map();                        // sid -> {old,new}（接受/拒绝时对盘做精确操作）
     let pendingToolEdits = new Map();                    // toolUseId -> edits（tool_done 成功才纳入复核，排除失败/retry 的 Edit）
     let agentTurnActive = false;                         // agent 回合进行中（区分 agent 改文件 vs 外部改文件）
@@ -2075,14 +2044,6 @@ const app = createApp({
     function closeAsk(){ ask.active=false; ask.questions=[]; ask.picks=[]; ask.reqId=null; ask.tabId=null; }
     function submitAsk(){ if(!ask.active||!askReady.value) return; const picks=ask.questions.map((q,qi)=>({ header:q.header, question:q.question, selected:(ask.picks[qi].selected||[]).slice(), custom:(ask.picks[qi].custom||'').trim() })); wsSend({op:'dialog_response', reqId:ask.reqId, answer:{picks}}); closeAsk(); }
     function skipAsk(){ if(!ask.active) return; wsSend({op:'dialog_response', reqId:ask.reqId, answer:{cancelled:true}}); closeAsk(); }
-    // 一致性闸 →「交给 AI 从 model 级联」：把预置 prompt 当一条用户 turn 发到对应会话（生成中则进等待区），由 AI 先问依据再级联
-    function triggerCascade(){
-      const p=regWarn.prompt; const sess=sessions.find(s=>s.id===regWarn.tabId)||curSession.value||ensureSession();
-      regWarn.show=false; if(!sess||!p) return;
-      if(sess.id!==activeSessionId.value) activeSessionId.value=sess.id;   // 切到该会话让用户看到级联对话
-      if(sess.busy){ (sess.queue=sess.queue||[]).push({ text:p, quotes:[], refs:[] }); }
-      else dispatchTurn(sess, p, [], []);
-    }
 
     /* ---- WebSocket 客户端 ---- */
     let ws=null, reconnectT=null, refreshT=null;
@@ -2094,17 +2055,14 @@ const app = createApp({
       try{ ws=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/agent'); }
       catch(e){ conn.status='offline'; return; }
       ws.onopen=()=>{ conn.status='online'; conn.banner=''; wsSend({op:'list_vault'}); wsSend({op:'set_perm_mode', mode:permMode.value}); if(fastMode.value) wsSend({op:'set_fast', on:true}); };
-      ws.onclose=()=>{ conn.status='offline'; conn.banner='后端未连接：终端运行  node server.mjs  后自动重连'; for(const tid of Array.from(activeTurns.keys())) finishTurn(tid); scheduleReconnect(); };   // 断连/服务重启：旧连接上的回合已死，收尾掉所有在飞回合，否则工具卡永久转
+      ws.onclose=()=>{ conn.status='offline'; conn.banner='后端未连接：终端运行  node server.mjs  后自动重连'; scheduleReconnect(); };
       ws.onerror=()=>{};
       ws.onmessage=(e)=>{ let m; try{ m=JSON.parse(e.data); }catch{ return; } onAgentEvent(m); };
     }
     function scheduleReconnect(){ clearTimeout(reconnectT); reconnectT=setTimeout(connectAgent, 1500); }
     const turnOf=(tabId)=>activeTurns.get(tabId);
     function markAuthed(){ conn.authed=true; conn.authError=false; conn.banner=''; }   // 有真实活动=已登录(订阅 apiKeySource 报 none 也算)
-    function finishTurn(tabId){ const t=activeTurns.get(tabId); if(!t) return; const ai=t.aiMsg; ai.streaming=false; ai.toolStatus='';
-      if(Array.isArray(ai.timeline)) for(const s of ai.timeline){ if(s.kind==='tool'&&s.status==='run'){ s.status='stop'; if(!s.t1) s.t1=Date.now(); } }   // 收尾仍在转的工具步骤：中断/断连时不会再来 tool_done → 不停 spinner 就会永久转
-      if(Array.isArray(ai.tools)) for(const tc of ai.tools){ if(tc.status==='run') tc.status='stop'; }                                                 // 旧版 chips 同理
-      tlCloseLast(ai); if(t.sess) t.sess.busy=false; genCtrls.delete(tabId); activeTurns.delete(tabId); t.tick&&t.tick(); }
+    function finishTurn(tabId){ const t=activeTurns.get(tabId); if(!t) return; t.aiMsg.streaming=false; t.aiMsg.toolStatus=''; tlCloseLast(t.aiMsg); if(t.sess) t.sess.busy=false; genCtrls.delete(tabId); activeTurns.delete(tabId); t.tick&&t.tick(); }
     /* —— 时间线（thinking/tool/text 按时序交错 + 每步计时，仿 Claude Code）—— */
     function tlLast(ai){ const a=ai.timeline; return a&&a.length?a[a.length-1]:null; }
     function tlCloseLast(ai){ const s=tlLast(ai); if(s&&!s.t1) s.t1=Date.now(); }
@@ -2130,8 +2088,6 @@ const app = createApp({
         case 'vault_dirty': refreshVaultSoon(); break;
         case 'history': if(m.path===fileHistory.path){ fileHistory.entries=m.entries||[]; fileHistory.loading=false; } break;
         case 'committed': if(fileHistory.open && m.path===fileHistory.path && m.sha) wsSend({op:'file_history', path:m.path}); break;
-        case 'registry_warn':                        // 报告里改到了 model 派生数字 → 弹一致性闸（非阻断，引导从 model 级联）
-          regWarn.tabId=m.tabId||'main'; regWarn.file=m.file||''; regWarn.divergences=m.divergences||[]; regWarn.prompt=m.prompt||''; regWarn.show=true; break;
         case 'session':
           conn.login=m.apiKeySource||''; conn.model=m.model||conn.model; if(Array.isArray(m.skills)) conn.skills=m.skills; if(Array.isArray(m.slash)) conn.slash=m.slash;
           // 不用 apiKeySource 判登录：订阅也会报 'none' 但其实能用；真未登录靠 error(auth) 兜底
@@ -2148,7 +2104,6 @@ const app = createApp({
         case 'permission_request': {
           const inputStr=m.input?Object.entries(m.input).map(([k,v])=>k+': '+v).join('\n'):'';
           perm.queue.push({ reqId:m.reqId, tabId:m.tabId, toolName:m.toolName, title:m.title||m.toolName, inputStr });
-          const _t=turnOf(m.tabId); if(_t){ _t.aiMsg.toolStatus='待你批准：'+(m.title||m.toolName)+'（看下方 ⚠️ 允许/拒绝）'; _t.tick&&_t.tick(); }   // 工具卡在等审批而非卡死 → 明确提示，别让用户以为冻住
           break; }
         case 'ask_question': {   // Claude 调 AskUserQuestion → 弹选择卡（server 在 canUseTool 里拦截转发；bypass 也弹）
           ask.active=true; ask.reqId=m.reqId; ask.tabId=m.tabId; ask.questions=Array.isArray(m.questions)?m.questions:[];
@@ -2337,12 +2292,9 @@ const app = createApp({
         if(f.pptxBuf instanceof ArrayBuffer) o.pptxBuf=f.pptxBuf;   // 原始 PPTX 字节
       }else if(f.kind==='sheet'){
         if(f.url)o.url=f.url; if(f.file)o.file=f.file;              // File/Blob 可克隆
-        if(f.lazy){ o.lazy=true; }                                 // 懒加载大模型：只记标记，重开时重新逐表加载（不存部分快照）
-        else{
-          let ls=f.lsData;                                          // 前台表格实时快照（不写回 reactive）
-          if(active.value && active.value.id===f.id && lsAlive){ try{ ls=window.luckysheet.getAllSheets(); }catch(e){} }
-          if(ls) o.lsData=jclone(ls);
-        }
+        let ls=f.lsData;                                            // 前台表格实时快照（不写回 reactive）
+        if(active.value && active.value.id===f.id && lsAlive){ try{ ls=window.luckysheet.getAllSheets(); }catch(e){} }
+        if(ls) o.lsData=jclone(ls);
       }
       return o;
     }
@@ -2479,11 +2431,7 @@ const app = createApp({
       }
     }
     // 用系统默认应用打开 vault 真实文件（Word/PPT/Excel 原生编辑 → 保存写回同一文件 → watcher 自动 commit + 前端自动重渲）
-    function openLocalPath(path, name){ if(!path) return;   // 即时轻提示：大文件 Word/Excel/PPT 冷启动可达 10s，否则点完无反馈像没生效
-      const msg='正在用本地应用打开「'+(name||path.split('/').pop())+'」…（大文件首次打开较慢）';
-      conn.banner=msg; setTimeout(()=>{ if(conn.banner===msg) conn.banner=''; }, 6000);
-      wsSend({op:'open_local', path}); }
-    function openLocal(){ const f=active.value; if(f&&f.path) openLocalPath(f.path, f.name); }
+    function openLocal(){ const f=active.value; if(f&&f.path) wsSend({op:'open_local', path:f.path}); }
     // 手动 fallback：从磁盘重新读取当前文件并重渲（cover all 4 类，覆盖 agent 改文件后没收到 file_changed 的兜底）
     const refreshing=ref(false);
     async function refreshActive(){
@@ -2975,7 +2923,8 @@ const app = createApp({
       }
     }
 
-    /* ===== 大模型逐表懒加载：超大 xlsx 不全量解析（LuckyExcel 全量会卡死/崩），只解析当前表，其余点标签才解析 ===== */
+    /* ===== Luckysheet 真·Excel 渲染 ===== */
+    /* —— 大模型逐表懒加载：超大 xlsx 不全量解析（LuckyExcel 全量会卡死/崩），只解析当前表，其余点标签才解析 —— */
     const LAZY_FILE_BYTES = 1_800_000;     // 文件 > ~1.8MB → 走懒加载
     const VALUES_ONLY_CELLS = 60_000;      // 单表网格 > 6 万格 → 纯值渲染（不建公式链，避免卡）
     async function xlsxDirectory(file){    // 只读 workbook.xml → 表目录（名/隐藏/字节）+ 默认 active，不解析任何单元格
@@ -2990,7 +2939,7 @@ const app = createApp({
         const hidden=/state="(hidden|veryHidden)"/.test(a);
         const rid=(a.match(/r:id="([^"]+)"/)||[])[1]; let tgt=((rid2tgt[rid]||'').replace(/^\/?/,'')); if(!tgt.startsWith('xl/'))tgt='xl/'+tgt;
         let bytes=0; try{ const zf=zip.file(tgt); bytes=(zf&&zf._data&&zf._data.uncompressedSize)||0; }catch(e){}
-        dir.push({ name, idx:i, hidden, bytes }); i++;
+        dir.push({ name, idx:i, hidden, bytes, file:tgt }); i++;
       }
       return { dir, activeTab };
     }
@@ -3000,25 +2949,72 @@ const app = createApp({
       const small=vis.filter(d=>d.bytes>0 && d.bytes<600000).sort((a,b)=>a.bytes-b.bytes)[0];
       return small ? small.idx : (vis[0]||dir[0]||{idx:0}).idx;
     }
-    function wsToLucky(ws, name, order, status){   // SheetJS worksheet → Luckysheet 表对象（>6万格自动纯值，不建公式链）
+    function wsToLucky(ws, name, order, status, freeze, boldSet){   // SheetJS worksheet → Luckysheet 表对象（>6万格自动纯值，不建公式链）
       const celldata=[]; const ref=ws&&ws['!ref']; let maxR=49,maxC=25;
+      const config={ colhidden:{}, rowhidden:{}, columnlen:{} };
       if(ref){ const rng=XLSX.utils.decode_range(ref); maxR=Math.max(maxR,rng.e.r); maxC=Math.max(maxC,rng.e.c);
         const valuesOnly=((rng.e.r+1)*(rng.e.c+1))>VALUES_ONLY_CELLS;
         for(let r=rng.s.r;r<=rng.e.r;r++)for(let c=rng.s.c;c<=rng.e.c;c++){
-          const cell=ws[XLSX.utils.encode_cell({r,c})]; if(!cell)continue;
+          const addr=XLSX.utils.encode_cell({r,c}); const cell=ws[addr]; if(!cell)continue;
           const v={ ct:{ t:(typeof cell.v==='number')?'n':'s', fa:cell.z||'General' } };
           if(!valuesOnly && cell.f!=null) v.f='='+String(cell.f);
           if(cell.v!=null){ v.v=cell.v; v.m=(cell.w!=null)?String(cell.w):String(cell.v); }
+          // 样式映射（保真）：底色 fill（SheetJS）/ 加粗（raw-XML boldSet，SheetJS 读不到字体）/ 字体色 / 对齐
+          const st=cell.s;
+          if(st){
+            if(st.patternType&&st.patternType!=='none'&&st.fgColor&&st.fgColor.rgb) v.bg='#'+String(st.fgColor.rgb).slice(-6);
+            if(st.font){ if(st.font.bold) v.bl=1; if(st.font.italic) v.it=1; if(st.font.color&&st.font.color.rgb) v.fc='#'+String(st.font.color.rgb).slice(-6); if(st.font.sz) v.fs=st.font.sz; }
+            if(st.alignment){ const h={left:1,center:0,right:2}[st.alignment.horizontal]; if(h!=null) v.ht=h; const vt={top:1,center:0,bottom:2}[st.alignment.vertical]; if(vt!=null) v.vt=vt; }
+          }
+          if(boldSet&&boldSet.has(addr)) v.bl=1;
           celldata.push({r,c,v});
         }
+        // 列隐藏 + 列宽：把 Excel 里隐藏的空列收起、保留列宽 → 数据贴着标签显示（否则几十个空列把数字甩到屏幕外）
+        const cols=ws['!cols']||[];
+        for(let c=0;c<cols.length;c++){ const co=cols[c]; if(!co) continue;
+          if(co.hidden) config.colhidden[c]=0;
+          else if(co.wpx) config.columnlen[c]=Math.max(20, Math.round(co.wpx));
+        }
+        const rows=ws['!rows']||[];
+        for(let r=0;r<rows.length;r++){ if(rows[r]&&rows[r].hidden) config.rowhidden[r]=0; }
       }
-      return { name, color:'', index:String(order), order, status:status?1:0, hide:0, row:Math.max(maxR+1,60), column:Math.max(maxC+1,26), celldata, config:{} };
+      const sheetObj={ name, color:'', index:String(order), order, status:status?1:0, hide:0, row:Math.max(maxR+1,60), column:Math.max(maxC+1,26), celldata, config };
+      if(freeze) sheetObj.frozen=freeze;   // 冻结窗格（冻结表头行/首列，滚动时表头不动）
+      return sheetObj;
     }
-    async function lazyParseSheet(f, idx){   // 解析单张表（SheetJS 选择性解析，不碰其它表）→ 缓存
+    function readFreeze(xml){   // 从 worksheet XML 读 <pane> → Luckysheet frozen 配置
+      try{ const m=xml.match(/<pane\b[^>]*\/>/); if(!m) return null; const t=m[0];
+        const xs=parseInt((t.match(/xSplit="(\d+)"/)||[])[1]||'0',10);
+        const ys=parseInt((t.match(/ySplit="(\d+)"/)||[])[1]||'0',10);
+        if(xs>0&&ys>0) return { type:'rangeBoth', range:{ row_focus:ys-1, column_focus:xs-1 } };
+        if(ys>0) return { type:'row', range:{ row_focus:ys-1 } };
+        if(xs>0) return { type:'column', range:{ column_focus:xs-1 } };
+      }catch(e){}
+      return null;
+    }
+    async function boldSetFor(zip, sheetXml, cache){   // SheetJS 读不到字体加粗 → 从 styles.xml + 单元格 s 索引自己解析出加粗单元格
+      try{
+        if(!cache.xfBold){
+          const sx=await zip.file('xl/styles.xml').async('string');
+          const fb=(sx.match(/<fonts\b[^>]*>([\s\S]*?)<\/fonts>/)||[])[1]||'';
+          const fonts=[...fb.matchAll(/<font>([\s\S]*?)<\/font>/g)].map(m=>/<b\s*\/?>/.test(m[1]));
+          const xb=(sx.match(/<cellXfs\b[^>]*>([\s\S]*?)<\/cellXfs>/)||[])[1]||'';
+          cache.xfBold=[...xb.matchAll(/<xf\b[^>]*?(?:\/>|>[\s\S]*?<\/xf>)/g)].map(m=>{ const fid=parseInt((m[0].match(/fontId="(\d+)"/)||[])[1]||'0',10); return !!fonts[fid]; });
+        }
+        const xfBold=cache.xfBold; const bold=new Set();
+        for(const cm of sheetXml.matchAll(/<c r="([A-Z]+\d+)"[^>]*?\bs="(\d+)"/g)){ if(xfBold[parseInt(cm[2],10)]) bold.add(cm[1]); }
+        return bold;
+      }catch(e){ return null; }
+    }
+    async function lazyParseSheet(f, idx){   // 解析单张表（SheetJS 选择性解析 + 列隐藏/冻结/加粗，不碰其它表）→ 缓存
       const d=f._dir.find(x=>x.idx===idx); if(!d) return null;
       if(f._cache[d.name]) return f._cache[d.name];
-      const wb=XLSX.read(await f._blob.arrayBuffer(), { sheets:[idx], cellFormula:true, cellNF:true, cellStyles:false });
-      f._cache[d.name]=wsToLucky(wb.Sheets[d.name], d.name, idx, false);
+      const ab=await f._blob.arrayBuffer();
+      const wb=XLSX.read(ab, { sheets:[idx], cellFormula:true, cellNF:true, cellStyles:true });   // cellStyles:true → 读到 !cols 隐藏/列宽/fill
+      let freeze=null, boldSet=null;
+      f._styles=f._styles||{};   // styles.xml 解析结果按文件缓存（fonts/cellXfs 跨表共用，不同文件不串）
+      try{ const zip=await window.JSZip.loadAsync(ab); if(d.file&&zip.file(d.file)){ const sxml=await zip.file(d.file).async('string'); freeze=readFreeze(sxml); boldSet=await boldSetFor(zip, sxml, f._styles); } }catch(e){}
+      f._cache[d.name]=wsToLucky(wb.Sheets[d.name], d.name, idx, false, freeze, boldSet);
       return f._cache[d.name];
     }
     function lazyBuildSheets(f, activeIdx){   // 组装喂给 Luckysheet 的 data：已缓存=满数据，其余=空壳标签（点开才填）
@@ -3040,7 +3036,6 @@ const app = createApp({
       finally{ sheetLoading.value=false; lazyRebuilding=false; }
     }
 
-    /* ===== Luckysheet 真·Excel 渲染 ===== */
     async function loadSheet(f){
       sheetLoading.value=true; sheetLazy.active=false;
       try{
@@ -3923,7 +3918,6 @@ const app = createApp({
              sheetReview,acceptSheetReview,rejectSheetReview,sheetLazy,
              docxReview,decideDocxItem,acceptAllDocx,rejectAllDocx,docxItemLabel,docxLoading,docxNonText,acceptDocxNonText,rejectDocxNonText,
              permMode,setPermMode,fastMode,fastSupported,toggleFast,ctxTokens,ctxK,ctxPct,ctxWindowLabel,cuCirc,cuOffset,ctxLevel,
-             regWarn,triggerCascade,
              send,renderMd,escapeHtml,autosize,resetLocal };
   }
 });
