@@ -1,5 +1,7 @@
 # Uniwork V2
 
+**English** | [简体中文](README.zh-CN.md)
+
 AI-powered investment research workstation built on Claude Code's full harness. Select text, ask AI, review changes inline — across Markdown, Word, Excel, PDF, PowerPoint, and HTML.
 
 > Single-file frontend (`index.html`, Vue 3 CDN, zero build step). Node gateway (`server.mjs`) wraps `@anthropic-ai/claude-agent-sdk` and exposes the complete Claude Code runtime to the browser. Files live on disk (`~/UniworkVault`, git-backed) — Claude reads and writes real files, not browser memory.
