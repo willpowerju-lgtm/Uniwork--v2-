@@ -623,7 +623,18 @@ async function handleMessage(conn, raw) {
       }
       break;
     }
-    case 'set_model': { const tab = conn.tabs.get(m.tabId); if (tab) { tab.model = m.model; if (tab.query?.setModel) { try { await tab.query.setModel(m.model); } catch {} } } break; }
+    case 'set_model': {
+      const tab = conn.tabs.get(m.tabId);
+      if (tab) {
+        tab.model = m.model;
+        if (tab.query?.setModel) { try { await tab.query.setModel(m.model); } catch {} }
+        // 换模型后重新下发当前 flag（effort/fast），与前端选择 exactly match：ws 消息不串行 await（见 ws.on('message')），
+        // 前端随后发的 set_effort 可能在 setModel resolve 之前就跑了、而 setModel 又可能重置 flag → 这里在 setModel 之后兜底再 apply 一次。
+        // effortLevel 为 null(=adaptive) 时不显式下发，沿用 startTab 建会话时的语义。
+        try { const fs = { fastMode: !!conn.fastMode }; if (conn.effortLevel) fs.effortLevel = conn.effortLevel; tab.query?.applyFlagSettings?.(fs); } catch {}
+      }
+      break;
+    }
     default: break;
   }
 }

@@ -550,6 +550,12 @@
   .ctx-chip.ref .txt{-webkit-line-clamp:1;font-weight:500;word-break:break-all}
   .input-row{display:flex;gap:8px;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:8px 10px}
   .input-row textarea{flex:1;border:0;background:transparent;resize:none;outline:none;font-family:inherit;font-size:14px;line-height:1.5;max-height:120px}
+  /* slash 命令高亮：textarea 没法局部着色 → 文字透明 + 背后镜像层把「已识别的 /命令」染成品牌蓝。mirror 的字体/行高/换行须与 textarea 完全一致才不会错位 */
+  .ta-wrap{flex:1;position:relative;display:flex;min-width:0}
+  .ta-wrap textarea{flex:1;width:100%;color:transparent;caret-color:var(--text);position:relative;z-index:1}
+  .ta-wrap textarea::placeholder{color:var(--sub);-webkit-text-fill-color:var(--sub)}
+  .ta-mirror{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;font-family:inherit;font-size:14px;line-height:1.5;letter-spacing:normal;font-weight:400;white-space:pre-wrap;overflow-wrap:break-word;word-break:break-word;color:var(--text);padding:0;border:0;box-sizing:border-box}
+  .ta-mirror .cmd-tok{color:var(--brand);font-weight:600}
   .attach-btn{flex-shrink:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;font-size:16px;color:var(--brand);user-select:none}
   .attach-btn:hover{background:#eaf1ff}
   .ctx-chip.ref.uploaded{background:#eef6ff;border-color:#cfe2ff}
@@ -1122,8 +1128,11 @@
         </div>
         <div class="input-row">
           <label class="attach-btn" title="上传文件作为本对话上下文（存进 Vault/_uploads，AI 直接读真实路径）">＋<input type="file" multiple accept=".docx,.xlsx,.pptx,.ppt,.html,.htm,.md,.txt,.csv,.pdf,.png,.jpg,.jpeg,.m4a,.mp3,.wav,.aac,.amr" style="display:none" @change="onChatAttach"></label>
-          <textarea v-model="draft" rows="1" placeholder="Type / for commands"
-                    @keydown="onInputKeydown" @input="onInput" @paste="onPaste"></textarea>
+          <div class="ta-wrap">
+            <div class="ta-mirror" v-html="draftHL" aria-hidden="true"></div>
+            <textarea v-model="draft" rows="1" placeholder="Type / for commands"
+                      @keydown="onInputKeydown" @input="onInput" @paste="onPaste" @scroll="syncTAMirror"></textarea>
+          </div>
           <button v-if="curBusy" class="send stop" @click="stopGen" title="停止当前对话生成 (Esc)">■</button>
           <button v-else class="send" :disabled="!draft.trim() && !(curSession && pendingOf(curSession).length)" @click="send">↑</button>
         </div>
@@ -2304,7 +2313,7 @@ const app = createApp({
       wsSend({ op:'user_turn', tabId:sess.id, text:payload.text, openFile:payload.openFile, quotes:payload.quotes, model:payload.model });
     }
     function agentInterrupt(tabId){ wsSend({op:'interrupt', tabId}); }
-    function onModelChange(){ const s=curSession.value; if(s) wsSend({op:'set_model', tabId:s.id, model:model.value}); if(!fastSupported.value && fastMode.value){ fastMode.value=false; try{ localStorage.setItem('uni_fast_mode','0'); }catch{} wsSend({op:'set_fast', on:false}); } }   // 切到不支持 Fast 的模型 → 自动关
+    function onModelChange(){ const s=curSession.value; if(s){ wsSend({op:'set_model', tabId:s.id, model:model.value}); wsSend({op:'set_effort', level:effortLevel.value}); } if(!fastSupported.value && fastMode.value){ fastMode.value=false; try{ localStorage.setItem('uni_fast_mode','0'); }catch{} wsSend({op:'set_fast', on:false}); } }   // set_model 后重发 effort（保证新模型沿用当前档位，不依赖 SDK setModel 是否保留 flag）；切到不支持 Fast 的模型 → 自动关
     const fastSupported=computed(()=> /opus/i.test(model.value));   // Fast mode 仅 Opus 系支持
     function tabLabel(s){
       const f=boundFileOf(s);
@@ -3667,6 +3676,23 @@ const app = createApp({
     });
 
     /* ===== 输入联想：/ 命令、@ 文件 ===== */
+    /* slash 命令高亮：把 draft 里「已识别的 /命令」包成蓝色 span 喂给 .ta-mirror（输入框背后的镜像层）。escHtml 不转 \n（mirror 用 white-space:pre-wrap 还原换行） */
+    const slashSet=computed(()=> new Set((conn.slash||[]).map(s=>String(s).toLowerCase())));
+    function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    const draftHL=computed(()=>{
+      const v=draft.value||'', set=slashSet.value;
+      let out='', last=0, m; const re=/(^|\s)\/([\w.:-]+)/g;     // 词首(行首或空白后)的 /token，避开 http:// 这类
+      while((m=re.exec(v))){
+        if(!set.has(m[2].toLowerCase())) continue;               // 只染已识别命令；未知 /token 留普通文字
+        const at=m.index+m[1].length;                            // '/' 的下标
+        out+=escHtml(v.slice(last,at))+'<span class="cmd-tok">'+escHtml('/'+m[2])+'</span>';
+        last=at+1+m[2].length;
+      }
+      out+=escHtml(v.slice(last));
+      if(v.endsWith('\n')) out+='​';                      // 末行为空行时撑出行高，跟 textarea 对齐（零宽空格占位）
+      return out;
+    });
+    function syncTAMirror(){ const t=document.querySelector('.input-row textarea'), mEl=document.querySelector('.input-row .ta-mirror'); if(t&&mEl) mEl.scrollTop=t.scrollTop; }
     function onInput(){
       autosize();
       const v=draft.value;
@@ -4152,7 +4178,7 @@ const app = createApp({
 
     return { ask,askToggle,askCustomToggle,askReady,submitAsk,skipAsk,
              files,activeId,active,chatOpen,messages,draft,busy,model,showCot,sidebarW,chatW,resizing,startResize,
-             refFiles,suggest,stopGen,onInput,onInputKeydown,onPaste,onChatDrop,chatDragOver,pickSuggest,pendingOf,
+             refFiles,suggest,stopGen,onInput,onInputKeydown,draftHL,syncTAMirror,onPaste,onChatDrop,chatDragOver,pickSuggest,pendingOf,
              bubbleInput,submitBubble,onBubbleEnter,autosizeBubble,quoteText,quoteNote,
              tiptapEl,msgsEl,bubble,suggCount,ready,sheetLoading,sheetEdits,
              sideTab,sessions,activeSessionId,newSession,openSession,curSession,archiveSession,
