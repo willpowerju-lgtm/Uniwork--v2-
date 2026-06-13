@@ -710,6 +710,7 @@
                @contextmenu="onRowContext(row,$event)"
                @click="row.type==='folder' ? toggleFolder(row.path) : openFile(row.file)">
             <span v-if="row.type==='folder'" class="tw-caret">{{ row.open?'▾':'▸' }}</span>
+            <span v-else class="tw-caret" aria-hidden="true"></span><!-- 文件占一个 caret 宽的空位，图标才能和同级文件夹对齐（否则文件看着比文件夹外凸 16px） -->
             <span class="tw-ic" v-html="rowIcon(row)"></span>
             <input v-if="renaming.active && renaming.key===rowKey(row)" ref="rnInput" v-model="renaming.name" class="tw-rename"
                    @keydown.enter.stop.prevent="commitRename" @keydown.esc.stop.prevent="cancelRename" @blur="commitRename" @click.stop @dragstart.prevent.stop>
