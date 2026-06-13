@@ -354,6 +354,17 @@ async function handleMessage(conn, raw) {
       execFile(cmd, args, (err) => { if (err) send(ws, { ev: 'error', message: '本地打开失败：' + err.message }); });
       send(ws, { ev: 'opened_local', path: m.path }); break;
     }
+    case 'reveal_local': {                                // 在系统文件管理器里打开：文件夹→直接打开该文件夹；文件→打开所在文件夹并选中该文件
+      const abs = resolveInVault(m.path); if (!abs) return send(ws, { ev: 'error', message: 'bad path' });
+      let isDir = false;
+      try { isDir = (await fsp.stat(abs)).isDirectory(); } catch (e) { return send(ws, { ev: 'error', message: '打开文件夹失败：' + e.message }); }
+      let cmd, args;
+      if (process.platform === 'darwin') { cmd = 'open'; args = isDir ? [abs] : ['-R', abs]; }                   // open -R 在 Finder 里定位并选中文件
+      else if (process.platform === 'win32') { cmd = 'explorer'; args = isDir ? [abs] : ['/select,' + abs]; }    // explorer /select 选中文件（成功也返回非零退出码）
+      else { cmd = 'xdg-open'; args = [isDir ? abs : path.dirname(abs)]; }                                       // Linux：无统一的“选中”，退而打开所在目录
+      execFile(cmd, args, (err) => { if (err && process.platform !== 'win32') send(ws, { ev: 'error', message: '打开文件夹失败：' + err.message }); });
+      send(ws, { ev: 'revealed_local', path: m.path }); break;
+    }
     case 'make_folder': {                                // 新建文件夹：磁盘 mkdir → 广播刷新树（空目录 listVault 也会带上）
       const abs = resolveInVault(m.path); if (!abs) return send(ws, { ev: 'error', message: 'bad path' });
       try { await fsp.mkdir(abs, { recursive: true }); } catch (e) { return send(ws, { ev: 'error', message: '建文件夹失败：' + e.message }); }

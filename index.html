@@ -1415,8 +1415,10 @@ const app = createApp({
       }
       if(p==='Vault'||p==='WIKI') return row.type==='folder' ? [{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}] : [];   // 结构根：不可改名/删，但可在下面建子文件夹/上传
       const base=[{ic:'✏️',label:'重命名',act:()=>startRename(row)},{ic:'🗑️',label:'删除',note:'移入回收站',danger:true,act:()=>deleteRow(row)}];
-      if(row.type==='folder') return [{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}, ...base];
-      return base;
+      const reveal={ic:'📂',label:'打开本地文件夹',act:()=>wsSend({op:'reveal_local', path:p})};   // 文件夹→直接打开；文件→在 Finder 里定位选中
+      if(row.type==='folder') return [reveal,{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}, ...base];
+      const openLocalIt={ic:'🖥️',label:'本地打开',note:'默认应用',act:()=>openLocalPath(p, row.name)};   // 用系统默认应用（Word/PPT/Excel）打开编辑，带即时提示
+      return [openLocalIt, reveal, ...base];
     }
     function ctxTitleFor(row){ const p=rowPath(row); if(p===TRASH_ROOT) return '🗑 回收站'; if(p===IMPORT_ROOT) return '🔗 User import'; return (row.type==='folder'?'📁 ':'')+row.name; }
     function onRowContext(row,ev){ ev.preventDefault(); ev.stopPropagation(); cancelRename(); const items=menuFor(row); if(!items.length) return;
@@ -2415,7 +2417,11 @@ const app = createApp({
       }
     }
     // 用系统默认应用打开 vault 真实文件（Word/PPT/Excel 原生编辑 → 保存写回同一文件 → watcher 自动 commit + 前端自动重渲）
-    function openLocal(){ const f=active.value; if(f&&f.path) wsSend({op:'open_local', path:f.path}); }
+    function openLocalPath(path, name){ if(!path) return;   // 即时轻提示：大文件 Word/Excel/PPT 冷启动可达 10s，否则点完无反馈像没生效
+      const msg='正在用本地应用打开「'+(name||path.split('/').pop())+'」…（大文件首次打开较慢）';
+      conn.banner=msg; setTimeout(()=>{ if(conn.banner===msg) conn.banner=''; }, 6000);
+      wsSend({op:'open_local', path}); }
+    function openLocal(){ const f=active.value; if(f&&f.path) openLocalPath(f.path, f.name); }
     // 手动 fallback：从磁盘重新读取当前文件并重渲（cover all 4 类，覆盖 agent 改文件后没收到 file_changed 的兜底）
     const refreshing=ref(false);
     async function refreshActive(){
