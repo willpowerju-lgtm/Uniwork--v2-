@@ -1400,6 +1400,7 @@ const app = createApp({
       else { ev.preventDefault(); try{ ev.dataTransfer.dropEffect='copy'; }catch(e){} dropFolder.value=row.path; }   // 外部文件（从桌面/Finder 拖入）→ 高亮目标文件夹
     }
     function onRowDrop(row, ev){
+      dragOver.value=false;                                                     // 落到文件夹行也要收掉外层虚线高亮（本函数会 stopPropagation，父级 onDrop 不会再触发）
       if(row.type!=='folder') return;
       if(draggingFile.value && validDropTarget(draggingFile.value, row.path)){   // 内部拖移
         ev.preventDefault(); ev.stopPropagation(); const f=draggingFile.value; draggingFile.value=null; dropFolder.value=''; moveFileToFolder(f, row.path);
