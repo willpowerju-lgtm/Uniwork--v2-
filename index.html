@@ -69,6 +69,18 @@
   .review-diff del{background:#ffebe9;color:#cf222e;border-radius:2px}
   .login-banner{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#cf1322;color:#fff;padding:9px 16px;border-radius:10px;font-size:13px;box-shadow:var(--shadow);z-index:10000;max-width:90vw;text-align:center}
   /* 权限审批：输入框上方小内联条 */
+  .reg-warn{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#fff7e6;border:1px solid #ffd591;color:#613400;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.16);z-index:10001;width:min(560px,92vw);padding:13px 15px 12px;font-size:13px}
+  .reg-warn .rw-h{display:flex;align-items:center;gap:7px;font-weight:600;margin-bottom:6px}
+  .reg-warn .rw-h .rw-x{margin-left:auto;cursor:pointer;color:#a87f3a;font-size:15px;line-height:1;padding:2px 4px;border-radius:6px}
+  .reg-warn .rw-h .rw-x:hover{background:#ffe7ba}
+  .reg-warn .rw-file{font-family:var(--mono,monospace);font-size:11.5px;color:#8a6d3b;word-break:break-all;margin-bottom:6px}
+  .reg-warn .rw-list{margin:0 0 9px;padding:7px 10px;background:#fffdf5;border:1px solid #ffe7ba;border-radius:8px;max-height:128px;overflow:auto;font-size:12px;line-height:1.55}
+  .reg-warn .rw-list code{color:#cf6a1a;font-weight:600}
+  .reg-warn .rw-acts{display:flex;gap:8px;justify-content:flex-end}
+  .reg-warn .rw-acts button{border:1px solid transparent;border-radius:8px;padding:6px 13px;font-size:12.5px;cursor:pointer}
+  .reg-warn .rw-primary{background:#d48806;color:#fff}
+  .reg-warn .rw-primary:hover{background:#b06f04}
+  .reg-warn .rw-ghost{background:#fff;border-color:#e3c98a;color:#7a5c1e}
   .perm-inline{display:flex;align-items:center;gap:8px;background:#fff7e6;border:1px solid #ffe7ba;border-radius:10px;padding:6px 10px;margin-bottom:8px;font-size:12px}
   .perm-inline .pi-ic{color:#d48806}
   .perm-inline .pi-title{color:#8a5a00;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:44%}
@@ -968,7 +980,7 @@
                   <span class="tl-tdetail" v-if="toolDetail(st)">{{ toolDetail(st) }}</span>
                   <span class="tl-grow"></span>
                   <span v-if="st.status==='run'" class="tl-spin" title="进行中"></span>
-                  <span v-else class="tl-badge" :class="st.status">{{ st.status==='err'?'✗':'✓' }}</span>
+                  <span v-else class="tl-badge" :class="st.status" :title="st.status==='stop'?'已中断/未完成':''">{{ st.status==='err'?'✗':(st.status==='stop'?'⊘':'✓') }}</span>
                   <span class="tl-dur">{{ fmtDur(stepSec(st)) }}</span>
                 </div>
                 <!-- 正文文本段 -->
@@ -978,7 +990,7 @@
             <!-- 旧消息（无 timeline）回退：工具 chips + 推理 + 正文气泡 -->
             <template v-else>
               <div v-if="m.tools && m.tools.length" class="tool-chips">
-                <span v-for="(t,ti) in m.tools" :key="ti" class="tchip" :class="t.status" :title="t.title||t.name"><span class="tc-ic">{{ t.status==='done' ? '✓' : (t.status==='err' ? '⚠️' : '⟳') }}</span>{{ t.title||t.name }}</span>
+                <span v-for="(t,ti) in m.tools" :key="ti" class="tchip" :class="t.status" :title="t.title||t.name"><span class="tc-ic">{{ t.status==='done' ? '✓' : (t.status==='err' ? '⚠️' : (t.status==='stop' ? '⊘' : '⟳')) }}</span>{{ t.title||t.name }}</span>
               </div>
               <div v-if="m.toolStatus" class="searching">⏳ {{ m.toolStatus }}</div>
               <div v-if="m.reasoning && showCot" class="cot">
@@ -1147,6 +1159,20 @@
 
   <!-- 未登录 / 后端离线 横幅 -->
   <div v-if="conn.banner" class="login-banner">{{ conn.banner }}</div>
+
+  <!-- registry 一致性闸：下游报告里改到了 model 派生数字 → 提示从 model 起算级联 -->
+  <div v-if="regWarn.show" class="reg-warn">
+    <div class="rw-h">⚠️ 数字和 model 对不上了<span class="rw-x" @click="regWarn.show=false" title="关闭">×</span></div>
+    <div class="rw-file">{{ regWarn.file }}</div>
+    <div class="rw-list">
+      <div v-for="d in regWarn.divergences" :key="d.key">· {{ d.key }}<template v-if="d.period||d.unit"> （{{ d.period }}{{ d.unit?' '+d.unit:'' }}）</template>：model=<code>{{ d.registry_value }}</code> → 你改成了≈<code>{{ d.gone_replaced_by }}</code></div>
+    </div>
+    <div style="font-size:11.5px;color:#8a6d3b;margin-bottom:9px">这类数字是 model→registry→报告 派生的，应从 model 起算级联，而不是直接改在报告里。</div>
+    <div class="rw-acts">
+      <button class="rw-ghost" @click="regWarn.show=false">我有依据，保留</button>
+      <button class="rw-primary" @click="triggerCascade()">交给 AI 从 model 级联</button>
+    </div>
+  </div>
 </div>
 
 <script type="module">
@@ -1308,6 +1334,7 @@ const app = createApp({
     /* / 命令（Claude Code 风格 slash commands） */
     const tiptapEl=ref(null); const msgsEl=ref(null);
     const bubble=reactive({show:false,top:0,left:0,text:"",inEditor:false,mode:'doc',cellCount:0,rangeA1:'',draft:''});
+    const regWarn = reactive({ show:false, tabId:'main', file:'', divergences:[], prompt:'' });   // registry 一致性闸：报告里改到 model 派生数字 → 提示从 model 级联
     const docxHlRects=reactive([]);   // docx 选中高亮覆盖层（position:fixed 视口坐标，逐行）；浮层打开期间保留，关闭/提交清空
     const bubbleInput=ref(null);
     let bubbleDragging=false, wantBubbleFocus=false;   // 拖选中不弹/不抢焦点，否则选一个字就被输入框夺焦中断
@@ -1431,8 +1458,10 @@ const app = createApp({
       }
       if(p==='Vault'||p==='WIKI') return row.type==='folder' ? [{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}] : [];   // 结构根：不可改名/删，但可在下面建子文件夹/上传
       const base=[{ic:'✏️',label:'重命名',act:()=>startRename(row)},{ic:'🗑️',label:'删除',note:'移入回收站',danger:true,act:()=>deleteRow(row)}];
-      if(row.type==='folder') return [{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}, ...base];
-      return base;
+      const reveal={ic:'📂',label:'打开本地文件夹',act:()=>wsSend({op:'reveal_local', path:p})};   // 文件夹→直接打开；文件→在文件管理器里定位选中
+      if(row.type==='folder') return [reveal,{ic:'📁',label:'新建子文件夹',act:()=>startNewFolder(row.path)},{ic:'⬆️',label:'上传文件',act:()=>uploadIntoFolder(row.path)}, ...base];
+      const openLocalIt={ic:'🖥️',label:'本地打开',note:'默认应用',act:()=>openLocalPath(p, row.name)};   // 用系统默认应用（Word/PPT/Excel）打开编辑，带即时提示
+      return [openLocalIt, reveal, ...base];
     }
     function ctxTitleFor(row){ const p=rowPath(row); if(p===TRASH_ROOT) return '🗑 回收站'; if(p===IMPORT_ROOT) return '🔗 User import'; return (row.type==='folder'?'📁 ':'')+row.name; }
     function onRowContext(row,ev){ ev.preventDefault(); ev.stopPropagation(); cancelRename(); const items=menuFor(row); if(!items.length) return;
@@ -2117,14 +2146,17 @@ const app = createApp({
       try{ ws=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/agent'); }
       catch(e){ conn.status='offline'; return; }
       ws.onopen=()=>{ conn.status='online'; conn.banner=''; wsSend({op:'list_vault'}); wsSend({op:'set_perm_mode', mode:permMode.value}); if(fastMode.value) wsSend({op:'set_fast', on:true}); };
-      ws.onclose=()=>{ conn.status='offline'; conn.banner='后端未连接：终端运行  node server.mjs  后自动重连'; scheduleReconnect(); };
+      ws.onclose=()=>{ conn.status='offline'; conn.banner='后端未连接：终端运行  node server.mjs  后自动重连'; for(const tid of Array.from(activeTurns.keys())) finishTurn(tid); scheduleReconnect(); };   // 断连/服务重启：旧连接上的回合已死，收尾掉所有在飞回合，否则工具卡永久转
       ws.onerror=()=>{};
       ws.onmessage=(e)=>{ let m; try{ m=JSON.parse(e.data); }catch{ return; } onAgentEvent(m); };
     }
     function scheduleReconnect(){ clearTimeout(reconnectT); reconnectT=setTimeout(connectAgent, 1500); }
     const turnOf=(tabId)=>activeTurns.get(tabId);
     function markAuthed(){ conn.authed=true; conn.authError=false; conn.banner=''; }   // 有真实活动=已登录(订阅 apiKeySource 报 none 也算)
-    function finishTurn(tabId){ const t=activeTurns.get(tabId); if(!t) return; t.aiMsg.streaming=false; t.aiMsg.toolStatus=''; tlCloseLast(t.aiMsg); if(t.sess) t.sess.busy=false; genCtrls.delete(tabId); activeTurns.delete(tabId); t.tick&&t.tick(); }
+    function finishTurn(tabId){ const t=activeTurns.get(tabId); if(!t) return; const ai=t.aiMsg; ai.streaming=false; ai.toolStatus='';
+      if(Array.isArray(ai.timeline)) for(const s of ai.timeline){ if(s.kind==='tool'&&s.status==='run'){ s.status='stop'; if(!s.t1) s.t1=Date.now(); } }   // 收尾仍在转的工具步骤：中断/断连时不会再来 tool_done → 不停 spinner 就会永久转
+      if(Array.isArray(ai.tools)) for(const tc of ai.tools){ if(tc.status==='run') tc.status='stop'; }                                                 // 旧版 chips 同理
+      tlCloseLast(ai); if(t.sess) t.sess.busy=false; genCtrls.delete(tabId); activeTurns.delete(tabId); t.tick&&t.tick(); }
     /* —— 时间线（thinking/tool/text 按时序交错 + 每步计时，仿 Claude Code）—— */
     function tlLast(ai){ const a=ai.timeline; return a&&a.length?a[a.length-1]:null; }
     function tlCloseLast(ai){ const s=tlLast(ai); if(s&&!s.t1) s.t1=Date.now(); }
@@ -2132,6 +2164,13 @@ const app = createApp({
     function tlText(ai, delta){ let s=tlLast(ai); if(!s||s.kind!=='text'){ tlCloseLast(ai); s=reactive({kind:'text',text:'',t0:Date.now(),t1:0}); ai.timeline.push(s); } s.text+=delta; }
     function tlTool(ai, m){ tlCloseLast(ai); ai.timeline.push(reactive({kind:'tool',id:m.id,name:m.name,title:m.title,status:'run',t0:Date.now(),t1:0})); }
     function tlToolDone(ai, m){ const s=(ai.timeline||[]).find(x=>x.kind==='tool'&&x.id===m.id); if(s){ s.status=m.isError?'err':'done'; s.t1=Date.now(); } }
+    function triggerCascade(){                            // registry 闸「交给 AI 从 model 级联」→ 把级联 prompt 发进对应会话
+      const p=regWarn.prompt; const sess=sessions.find(s=>s.id===regWarn.tabId)||curSession.value||ensureSession();
+      regWarn.show=false; if(!sess||!p) return;
+      if(sess.id!==activeSessionId.value) activeSessionId.value=sess.id;   // 切到该会话让用户看到级联对话
+      if(sess.busy){ (sess.queue=sess.queue||[]).push({ text:p, quotes:[], refs:[] }); }
+      else dispatchTurn(sess, p, [], []);
+    }
     function drainQueue(sess){                            // 本回合结束 → 等待区出队一条，按序自动发
       if(!sess || sess.busy) return;
       const item = (sess.queue && sess.queue.length) ? sess.queue.shift() : null;
@@ -2150,6 +2189,8 @@ const app = createApp({
         case 'vault_dirty': refreshVaultSoon(); break;
         case 'history': if(m.path===fileHistory.path){ fileHistory.entries=m.entries||[]; fileHistory.loading=false; } break;
         case 'committed': if(fileHistory.open && m.path===fileHistory.path && m.sha) wsSend({op:'file_history', path:m.path}); break;
+        case 'registry_warn':                        // 报告里改到了 model 派生数字 → 弹一致性闸（非阻断，引导从 model 级联）
+          regWarn.tabId=m.tabId||'main'; regWarn.file=m.file||''; regWarn.divergences=m.divergences||[]; regWarn.prompt=m.prompt||''; regWarn.show=true; break;
         case 'session':
           conn.login=m.apiKeySource||''; conn.model=m.model||conn.model; if(Array.isArray(m.skills)) conn.skills=m.skills; if(Array.isArray(m.slash)) conn.slash=m.slash;
           // 不用 apiKeySource 判登录：订阅也会报 'none' 但其实能用；真未登录靠 error(auth) 兜底
@@ -2498,7 +2539,11 @@ const app = createApp({
       }
     }
     // 用系统默认应用打开 vault 真实文件（Word/PPT/Excel 原生编辑 → 保存写回同一文件 → watcher 自动 commit + 前端自动重渲）
-    function openLocal(){ const f=active.value; if(f&&f.path) wsSend({op:'open_local', path:f.path}); }
+    function openLocalPath(path, name){ if(!path) return;   // 即时轻提示：大文件 Word/Excel/PPT 冷启动可达 10s，否则点完无反馈像没生效
+      const msg='正在用本地应用打开「'+(name||path.split('/').pop())+'」…（大文件首次打开较慢）';
+      conn.banner=msg; setTimeout(()=>{ if(conn.banner===msg) conn.banner=''; }, 6000);
+      wsSend({op:'open_local', path}); }
+    function openLocal(){ const f=active.value; if(f&&f.path) openLocalPath(f.path, f.name); }
     // 手动 fallback：从磁盘重新读取当前文件并重渲（cover all 4 类，覆盖 agent 改文件后没收到 file_changed 的兜底）
     const refreshing=ref(false);
     async function refreshActive(){
@@ -3980,7 +4025,7 @@ const app = createApp({
              mounting,mtInput,startMount,doMount,cancelMount,
              treeRows,toggleFolder,folderIcon,rowIcon,backlinks,openBacklink,
              addSheetRangeToChat,fmtQuote,
-             conn,connLabel,vaultName,onModelChange,refreshVault,openByPath,perm,permRespond,acceptEdits,rejectEdits,
+             conn,connLabel,vaultName,onModelChange,refreshVault,openByPath,regWarn,triggerCascade,perm,permRespond,acceptEdits,rejectEdits,
              cookingWord,cookingSec,toolIcon,toolDetail,stepSec,fmtDur,toggleStep,fileHistory,toggleHistory,rollbackTo,histTime,
              sheetReview,acceptSheetReview,rejectSheetReview,sheetLazy,
              docxReview,decideDocxItem,acceptAllDocx,rejectAllDocx,docxItemLabel,docxLoading,docxNonText,acceptDocxNonText,rejectDocxNonText,
