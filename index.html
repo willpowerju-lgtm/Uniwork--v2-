@@ -1352,7 +1352,7 @@ const app = createApp({
       else { localStorage.removeItem('uniwork_dskey'); apiKey.value=window.UNIWORK_DEEPSEEK_KEY||''; }
     }
     const pendingOf=s=> s ? (s.pending || (s.pending=reactive([]))) : [];   // 每 tab 独立的引用堆
-    const model=ref('claude-opus-4-8[1m]');   // V2：默认 Opus 4.8 的 1M 上下文档（[1m] 后缀才是 1M，裸 claude-opus-4-8 是标准窗口）；可切 Sonnet 4.6
+    const model=ref('claude-opus-4-6[1m]');   // V2：默认 Opus 4.6 的 1M 上下文档（[1m] 后缀才是 1M）；可切 4.8 / Sonnet 4.6
     const permMode=ref((()=>{ try{ return localStorage.getItem('uni_perm_mode')==='bypass'?'bypass':'auto'; }catch{ return 'auto'; } })());   // auto=危险命令弹审批 / bypass=全放行
     function setPermMode(mode){ permMode.value=(mode==='bypass'?'bypass':'auto'); try{ localStorage.setItem('uni_perm_mode', permMode.value); }catch{} wsSend({op:'set_perm_mode', mode:permMode.value}); if(permMode.value==='bypass') perm.queue.splice(0); }
     const fastMode=ref((()=>{ try{ return localStorage.getItem('uni_fast_mode')==='1'; }catch{ return false; } })());   // Fast mode：Opus 提速输出

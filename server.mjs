@@ -29,7 +29,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = parseInt(process.env.PORT || '4199', 10);
 const VAULT = path.resolve(process.env.UNIWORK_VAULT || path.join(os.homedir(), 'UniworkVault'));
 const MOCK = process.env.UNIWORK_MOCK === '1' || process.argv.includes('--mock');
-const DEFAULT_MODEL = process.env.UNIWORK_MODEL || 'claude-opus-4-8[1m]';   // [1m] 后缀 = 1M 上下文档；裸 claude-opus-4-8 是标准窗口
+const DEFAULT_MODEL = process.env.UNIWORK_MODEL || 'claude-opus-4-6[1m]';   // [1m] 后缀 = 1M 上下文档；默认 Opus 4.6
 const WEBROOT = __dirname;
 
 fs.mkdirSync(VAULT, { recursive: true });
