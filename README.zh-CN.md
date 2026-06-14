@@ -415,6 +415,20 @@ wiki 或报告里的每个数字都能追溯到一条 registry 条目。Tier A =
 
 ---
 
+## 更新日志
+
+### 2026-06-14
+
+- **对话内文件卡片**：AI 回复中引用 vault 文件时，渲染为可点击的文件卡片（W 蓝色 = `.docx`，X 绿色 = `.xlsx`，P 橙色 = `.pptx` 等）。点击直接在工作台预览；vault 外的文件会先复制到 `_uploads/`。
+- **Slash 命令高亮**：输入框中已识别的 `/命令` 变蓝色显示，未识别的保持原色。Tab 键现在也可载入选中的命令建议。
+- **刷新后恢复页面**：打开的标签和当前文件按浏览器标签页独立持久化（`sessionStorage`），刷新后回到上次浏览的位置，而非回到默认页。
+- **Effort 档位对齐 Claude API**：Opus 4.8 显示 `low/medium/high/xhigh/max`；Opus 4.6 和 Sonnet 4.6 显示 `low/medium/high/max`。切换模型后自动重新同步 effort 到后端。后端现在支持 `max`。
+- **工具栏对齐**：按钮（`Git`、`历史`、`本地打开`）统一 28px 高。移除「已自动保存」指示器。大模型"只读逐表加载"提示条增加关闭按钮。
+- **图片预览**：PNG、JPG、GIF、WebP、SVG、BMP 文件在预览区内联渲染。
+- **默认模型**：从 Opus 4.8 切换为 Opus 4.6 1M 上下文，effort 默认 `high`。
+
+---
+
 ## 安全
 
 - **无 API key**：纯订阅 OAuth。凭证留在 `~/.claude`（macOS Keychain），绝不进 repo。

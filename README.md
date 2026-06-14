@@ -415,6 +415,20 @@ Every number in a wiki or report traces back to a registry entry. Tier A = offic
 
 ---
 
+## Changelog
+
+### 2026-06-14
+
+- **File cards in chat**: AI responses that reference vault files now render as clickable cards with type-specific icons (W blue for `.docx`, X green for `.xlsx`, P orange for `.pptx`, etc.). Click to open the preview directly; non-vault files are copied to `_uploads/` first.
+- **Slash-command highlight**: Recognized `/commands` in the chat input turn blue once matched against the loaded skill list. Unrecognized or partial tokens stay plain text. Tab now also loads the selected suggestion (alongside Enter).
+- **Session restore on refresh**: Open tabs and the active file are persisted per browser tab (`sessionStorage`) and restored on reload, so you return to where you left off instead of the default page.
+- **Effort levels aligned with Claude API**: Opus 4.8 shows `low/medium/high/xhigh/max`; Opus 4.6 and Sonnet 4.6 show `low/medium/high/max`. Switching models re-syncs the effort level to the backend. Backend now accepts `max`.
+- **Toolbar polish**: Buttons (`Git`, `History`, `Open Local`) unified to 28px height. Removed the `已自动保存` indicator. The large-model "read-only lazy load" banner now has a dismiss button.
+- **Image preview**: PNG, JPG, GIF, WebP, SVG, and BMP files render inline in the preview pane.
+- **Default model**: Changed from Opus 4.8 to Opus 4.6 1M context with `high` effort.
+
+---
+
 ## Security
 
 - **No API keys**: Pure subscription OAuth. Credentials stay in `~/.claude` (macOS Keychain), never in the repo.
