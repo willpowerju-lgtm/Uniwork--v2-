@@ -662,6 +662,14 @@
   .timeline{align-self:flex-start;width:94%;max-width:94%;display:flex;flex-direction:column;gap:5px;margin:2px 0}
   .timeline .msg.ai{align-self:stretch;max-width:100%;margin:0}
   .timeline .msg.ai .bubble-msg{max-width:100%}
+  /* 对话内文件卡片：AI 提到 vault 文件时渲染成可点击卡片 */
+  .file-card{display:flex;align-items:center;gap:7px;padding:5px 12px 5px 8px;border:1px solid var(--border);border-radius:9px;background:#fff;cursor:pointer;font-size:13px;font-weight:500;color:var(--text);text-decoration:none;transition:border-color .15s,box-shadow .15s;width:fit-content;margin:6px 0}
+  .file-card:hover{border-color:var(--brand);box-shadow:0 2px 8px rgba(51,112,255,.12)}
+  .file-card .fc-icon{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;line-height:1}
+  .file-card .fc-icon.docx{background:#2b5bd1} .file-card .fc-icon.xlsx{background:#1d7044} .file-card .fc-icon.pptx{background:#d04423}
+  .file-card .fc-icon.pdf{background:#c02020} .file-card .fc-icon.html{background:#8b5cf6} .file-card .fc-icon.md{background:#64748b}
+  .file-card .fc-icon.img{background:#0ea5e9} .file-card .fc-icon.other{background:#94a3b8}
+  .file-card .fc-name{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .tl-think{background:#fafbfc;border:1px solid var(--border);border-radius:9px;padding:5px 9px}
   .tl-think-head{display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--sub);font-weight:600;font-size:11px;user-select:none}
   .tl-think.running .tl-lbl{color:var(--brand)}
@@ -4193,7 +4201,47 @@ const app = createApp({
       }
       return q;
     }
-    function renderMd(t){ return marked.parse(t||""); }
+    function fileCardType(name){
+      const e='.'+name.split('.').pop().toLowerCase();
+      if(e==='.docx'||e==='.doc') return {cls:'docx',lbl:'W'};
+      if(e==='.xlsx'||e==='.xls'||e==='.csv') return {cls:'xlsx',lbl:'X'};
+      if(e==='.pptx'||e==='.ppt') return {cls:'pptx',lbl:'P'};
+      if(e==='.pdf') return {cls:'pdf',lbl:'PDF'};
+      if(e==='.html'||e==='.htm') return {cls:'html',lbl:'H'};
+      if(e==='.md'||e==='.txt') return {cls:'md',lbl:'M'};
+      if(/^\.(png|jpe?g|gif|webp|svg|bmp)$/.test(e)) return {cls:'img',lbl:'IMG'};
+      return {cls:'other',lbl:'F'};
+    }
+    function renderMd(t){
+      let html=marked.parse(t||"");
+      html=html.replace(/\[\[file:(.*?)\]\]/g, (_,p)=>{
+        const name=p.split('/').pop();
+        const {cls,lbl}=fileCardType(name);
+        return '<span class="file-card" data-fpath="'+p.replace(/"/g,'&quot;')+'" title="'+p.replace(/"/g,'&quot;')+'"><span class="fc-icon '+cls+'">'+lbl+'</span><span class="fc-name">'+name.replace(/</g,'&lt;')+'</span></span>';
+      });
+      return html;
+    }
+    document.addEventListener('click', async(e)=>{
+      const card=e.target.closest('.file-card'); if(!card) return;
+      const fpath=card.dataset.fpath; if(!fpath) return;
+      e.preventDefault();
+      const inVault=files.some(f=>f.path===fpath);             // vault 内的文件直接打开，不复制
+      if(!inVault){
+        const uploadName=fpath.split('/').pop();
+        const uploadPath='Vault/_uploads/'+uploadName;
+        try{
+          const resp=await fetch(vaultUrl(fpath)+'&t='+Date.now());
+          if(resp.ok){
+            const buf=await resp.arrayBuffer();
+            const b64=btoa(new Uint8Array(buf).reduce((s,b)=>s+String.fromCharCode(b),''));
+            wsSend({op:'save_file_b64', path:uploadPath, b64:'data:application/octet-stream;base64,'+b64});
+          }
+        }catch(err){ console.warn('file-card copy failed',err); }
+        setTimeout(()=>openByPath(uploadPath, {user:true}), 600);  // 等 vault watcher 注册新文件后再打开
+      }else{
+        openByPath(fpath, {user:true});
+      }
+    });
     function escapeHtml(t){ return (t||"").replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).replace(/\n/g,"<br>"); }
     function scrollDown(force){
       const el=msgsEl.value;
